@@ -5,18 +5,19 @@ from constants import *
 import os
 class Main_entity(pygame.sprite.Sprite):
 
-    spritesheet = None
+
 
 
     def __init__(self, x, y, spritesheet):
         super().__init__()
 
-        if Main_entity.spritesheet is None:
-             path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "assets/images", spritesheet)
 
-             Main_entity.spritesheet = pygame.image.load(path).convert_alpha()
-             scaled_width, scaled_height = Main_entity.spritesheet.get_size()
-             Main_entity.spritesheet = pygame.transform.scale(Main_entity.spritesheet, (scaled_width * 4, scaled_height * 4))
+        path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "assets/images", spritesheet)
+
+        self.spritesheet = pygame.image.load(path).convert_alpha()
+        scaled_width, scaled_height = self.spritesheet.get_size()
+        self.spritesheet = pygame.transform.scale(self.spritesheet, (scaled_width * 4, scaled_height * 4))
+
         self.x = x
         self.y = y
         self.width = BLOCK_SIZE
@@ -27,7 +28,7 @@ class Main_entity(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
 
-        self.spritesheet = Main_entity.spritesheet
+        # self.spritesheet = Main_entity.spritesheet
         self.y_sprite_sheet_index = 0
         self.frame = 0
         self.max_frame = (self.spritesheet.get_width() // BLOCK_SIZE) - 1
@@ -39,7 +40,7 @@ class Main_entity(pygame.sprite.Sprite):
 
     def update(self, cam_offset=0):
         self.update_cam_offset(cam_offset)
-        # self.animate()
+        self.animate()
 
 
     def draw(self, surface):
@@ -48,11 +49,11 @@ class Main_entity(pygame.sprite.Sprite):
         surface.blit(image, (0, 50))
 
 
-    def update_cam_offset(self, cam_offset):
+    def update_cam_offset(self, cam_offset=None):
         # self.rect.x += cam_offset
-
-        self.rect.x = self.x + cam_offset[0]
-        self.rect.y = self.y + cam_offset[1]
+        if cam_offset:
+            self.rect.x = self.x + cam_offset[0]
+            self.rect.y = self.y + cam_offset[1]
 
 
     def get_image_from_sprite_sheet(self, row, col):

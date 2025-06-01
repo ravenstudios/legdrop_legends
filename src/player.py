@@ -2,7 +2,7 @@ import main_entity
 import pygame
 from constants import *
 import movement_handler
-
+import player_battle_object
 class Player(main_entity.Main_entity):
 
     def __init__(self):
@@ -12,6 +12,8 @@ class Player(main_entity.Main_entity):
         self.y_sprite_sheet_index = 0
         self.speed = 7
         self.movement_handler = movement_handler.MovementHandler(self)
+        self.battle_object = player_battle_object.PlayerBattleObject()
+
 
     def update(self, cam_offset):
         # self.update_cam_offset(0)
