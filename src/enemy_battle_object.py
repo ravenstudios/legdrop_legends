@@ -7,12 +7,12 @@ class EnemyBattleObject(main_entity.Main_entity):
 
     def __init__(self):
         self.x, self.y = 500, 50
-        super().__init__(self.x, self.y, "Brother64x64-Sheet.png")
+
 
         # Set width and height to 90x61
         self.width = 64 * SCALE * 2
         self.height = 64 * SCALE * 2
-
+        super().__init__(self.x, self.y, self.width, self.height, "Brother64x64-Sheet.png")
         # Recreate the image with the correct dimensions
         self.image = pygame.Surface([self.width, self.height], pygame.SRCALPHA)
         self.image = self.image.convert_alpha()  # Ensure transparency

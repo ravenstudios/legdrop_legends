@@ -22,7 +22,7 @@ class Map():
             for x, gid in enumerate(row):
                 # print(f"Tile at ({x}, {y}) has GID: {gid}")
                 if gid == 0:
-                    group.add(block.Block(x * BLOCK_SIZE, y * BLOCK_SIZE, (255, 0, 255)))
+                    group.add(block.Block(x * BLOCK_SIZE, y * BLOCK_SIZE,BLOCK_SIZE * 4, BLOCK_SIZE * 4, (255, 0, 255)))
         # self.map_width = self.tiled_map["width"]
         # self.map_height = self.tiled_map["height"]
         # self.tile_width = self.tiled_map["tilewidth"]

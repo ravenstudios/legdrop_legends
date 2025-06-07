@@ -21,10 +21,6 @@ class GroupManager():
         self.npc_group.add(self.npc)
 
         self.blocks_group = pygame.sprite.Group()
-        self.blocks_group.add(block.Block(0, 0))
-        self.blocks_group.add(block.Block(WORLD_WIDTH - BLOCK_SIZE, 0))
-        self.blocks_group.add(block.Block(0, WORLD_HEIGHT - BLOCK_SIZE))
-        self.blocks_group.add(block.Block(WORLD_WIDTH - BLOCK_SIZE, WORLD_HEIGHT - BLOCK_SIZE))
 
         self.camera = camera.Camera()
 
@@ -32,9 +28,9 @@ class GroupManager():
 
         cam_offset = self.camera.update_offset(self.player)
         self.map_group.update(cam_offset)
-        self.player_group.update(cam_offset)
         self.blocks_group.update(cam_offset)
-        self.npc_group.update(cam_offset)
+        self.player_group.update(cam_offset, self.map_group)
+        self.npc_group.update(cam_offset, self.map_group)
 
     def draw(self, surface):
         self.map_group.draw(surface)

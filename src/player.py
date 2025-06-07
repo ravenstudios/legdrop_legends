@@ -3,21 +3,31 @@ import pygame
 from constants import *
 import movement_handler
 import player_battle_object
+import collision_handler
+
+
 class Player(main_entity.Main_entity):
 
     def __init__(self):
         self.x = 0
         self.y = 0
-        super().__init__(self.x, self.y, "Brother16x16-Sheet.png")
+        self.width = BLOCK_SIZE
+        self.height = BLOCK_SIZE
+        super().__init__(self.x, self.y, self.width, self.height, "Brother16x16-Sheet.png")
         self.y_sprite_sheet_index = 0
         self.speed = 7
         self.movement_handler = movement_handler.MovementHandler(self)
+        self.collision_handler = collision_handler.CollisionHandler(self)
         self.battle_object = player_battle_object.PlayerBattleObject()
+        self.dir = 0
+        self.collisions = False
+        self.can_scroll = True
 
-
-    def update(self, cam_offset):
+    def update(self, cam_offset, map_group):
         # self.update_cam_offset(0)
-        self.movement_handler.key_handler(cam_offset)
+
+        self.movement_handler.key_handler(map_group)
+        self.collision_handler.update(map_group)
         self.animate()
         self.rect.x = max(0, min(self.rect.x, GAME_WIDTH  - self.rect.width))
         self.rect.y = max(0, min(self.rect.top, GAME_HEIGHT - self.rect.height))

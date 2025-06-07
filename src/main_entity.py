@@ -8,7 +8,7 @@ class Main_entity(pygame.sprite.Sprite):
 
 
 
-    def __init__(self, x, y, spritesheet):
+    def __init__(self, x, y, w, h, spritesheet):
         super().__init__()
 
 
@@ -20,8 +20,8 @@ class Main_entity(pygame.sprite.Sprite):
 
         self.x = x
         self.y = y
-        self.width = BLOCK_SIZE
-        self.height = BLOCK_SIZE
+        self.width = w
+        self.height = h
 
         self.image = pygame.Surface([self.width, self.height])
         self.image.fill((255, 255 ,255))
