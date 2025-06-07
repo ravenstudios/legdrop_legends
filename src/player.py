@@ -22,3 +22,4 @@ class Player(main_entity.Main_entity):
         self.rect.x = max(0, min(self.rect.x, GAME_WIDTH  - self.rect.width))
         self.rect.y = max(0, min(self.rect.top, GAME_HEIGHT - self.rect.height))
         # print(f"X:{self.x}")
+        pygame.display.set_caption(f"cam:{cam_offset}  |  X:{self.x}  |  Rect.center.x:{self.rect.left}  |  WORLD:{WORLD_WIDTH}-{WORLD_HEIGHT}  |  Halfscreen:{GAME_WIDTH // 2}")
