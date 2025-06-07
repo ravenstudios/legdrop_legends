@@ -11,7 +11,7 @@ class NPC(main_entity.Main_entity):
         self.y = 100
         self.width = BLOCK_SIZE
         self.height = BLOCK_SIZE
-        super().__init__(self.x, self.y, self.width, self.height, "Brother16x16-Sheet.png")
+        super().__init__(self.x, self.y, self.width, self.height, "manager-Sheet.png")
         self.y_sprite_sheet_index = 0
         self.speed = 1
         self.dir = 0
@@ -33,7 +33,7 @@ class NPC(main_entity.Main_entity):
         self.collision_handler.update(map_group)
         self.animate()
         self.update_cam_offset(cam_offset)
-
+        print(self.rect)
 
     def move(self):
         if self.dir == 1:
@@ -52,5 +52,5 @@ class NPC(main_entity.Main_entity):
             self.y_sprite_sheet_index = 0
             self.y += self.speed
 
-        self.rect.x = max(0, min(self.rect.x, WORLD_WIDTH  - self.rect.width))
-        self.rect.y = max(0, min(self.rect.y, WORLD_HEIGHT - self.rect.height))
+        self.x = max(0, min(self.x, WORLD_WIDTH  - self.width))
+        self.y = max(0, min(self.y, WORLD_HEIGHT - self.height))
