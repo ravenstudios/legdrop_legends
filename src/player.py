@@ -23,11 +23,9 @@ class Player(main_entity.Main_entity):
         self.collisions = False
         self.can_scroll = True
 
-    def update(self, cam_offset, map_group):
-        # self.update_cam_offset(0)
-
+    def update(self, cam_offset, map_group, npc_group, state_manager):
         self.movement_handler.key_handler(map_group)
-        self.collision_handler.update(map_group)
+        self.collision_handler.update(map_group, npc_group, state_manager)
         self.animate()
         self.rect.x = max(0, min(self.rect.x, GAME_WIDTH  - self.rect.width))
         self.rect.y = max(0, min(self.rect.top, GAME_HEIGHT - self.rect.height))

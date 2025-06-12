@@ -6,7 +6,7 @@ import battle
 
 class StateManager():
     def __init__(self):
-        self.group_manager = group_manager.GroupManager()
+        self.group_manager = group_manager.GroupManager(self)
         self.world = World(self.group_manager)
         self.battle = Battle(self.group_manager)
         self.current_state = self.world

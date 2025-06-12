@@ -33,7 +33,6 @@ class NPC(main_entity.Main_entity):
         self.collision_handler.update(map_group)
         self.animate()
         self.update_cam_offset(cam_offset)
-        print(self.rect)
 
     def move(self):
         if self.dir == 1:
