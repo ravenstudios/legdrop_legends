@@ -11,6 +11,9 @@ class StateManager():
         self.battle = Battle(self.group_manager)
         self.current_state = self.world
 
+    def events(self, events):
+        self.current_state.events(events)
+
     def update(self):
         self.current_state.update()
 
@@ -18,8 +21,12 @@ class StateManager():
         self.current_state.draw(surface)
 
 
+
+
 class State():
     def __init__(self):
+        pass
+    def events(self, events=None):
         pass
     def update(self):
         pass
@@ -41,6 +48,9 @@ class Battle(State):
     def __init__(self, group_manager):
         self.group_manager = group_manager
         self.battle = battle.Battle(group_manager.player)
+
+    def events(self, events):
+        self.battle.events(events)
 
     def update(self):
         self.battle.update()
