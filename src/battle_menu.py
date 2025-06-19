@@ -20,7 +20,7 @@ class BattleMenu(object):
 
         w = BLOCK_SIZE * 3
         h = BLOCK_SIZE * 2.5
-        font_size = 25
+        font_size = 20
         padding = 20
         text_padding = 10
 
@@ -44,15 +44,20 @@ class BattleMenu(object):
 
         enemy_health_box = pygame.Rect(padding * 4, padding, w, BLOCK_SIZE // 2)
         enemy_mp_box = pygame.Rect(padding * 4, padding * 4, w, BLOCK_SIZE // 2)
-
+        enemy_name_box = self.player.enemy.rect.move(0, self.player.enemy.rect.bottom - padding)
         pygame.draw.rect(surface, (200, 0, 200), player_box)
         pygame.draw.rect(surface, (200, 200, 200), menu_box)
         pygame.draw.rect(surface, (255, 200, 200), message_box)
 
         for i, option in enumerate(self.player.current_menu):
             text = None
+            str = ""
             if isinstance(option, dict):
-                text = font.render(option["name"], True, (0, 0, 0))
+                if "qty" in option:
+                    str = f"{option['name']} - Qty:{option['qty']}"
+                else:
+                    str = option['name']
+                text = font.render(str, True, (0, 0, 0))
             else:
                 text = font.render(option, True, (0, 0, 0))
             surface.blit(text, (text_box.x, text_box.y + font_size * i + text_padding))
@@ -96,3 +101,5 @@ class BattleMenu(object):
         surface.blit(enemy_mp_text, enemy_mp_box)
 
         self.player.enemy_group.draw(surface)
+        enemy_name = font.render(self.player.enemy.name, True, (0, 0, 0))
+        surface.blit(enemy_name, enemy_name_box)

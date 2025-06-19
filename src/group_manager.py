@@ -5,6 +5,9 @@ import block
 import camera
 import npc
 import map
+import wrestlers.crawdaddy
+import wrestlers.clown
+
 class GroupManager():
 
 
@@ -15,10 +18,10 @@ class GroupManager():
         self.player = player.Player()
         self.player_group = pygame.sprite.Group()
         self.player_group.add(self.player)
-
-        self.npc = npc.NPC()
+        self.clown = wrestlers.clown.Clown()
+        self.crawdaddy = wrestlers.crawdaddy.Crawdaddy()
         self.npc_group = pygame.sprite.Group()
-        self.npc_group.add(self.npc)
+        self.npc_group.add(self.crawdaddy, self.clown)
 
         self.blocks_group = pygame.sprite.Group()
 
@@ -33,7 +36,6 @@ class GroupManager():
         self.blocks_group.update(cam_offset)
         self.player_group.update(cam_offset, self.map_group, self.npc_group, self.state_manager)
         self.npc_group.update(cam_offset, self.map_group)
-
     def draw(self, surface):
         self.map_group.draw(surface)
 

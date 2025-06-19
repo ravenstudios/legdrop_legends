@@ -1,16 +1,11 @@
 
 import pygame
 from constants import *
-
 import os
+
 class Main_entity(pygame.sprite.Sprite):
-
-
-
-
-    def __init__(self, x, y, w, h, spritesheet):
+    def __init__(self, x, y, w, h, spritesheet="Brother64x64-Sheet.png"):
         super().__init__()
-
 
         path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "assets/images", spritesheet)
 
@@ -31,7 +26,7 @@ class Main_entity(pygame.sprite.Sprite):
         # self.spritesheet = Main_entity.spritesheet
         self.y_sprite_sheet_index = 0
         self.frame = 0
-        self.max_frame = (self.spritesheet.get_width() // BLOCK_SIZE) - 1
+        self.max_frame = 3
         self.animation_speed = 10
         self.ticks_till_frame_change = self.animation_speed
 
