@@ -67,32 +67,32 @@ class BattleMenu(object):
 
 
         hp_ratio = self.player.player.battle_object.hp / self.player.player.battle_object.max_hp
-        pygame.draw.rect(surface, RED, (health_box.x, health_box.y, hp_ratio * health_box.width, health_box.height))
+        pygame.draw.rect(surface, GREEN, (health_box.x, health_box.y, hp_ratio * health_box.width, health_box.height))
         pygame.draw.rect(surface, BLACK, health_box.inflate(5, 5), 6)
 
         mp_ratio = self.player.player.battle_object.mp / self.player.player.battle_object.max_mp
-        pygame.draw.rect(surface, (50, 255, 50), (mp_box.x, mp_box.y, mp_ratio * mp_box.width, mp_box.height))
+        pygame.draw.rect(surface, BLUE, (mp_box.x, mp_box.y, mp_ratio * mp_box.width, mp_box.height))
         pygame.draw.rect(surface, BLACK, mp_box.inflate(5, 5), 6)
 
 
         enemy_hp_ratio = self.player.enemy.hp / self.player.enemy.max_hp
-        pygame.draw.rect(surface, RED, (enemy_health_box.x, enemy_health_box.y, enemy_hp_ratio * enemy_health_box.width, enemy_health_box.height))
+        pygame.draw.rect(surface, GREEN, (enemy_health_box.x, enemy_health_box.y, enemy_hp_ratio * enemy_health_box.width, enemy_health_box.height))
         pygame.draw.rect(surface, BLACK, enemy_health_box.inflate(5, 5), 6)
 
         enemy_mp_ratio = self.player.enemy.mp / self.player.enemy.max_mp
-        pygame.draw.rect(surface, (50, 255, 50), (enemy_mp_box.x, enemy_mp_box.y, mp_ratio * enemy_mp_box.width, enemy_mp_box.height))
+        pygame.draw.rect(surface, BLUE, (enemy_mp_box.x, enemy_mp_box.y, enemy_mp_ratio * enemy_mp_box.width, enemy_mp_box.height))
         pygame.draw.rect(surface, BLACK, enemy_mp_box.inflate(5, 5), 6)
 
         hp_text = font.render(f"HP:{self.player.player.battle_object.hp} / {self.player.player.battle_object.max_hp}", True, (0, 0, 0))
         surface.blit(hp_text, health_box)
 
-        mp_text = font.render(f"HP:{self.player.player.battle_object.mp} / {self.player.player.battle_object.max_mp}", True, (0, 0, 0))
+        mp_text = font.render(f"MP:{self.player.player.battle_object.mp} / {self.player.player.battle_object.max_mp}", True, (0, 0, 0))
         surface.blit(mp_text, mp_box)
 
         enemy_hp_text = font.render(f"HP:{self.player.enemy.hp} / {self.player.enemy.max_hp}", True, (0, 0, 0))
         surface.blit(enemy_hp_text, enemy_health_box)
 
-        hp_text = font.render(f"HP:{self.player.enemy.mp} / {self.player.enemy.max_mp}", True, (0, 0, 0))
-        surface.blit(hp_text, enemy_mp_box)
+        enemy_mp_text = font.render(f"MP:{self.player.enemy.mp} / {self.player.enemy.max_mp}", True, (0, 0, 0))
+        surface.blit(enemy_mp_text, enemy_mp_box)
 
         self.player.enemy_group.draw(surface)

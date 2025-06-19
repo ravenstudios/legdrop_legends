@@ -12,7 +12,8 @@ class PlayerBattleObject():
             ],
             "Items": [
                 {"name": "Bandaid", "hp": 5, "type":"restore_hp", "message":"Player used Bandaid"},
-                {"name": "Beer", "mp": 3, "type":"restore_mp", "message":"Player used Beer"},
+                {"name": "Beer", "mp": 10, "type":"restore_mp", "message":"Player used Beer"},
+                {"name": "Powder", "mp": 5, "type":"restore_mp", "message":"Player powered"},
                 {"name": "Back"}
             ],
             "Tag Partner": [
