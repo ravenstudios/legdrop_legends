@@ -31,7 +31,9 @@ class EnemyBattleObject(main_entity.Main_entity):
 
         self.y_sprite_sheet_index = 0
         self.hp = 50
-        self.mp = 50
+        self.mp = 30
+        self.max_hp = 75
+        self.max_mp = 50
         self.img_path = "d"
         self.moves = [
                 {

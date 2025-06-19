@@ -9,7 +9,7 @@ class StateManager():
         self.group_manager = group_manager.GroupManager(self)
         self.world = World(self.group_manager)
         self.battle = Battle(self.group_manager)
-        self.current_state = self.world
+        self.current_state = self.battle
 
     def events(self, events):
         self.current_state.events(events)

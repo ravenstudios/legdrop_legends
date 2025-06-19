@@ -1,6 +1,8 @@
 import pygame
 from constants import *
 import enemy_battle_object
+import battle_menu
+
 class Battle():
 
     def __init__(self, player, enemy=None):
@@ -8,11 +10,29 @@ class Battle():
         self.enemy = enemy_battle_object.EnemyBattleObject()
         self.enemy_group = pygame.sprite.Group()
         self.enemy_group.add(self.enemy)
-
+        self.battle_menu = battle_menu.BattleMenu(self)
         self.index = 0
-        self.rect = pygame.Rect(0, 0, 200, 30)
-        self.options = ["Fight", "Item", "Tag", "Run"]
+        self.current_menu = list(self.player.battle_object.options.keys())
+        self.in_submenu = False
+        self.parrent_menu = None
+        # print(self.options)
+        # self.player_health = 100
+        # self.enemy_health = 100
+        self.current_hp = 56
+        self.max_hp = 100
+        self.current_mp = 13
+        self.max_mp = 25
 
+        self.enemy_current_hp = 56
+        self.enemy_max_hp = 100
+        self.enemy_current_mp = 13
+        self.enemy_max_mp = 25
+
+        self.turn = "player"
+        self.turn_delay = 2000
+        self.turn_delay_timer = 0
+        self.message = ""
+        self.message_index = 0
 
     def events(self, events):
         for event in events:
@@ -21,72 +41,77 @@ class Battle():
                     self.index -= 1
                 if event.key == pygame.K_DOWN:
                     self.index += 1
+                if event.key == pygame.K_RETURN:
+                    key = self.current_menu[self.index]
+                    if not self.in_submenu:
+                        submenu_data = self.player.battle_object.options[key]
+                        if isinstance(submenu_data, list):
+                            self.parent_menu = self.current_menu
+                            self.current_menu = submenu_data  # now current_menu is a list of dicts
+                            self.index = 0
+                            self.in_submenu = True
+                    if isinstance(key, dict):
+                        if key["name"] == "Back":
+                            self.current_menu = self.parent_menu
+                            self.index = 0
+                            self.in_submenu = False
+                        else:
+                            self.action(key)
 
     def update(self):
         self.enemy_group.update()
-        self.index = self.index % len(self.options)
-        # keys = pygame.key.get_pressed()
-        #
-
+        self.index = max(0, min(self.index, len(self.current_menu) - 1))
+        if self.turn != "player":
+            now = pygame.time.get_ticks()
+            if now - self.turn_delay_timer >= self.turn_delay:
+                self.enemy_attack()
 
     def draw(self, surface):
+        self.battle_menu.draw(surface)
 
-        surface.fill((255, 255, 255))  # White background
 
-        WIDTH, HEIGHT = surface.get_size()
-        BORDER_COLOR = (0, 0, 0)
-        GREEN = (100, 200, 100)
-        RED = (200, 50, 50)
-        BLUE = (100, 100, 255)
-        GRAY = (230, 230, 230)
+    def enemy_attack(self):
+        self.player.battle_object.hp -= 5
+        self.turn = "player"
 
-        # Enemy info box (top left)
-        # enemy_box = pygame.Rect(50, 40, 250, 80)
-        # pygame.draw.rect(surface, GRAY, enemy_box)
-        # pygame.draw.rect(surface, BORDER_COLOR, enemy_box, 3)
-        #
-        # # Player info box (bottom right)
-        # player_box = pygame.Rect(WIDTH - 300, HEIGHT - 200, 250, 80)
-        # pygame.draw.rect(surface, GRAY, player_box)
-        # pygame.draw.rect(surface, BORDER_COLOR, player_box, 3)
-        #
-        # # HP bar inside player box
-        # hp_bar_width = 150
-        # hp_bar_height = 15
-        # player_hp_bar = pygame.Rect(player_box.x + 80, player_box.y + 35, hp_bar_width, hp_bar_height)
-        # pygame.draw.rect(surface, RED, player_hp_bar)
-        # pygame.draw.rect(surface, BORDER_COLOR, player_hp_bar, 2)
-        #
-        # # HP bar inside enemy box
-        # enemy_hp_bar = pygame.Rect(enemy_box.x + 80, enemy_box.y + 35, hp_bar_width, hp_bar_height)
-        # pygame.draw.rect(surface, GREEN, enemy_hp_bar)
-        # pygame.draw.rect(surface, BORDER_COLOR, enemy_hp_bar, 2)
-        #
-        # # Text box (bottom)
+    def attack(self, key):
 
-        # pygame.draw.rect(surface, (255, 255, 255), text_box)
-        # pygame.draw.rect(surface, BORDER_COLOR, text_box, 3)
-        #
-        # # Placeholder for Pokémon (circles)
-        # # Enemy Pokémon (top right)
-        # pygame.draw.circle(surface, RED, (WIDTH - 120, 100), 40)
-        # # Player Pokémon (bottom left)
-        # pygame.draw.circle(surface, BLUE, (120, HEIGHT - 140), 40)
+        if self.player.battle_object.mp >= key["cost"]:
+            self.enemy.hp -= key["dmg"]
+            self.player.battle_object.mp -= key["cost"]
+            self.battle_menu.message = ""
+            self.message_index = 0
+            self.message = key["message"]
+        else:
+            self.battle_menu.message = ""
+            self.message_index = 0
+            self.message = "Not enough MP!"
 
-        # Optional: placeholder text
-        w = BLOCK_SIZE * 3
-        h = BLOCK_SIZE * 2
-        menu_box = pygame.Rect(WIDTH - w - 20, HEIGHT - h - 20, w, h)
-        option_box = pygame.Rect(WIDTH - w - 20, HEIGHT - h - 20 + (25 * self.index), w, 25)
-        text_box = pygame.Rect(menu_box.x + menu_box.width // 2, menu_box.y, menu_box.width // 2, menu_box.height // 2)
-        font = pygame.font.SysFont("Arial", 20)
+    def restore_health(self, key):
+        self.battle_menu.message = ""
+        self.message_index = 0
+        self.message = key["message"]
+        bo = self.player.battle_object
+        bo.hp += key["hp"]
+        bo.hp = min(bo.hp, bo.max_hp)
 
-        pygame.draw.rect(surface, (200, 200, 200), menu_box)
+    def restore_mp(self, key):
+        self.battle_menu.message = ""
+        self.message_index = 0
+        self.message = key["message"]
+        bo = self.player.battle_object
+        bo.mp += key["mp"]
+        bo.mp = min(bo.mp, bo.max_mp)
 
-        for i, option in enumerate(self.options):
-            text = font.render(option, True, (0, 0, 0))
-            surface.blit(text, (text_box.x, text_box.y + 25 * i))
+    def action(self, key):
+        if "type" in key:
+            if key["type"] == "attack":
+                self.attack(key)
 
-        pygame.draw.rect(surface, BORDER_COLOR, option_box, 3)
-        # pygame.draw.rect(surface, BORDER_COLOR, , 3)
-        self.enemy_group.draw(surface)
+
+            if key["type"] == "restore_hp":
+                self.restore_health(key)
+
+
+            if key["type"] == "restore_mp":
+                self.restore_mp(key)
