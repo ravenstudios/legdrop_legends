@@ -19,13 +19,13 @@ class Clown(npc.NPC):
         self.battle_object.name = "Funny Guy"
         self.battle_object.options = {
             "Attacks": [
-                {"name": "Chop", "dmg": 3, "cost": 2, "type":"attack", "message":"Funny Guy used Chop, it dealt 3 damage"},
-                {"name": "Kick", "dmg": 5, "cost": 2, "type":"attack", "message":"Funny Guy used Kick, it dealt 5 damage"},
+                {"name": "Silly Slap", "dmg": 3, "cost": 2, "type":"attack", "message":f"{self.battle_object.name} used Silly Slap, it dealt 3 damage"},
+                {"name": "Head Juggle", "dmg": 2, "cost": 2, "type":"attack", "message":f"{self.battle_object.name} used Head Juggle, it dealt 2 damage"},
                             ],
             "Items": [
-                {"name": "Bandaid", "hp": 5, "type":"restore_hp", "message":"Funny Guy used Bandaid"},
-                {"name": "Beer", "mp": 10, "type":"restore_mp", "message":"Funny Guy used Beer"},
-                {"name": "Powder", "mp": 5, "type":"restore_mp", "message":"Funny Guy powered"},
+                {"name": "Bandaid", "hp": 5, "type":"restore_hp", "message":f"{self.battle_object.name} used Bandaid"},
+                {"name": "Beer", "mp": 10, "type":"restore_mp", "message":f"{self.battle_object.name} used Beer"},
+                {"name": "Powder", "mp": 5, "type":"restore_mp", "message":f"{self.battle_object.name} powered"},
                             ],
             "Tag Partner": [
                 {"name": "Tag Partner", "type":"tag", "message":"Player tagged"},

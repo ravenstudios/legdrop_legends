@@ -39,4 +39,5 @@ class EnemyAI(object):
         pass
 
     def enemy_turn(self):
-        self.attack()
+        if self.enemy.hp > 0:
+            self.attack()
