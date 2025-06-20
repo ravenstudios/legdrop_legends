@@ -13,6 +13,7 @@ clock = pygame.time.Clock()
 
 surface = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))
 pygame.init()
+pygame.joystick.init()
 
 state_manager = state_manager.StateManager()
 
@@ -40,7 +41,9 @@ def main():
     pygame.quit()
 
 def update():
-
+    # for i in range(joystick.get_numbuttons()):
+    #     if joystick.get_button(i):
+    #         print(f"Button {i} is pressed")
     state_manager.update()
     # pygame.display.set_caption(f"FPS:{clock.get_fps()}")
 def events(events):

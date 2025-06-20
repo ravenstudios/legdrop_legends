@@ -7,13 +7,11 @@ class MovementHandler():
         self.player = player
         self.can_move_x_left = False
 
-    def key_handler(self, map_group):
+
+    def key_handler(self, joystick, map_group):
         half_screen_w = GAME_WIDTH // 2
         half_screen_h = GAME_HEIGHT // 2
-
-        # world_right_edge
         wre = WORLD_WIDTH - GAME_WIDTH - self.player.speed
-        # world_bottom_edge
         wbe = WORLD_HEIGHT - GAME_HEIGHT - self.player.speed
         cx, cy = self.player.rect.center
         p = self.player
@@ -22,48 +20,88 @@ class MovementHandler():
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_UP]:
-            p.dir = 1
-            p.y_sprite_sheet_index = 1
-
-            if cy + p.speed >= half_screen_h and 0 < p.y < wbe:
-                if self.can_move_camera(map_group):
-                    p.y -= p.speed
-            elif  cy < half_screen_h and half_screen_h < p.y < wbe + p.speed:
-                if self.can_move_camera(map_group):
-                    p.y -= p.speed
-            if p.y == 0 or p.y > wbe:
-                p.rect.y -= p.speed
+            self.move_up(map_group)
 
         elif keys[pygame.K_RIGHT]:
-            p.dir = 2
-            p.y_sprite_sheet_index = 2
-
-            if cx >= half_screen_w and p.x <= wre:
-                if self.can_move_camera(map_group):
-                    p.x += p.speed
-            if cx <= half_screen_w or p.x >= wre:
-                p.rect.x += p.speed
+            self.move_right(map_group)
 
         elif keys[pygame.K_LEFT]:
-            p.dir = 3
-            p.y_sprite_sheet_index = 3
-            if self.can_move_x_left:
-                if self.can_move_camera(map_group):
-                    p.x -= p.speed
-            if p.x == 0 or p.x >= wre and cx >= half_screen_w:
-                self.can_move_x_left = False
-                p.rect.x -= p.speed
-            else:
-                self.can_move_x_left = True
+            self.move_left(map_group)
 
         elif keys[pygame.K_DOWN]:
-            p.dir = 0
-            p.y_sprite_sheet_index = 0
-            if cy > half_screen_h and p.y < wbe:
-                if self.can_move_camera(map_group):
-                    p.y += p.speed
-            if cy < half_screen_h or p.y > wbe:
-                p.rect.y += p.speed
+            self.move_down(map_group)
+
+        elif keys[pygame.K_RETURN]:
+            self.action_button()
+
+        if self.player.joystick:
+            if  joystick.get_button(12):
+                self.move_down(map_group)
+
+            elif joystick.get_button(13):
+                self.move_left(map_group)
+
+            elif joystick.get_button(14):
+                self.move_right(map_group)
+
+            elif joystick.get_button(11):
+                self.move_up(map_group)
+
+            elif joystick.get_button(0):
+                self.action_button()
+
+        self.player.action_button_pressed = False
+
+    def move_up(self, map_group):
+        p, cx, cy, half_screen_w, half_screen_h, wre, wbe = self.get_movement_context()
+        p.dir = 1
+        p.y_sprite_sheet_index = 1
+
+        if cy + p.speed >= half_screen_h and 0 < p.y < wbe:
+            if self.can_move_camera(map_group):
+                p.y -= p.speed
+        elif  cy < half_screen_h and half_screen_h < p.y < wbe + p.speed:
+            if self.can_move_camera(map_group):
+                p.y -= p.speed
+        if p.y == 0 or p.y > wbe:
+            p.rect.y -= p.speed
+
+    def move_down(self, map_group):
+        p, cx, cy, half_screen_w, half_screen_h, wre, wbe = self.get_movement_context()
+        p.dir = 0
+        p.y_sprite_sheet_index = 0
+        if cy > half_screen_h and p.y < wbe:
+            if self.can_move_camera(map_group):
+                p.y += p.speed
+        if cy < half_screen_h or p.y > wbe:
+            p.rect.y += p.speed
+
+    def move_right(self, map_group):
+        p, cx, cy, half_screen_w, half_screen_h, wre, wbe = self.get_movement_context()
+        p.dir = 2
+        p.y_sprite_sheet_index = 2
+        if cx >= half_screen_w and p.x <= wre:
+            if self.can_move_camera(map_group):
+                p.x += p.speed
+        if cx <= half_screen_w or p.x >= wre:
+            p.rect.x += p.speed
+
+    def move_left(self, map_group):
+        p, cx, cy, half_screen_w, half_screen_h, wre, wbe = self.get_movement_context()
+        p.dir = 3
+        p.y_sprite_sheet_index = 3
+        if self.can_move_x_left:
+            if self.can_move_camera(map_group):
+                p.x -= p.speed
+        if p.x == 0 or p.x >= wre and cx >= half_screen_w:
+            self.can_move_x_left = False
+            p.rect.x -= p.speed
+        else:
+            self.can_move_x_left = True
+
+    def action_button(self):
+        self.player.action_button_pressed = True
+
 
     def can_move_camera(self, map_group):
         rect = None
@@ -83,3 +121,12 @@ class MovementHandler():
             return True
         else:
             return False
+
+    def get_movement_context(self):
+        p = self.player
+        cx, cy = p.rect.center
+        half_screen_w = GAME_WIDTH // 2
+        half_screen_h = GAME_HEIGHT // 2
+        wre = WORLD_WIDTH - GAME_WIDTH - p.speed
+        wbe = WORLD_HEIGHT - GAME_HEIGHT - p.speed
+        return p, cx, cy, half_screen_w, half_screen_h, wre, wbe

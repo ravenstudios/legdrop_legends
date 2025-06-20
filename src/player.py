@@ -8,7 +8,8 @@ import collision_handler
 
 class Player(main_entity.Main_entity):
 
-    def __init__(self):
+    def __init__(self, joystick=None):
+        self.joystick = joystick
         self.x = 0
         self.y = 0
         self.width = BLOCK_SIZE
@@ -21,13 +22,12 @@ class Player(main_entity.Main_entity):
         self.battle_object = player_battle_object.PlayerBattleObject()
         self.dir = 0
         self.collisions = False
-        self.can_scroll = True
+        self.action_button_pressed = False
 
     def update(self, cam_offset, map_group, npc_group, state_manager):
-        self.movement_handler.key_handler(map_group)
+        self.movement_handler.key_handler(self.joystick, map_group)
         self.collision_handler.update(map_group, npc_group, state_manager)
         self.animate()
         self.rect.x = max(0, min(self.rect.x, GAME_WIDTH  - self.rect.width))
         self.rect.y = max(0, min(self.rect.top, GAME_HEIGHT - self.rect.height))
-        # print(f"X:{self.x}")
-        pygame.display.set_caption(f"cam:{cam_offset}  |  X:{self.x}  |  Rect.center.x:{self.rect.left}  |  WORLD:{WORLD_WIDTH}-{WORLD_HEIGHT}  |  Halfscreen:{GAME_WIDTH // 2}")
+        # pygame.display.set_caption(f"cam:{cam_offset}  |  X:{self.x}  |  Rect.center.x:{self.rect.left}  |  WORLD:{WORLD_WIDTH}-{WORLD_HEIGHT}  |  Halfscreen:{GAME_WIDTH // 2}")

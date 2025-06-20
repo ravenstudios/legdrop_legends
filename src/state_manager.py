@@ -6,7 +6,16 @@ import battle
 
 class StateManager():
     def __init__(self):
-        self.group_manager = group_manager.GroupManager(self)
+        self.joysticks = []
+        self.joystick = None
+        for i in range(pygame.joystick.get_count()):
+            joystick = pygame.joystick.Joystick(i)
+            joystick.init()
+            print(f"Detected: {joystick.get_name()}")
+            self.joysticks.append(joystick)
+        if self.joysticks:
+            self.joystick = self.joysticks[0]
+        self.group_manager = group_manager.GroupManager(self, self.joystick)
         self.world = World(self.group_manager)
         self.current_state = self.world
 

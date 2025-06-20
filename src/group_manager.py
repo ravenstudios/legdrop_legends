@@ -11,10 +11,11 @@ import wrestlers.clown
 class GroupManager():
 
 
-    def __init__(self, state_manager):
+    def __init__(self, state_manager, joystick=None):
+        self.joystick = joystick
         self.map = map.Map()
         self.map_group = self.map.tile_group
-        self.player = player.Player()
+        self.player = player.Player(self.joystick)
         self.player_group = pygame.sprite.Group()
         self.player_group.add(self.player)
         self.clown = wrestlers.clown.Clown()
@@ -24,6 +25,7 @@ class GroupManager():
         self.blocks_group = pygame.sprite.Group()
         self.camera = camera.Camera()
         self.state_manager = state_manager
+
 
     def update(self):
         cam_offset = self.camera.update_offset(self.player)
