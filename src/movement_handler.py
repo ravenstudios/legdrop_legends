@@ -9,14 +9,6 @@ class MovementHandler():
 
 
     def key_handler(self, joystick, map_group):
-        half_screen_w = GAME_WIDTH // 2
-        half_screen_h = GAME_HEIGHT // 2
-        wre = WORLD_WIDTH - GAME_WIDTH - self.player.speed
-        wbe = WORLD_HEIGHT - GAME_HEIGHT - self.player.speed
-        cx, cy = self.player.rect.center
-        p = self.player
-        pssi = p.y_sprite_sheet_index
-
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_UP]:
@@ -52,6 +44,7 @@ class MovementHandler():
 
         self.player.action_button_pressed = False
 
+
     def move_up(self, map_group):
         p, cx, cy, half_screen_w, half_screen_h, wre, wbe = self.get_movement_context()
         p.dir = 1
@@ -66,6 +59,7 @@ class MovementHandler():
         if p.y == 0 or p.y > wbe:
             p.rect.y -= p.speed
 
+
     def move_down(self, map_group):
         p, cx, cy, half_screen_w, half_screen_h, wre, wbe = self.get_movement_context()
         p.dir = 0
@@ -76,6 +70,7 @@ class MovementHandler():
         if cy < half_screen_h or p.y > wbe:
             p.rect.y += p.speed
 
+
     def move_right(self, map_group):
         p, cx, cy, half_screen_w, half_screen_h, wre, wbe = self.get_movement_context()
         p.dir = 2
@@ -85,6 +80,7 @@ class MovementHandler():
                 p.x += p.speed
         if cx <= half_screen_w or p.x >= wre:
             p.rect.x += p.speed
+
 
     def move_left(self, map_group):
         p, cx, cy, half_screen_w, half_screen_h, wre, wbe = self.get_movement_context()
@@ -98,6 +94,7 @@ class MovementHandler():
             p.rect.x -= p.speed
         else:
             self.can_move_x_left = True
+
 
     def action_button(self):
         self.player.action_button_pressed = True
