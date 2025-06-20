@@ -30,4 +30,4 @@ class CollisionHandler():
             npc_collisions = pygame.sprite.spritecollide(self.player, npc_group, False)
 
         if npc_collisions:
-            state_manager.current_state = state_manager.battle
+            npc_collisions[0].change_state(state_manager, self.player)

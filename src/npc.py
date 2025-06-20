@@ -4,14 +4,15 @@ from constants import *
 import random
 import collision_handler
 
+import battle
+import state_manager
+
 class NPC(main_entity.Main_entity):
 
-    def __init__(self):
-        self.x = 100
-        self.y = 100
+    def __init__(self, x, y, spritesheet):
         self.width = BLOCK_SIZE
         self.height = BLOCK_SIZE
-        super().__init__(self.x, self.y, self.width, self.height, "manager-Sheet.png")
+        super().__init__(x, y, self.width, self.height, spritesheet)
         self.y_sprite_sheet_index = 0
         self.speed = 1
         self.dir = 0
@@ -19,6 +20,10 @@ class NPC(main_entity.Main_entity):
 
         self.frame_count = 0
         self.trigger_frame = random.randint(50, 300)
+
+
+    def change_state(self, state_manager, player):
+        state_manager.current_state = battle.Battle(player, self.battle_object)
 
 
     def update(self, cam_offset, map_group):
