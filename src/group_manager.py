@@ -15,10 +15,8 @@ class GroupManager():
         self.joystick = joystick
         self.map = map.Map("town1.tmx")
 
-        map_group, obj_group = self.map.load_map()
+        self.map_group, self.obj_group, self.door_group = self.map.load_map()
 
-        self.map_group = map_group
-        self.obj_group = obj_group
         self.player = player.Player(self.joystick)
         self.player_group = pygame.sprite.Group()
         self.player_group.add(self.player)
@@ -30,12 +28,16 @@ class GroupManager():
         self.camera = camera.Camera()
         self.state_manager = state_manager
 
+    def load_map(self, map_file):
+        self.map = map.Map(map_file)
+
+        self.map_group, self.obj_group, self.door_group = self.map.load_map()
 
     def update(self):
         cam_offset = self.camera.update_offset(self.player)
         self.map_group.update(cam_offset)
         self.obj_group.update(cam_offset)
-        self.player_group.update(cam_offset, self.obj_group, self.npc_group, self.state_manager)
+        self.player_group.update(cam_offset, self.obj_group, self.npc_group, self.state_manager, self)
         self.npc_group.update(cam_offset, self.map_group)
 
     def draw(self, surface):

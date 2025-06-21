@@ -6,6 +6,7 @@ import os
 import json
 import pygame
 import block
+import door
 import csv
 from constants import *
 import constants
@@ -22,6 +23,7 @@ class Map:
         constants.WORLD_HEIGHT = self.tmx_data.height * BLOCK_SIZE
         self.tile_group = pygame.sprite.Group()
         self.obj_group = pygame.sprite.Group()
+        self.door_group = pygame.sprite.Group()
         # Convert the generator to a list so it can be reused
         self.visible_layers = list(self.tmx_data.visible_layers)
 
@@ -45,9 +47,12 @@ class Map:
 
                     if tile_props and tile_props.get("block"):
                         self.obj_group.add(block.Block(x * BLOCK_SIZE, y * BLOCK_SIZE))
+                    if tile_props and tile_props.get("door"):
+                        self.door_group.add(block.Block(x * BLOCK_SIZE, y * BLOCK_SIZE))
                     # print(tile_props)
                     image = self.tmx_data.get_tile_image_by_gid(gid)
                     if image:
                         tile = TileSprite(image, x * self.tile_width, y * self.tile_height)
                         self.tile_group.add(tile)
-        return [self.tile_group, self.obj_group]
+        print(self.door_group)
+        return [self.tile_group, self.obj_group, self.door_group]

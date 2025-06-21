@@ -25,9 +25,9 @@ class Player(main_entity.Main_entity):
         self.collisions = False
         self.action_button_pressed = False
 
-    def update(self, cam_offset, obj_group, npc_group, state_manager):
+    def update(self, cam_offset, obj_group, npc_group, state_manager, group_manager):
         self.movement_handler.key_handler(self.joystick, obj_group)
-        self.collision_handler.update(obj_group, npc_group, state_manager)
+        self.collision_handler.update(obj_group, npc_group, state_manager, group_manager)
         self.animate()
         self.rect.x = max(0, min(self.rect.x, GAME_WIDTH  - self.rect.width))
         self.rect.y = max(0, min(self.rect.top, GAME_HEIGHT - self.rect.height))
