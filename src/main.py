@@ -45,7 +45,7 @@ def update():
     #     if joystick.get_button(i):
     #         print(f"Button {i} is pressed")
     state_manager.update()
-    pygame.display.set_caption(f"FPS:{clock.get_fps()}")
+    # pygame.display.set_caption(f"FPS:{clock.get_fps()}")
 def events(events):
     state_manager.events(events)
 

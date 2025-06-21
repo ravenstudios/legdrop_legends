@@ -13,31 +13,51 @@ class Map:
         self.tmx_data = pytmx.load_pygame(path)
         self.tile_width = self.tmx_data.tilewidth
         self.tile_height = self.tmx_data.tileheight
-        constants.WORLD_WIDTH = self.tmx_data.width * BLOCK_SIZE
-        constants.WORLD_HEIGHT = self.tmx_data.height * BLOCK_SIZE
+        self.width = self.tmx_data.width
+        self.height = self.tmx_data.height
+        constants.WORLD_WIDTH = self.width * BLOCK_SIZE
+        constants.WORLD_HEIGHT = self.height * BLOCK_SIZE
         self.tile_group = pygame.sprite.Group()
         self.obj_group = pygame.sprite.Group()
         self.door_group = pygame.sprite.Group()
         self.visible_layers = list(self.tmx_data.visible_layers)
+        self.spawn_point = (0, 0)
+        self.is_parrent_map = False
+        self.parrent_map = ""
 
+        
     def load_map(self):
+        x_offset = max((GAME_WIDTH - constants.WORLD_WIDTH) // 8, 0)
+        y_offset = max((GAME_HEIGHT - constants.WORLD_HEIGHT) // 8, 0)
+
         for layer in self.visible_layers:
             if isinstance(layer, pytmx.TiledTileLayer):
                 for x, y, gid in layer:
                     image = self.tmx_data.get_tile_image_by_gid(gid)
                     if image:
-                        tile = TileSprite(image, x * self.tile_width, y * self.tile_height)
+                        tile = TileSprite(image, x * self.tile_width + x_offset, y * self.tile_height + y_offset)
                         self.tile_group.add(tile)
 
         for i, obj in enumerate(self.tmx_data.objects):
-            if "block" in obj.properties:
-                x, y = int(obj.x), int(obj.y)
-                self.obj_group.add(block.Block(x * 4, y * 4, obj.width * 4, obj.height * 4))
+            x = int(obj.x * 4 + x_offset * 4)
+            y = int(obj.y * 4 + y_offset * 4)
+            w = int(obj.width * 4)
+            h = int(obj.height * 4)
 
-            if "map_file" in obj.properties:
+            if "spawn_point" in obj.properties:
+                self.spawn_point = (x, y)
+
+            if "block" in obj.properties:
+                self.obj_group.add(block.Block(x, y, w, h))
+
+            if "door" in obj.properties:
                 map_file = obj.properties["map_file"]
-                x, y = int(obj.x), int(obj.y)
                 self.door_group.add(
-                    door.Door(x * 4, y * 4, obj.width * 4, obj.height * 4, map_file=map_file)
+                    door.Door(x, y, w, h, map_file=map_file)
                 )
-        return [self.tile_group, self.obj_group, self.door_group]
+
+                if self.is_parrent_map:
+                    self.parrent_map = ""
+                    self.is_parrent_map = False
+
+        return [self.tile_group, self.obj_group, self.door_group, self.spawn_point]

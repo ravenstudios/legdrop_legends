@@ -7,5 +7,4 @@ class Camera(object):
         pass
 
     def update_offset(self, player):
-
         return (-player.x, -player.y)
