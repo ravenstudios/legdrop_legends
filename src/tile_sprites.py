@@ -7,8 +7,8 @@ class TileSprite(pygame.sprite.Sprite):
         scaled_width, scaled_height = self.image.get_size()
         self.image = pygame.transform.scale(self.image, (scaled_width * 4, scaled_height * 4))
 
-        self.x = x  * 4
-        self.y = y  * 4
+        self.x = x * 4
+        self.y = y * 4
         self.width = BLOCK_SIZE
         self.height = BLOCK_SIZE
 

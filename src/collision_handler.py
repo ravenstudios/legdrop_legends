@@ -12,13 +12,14 @@ class CollisionHandler():
             3: lambda player, obj: setattr(player.rect, 'left', obj.rect.right),    # moving left
         }
 
-    def update(self, map_group=None, npc_group=None, state_manager=None):
+    def update(self, obj_group=None, npc_group=None, state_manager=None):
         old_x = self.player.x
         old_y = self.player.y
 
-        map_collisions = pygame.sprite.spritecollide(self.player, map_group, False, collided = None)
-        if map_collisions:
-            for obj in map_collisions:
+        obj_collisions = pygame.sprite.spritecollide(self.player, obj_group, False, collided = None)
+        # print(obj_collisions)
+        if obj_collisions:
+            for obj in obj_collisions:
                 fix = self.direction_to_collision_fix.get(self.player.dir)
                 if fix:
                     fix(self.player, obj)

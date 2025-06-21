@@ -1,5 +1,7 @@
 import pygame
 from constants import *
+import constants
+
 
 class MovementHandler():
 
@@ -45,22 +47,21 @@ class MovementHandler():
         self.player.action_button_pressed = False
 
 
-    def move_up(self, obj_group):
+    def move_up(self, obj_group=None):
         p, cx, cy, half_screen_w, half_screen_h, wre, wbe = self.get_movement_context()
         p.dir = 1
         p.y_sprite_sheet_index = 1
 
-        if cy + p.speed >= half_screen_h and 0 < p.y < wbe:
+        if cy <= half_screen_h and p.y > 0:
+            # Move camera up
             if self.can_move_camera(obj_group):
                 p.y -= p.speed
-        elif  cy < half_screen_h and half_screen_h < p.y < wbe + p.speed:
-            if self.can_move_camera(obj_group):
-                p.y -= p.speed
-        if p.y == 0 or p.y > wbe:
+        elif p.rect.top > 0:
+            # Move player sprite up
             p.rect.y -= p.speed
 
 
-    def move_down(self, obj_group):
+    def move_down(self, obj_group=None):
         p, cx, cy, half_screen_w, half_screen_h, wre, wbe = self.get_movement_context()
         p.dir = 0
         p.y_sprite_sheet_index = 0
@@ -101,31 +102,30 @@ class MovementHandler():
 
 
     def can_move_camera(self, obj_group):
-        # rect = None
-        # if self.player.dir == 1:
-        #     rect = self.player.rect.move(0, -self.player.speed)
-        # if self.player.dir == 2:
-        #     rect = self.player.rect.move(self.player.speed, 0)
-        # if self.player.dir == 3:
-        #     rect = self.player.rect.move(-self.player.speed, 0)
-        # if self.player.dir == 0:
-        #     rect = self.player.rect.move(0, self.player.speed)
-        #
-        # temp_sprite = pygame.sprite.Sprite()
-        # temp_sprite.rect = rect
-        # collisions = pygame.sprite.spritecollideany(temp_sprite, obj_group)
-        # if not collisions:
-        #     return True
-        #     prrint("true")
-        # else:
-        #     return False
+        rect = None
+        if self.player.dir == 1:
+            rect = self.player.rect.move(0, -self.player.speed)
+        if self.player.dir == 2:
+            rect = self.player.rect.move(self.player.speed, 0)
+        if self.player.dir == 3:
+            rect = self.player.rect.move(-self.player.speed, 0)
+        if self.player.dir == 0:
+            rect = self.player.rect.move(0, self.player.speed)
 
-        return True
+        temp_sprite = pygame.sprite.Sprite()
+        temp_sprite.rect = rect
+        collisions = pygame.sprite.spritecollideany(temp_sprite, obj_group)
+        if not collisions:
+            return True
+        else:
+            return False
+
+
     def get_movement_context(self):
         p = self.player
         cx, cy = p.rect.center
         half_screen_w = GAME_WIDTH // 2
         half_screen_h = GAME_HEIGHT // 2
-        wre = WORLD_WIDTH - GAME_WIDTH - p.speed
-        wbe = WORLD_HEIGHT - GAME_HEIGHT - p.speed
+        wre = constants.WORLD_WIDTH - GAME_WIDTH - p.speed
+        wbe = constants.WORLD_HEIGHT - GAME_HEIGHT - p.speed
         return p, cx, cy, half_screen_w, half_screen_h, wre, wbe

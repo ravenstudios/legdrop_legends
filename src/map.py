@@ -8,6 +8,7 @@ import pygame
 import block
 import csv
 from constants import *
+import constants
 from tile_sprites import TileSprite
 
 class Map:
@@ -17,11 +18,12 @@ class Map:
 
         self.tile_width = self.tmx_data.tilewidth
         self.tile_height = self.tmx_data.tileheight
+        constants.WORLD_WIDTH = self.tmx_data.width * BLOCK_SIZE
+        constants.WORLD_HEIGHT = self.tmx_data.height * BLOCK_SIZE
         self.tile_group = pygame.sprite.Group()
-
+        self.obj_group = pygame.sprite.Group()
         # Convert the generator to a list so it can be reused
         self.visible_layers = list(self.tmx_data.visible_layers)
-
 
 
     # def draw(self, surface):
@@ -38,8 +40,14 @@ class Map:
                 for x, y, gid in layer:
                     if gid == 0:
                         continue  # skip empty tile
+
+                    tile_props = self.tmx_data.get_tile_properties_by_gid(gid)
+
+                    if tile_props and tile_props.get("block"):
+                        self.obj_group.add(block.Block(x * BLOCK_SIZE, y * BLOCK_SIZE))
+                    # print(tile_props)
                     image = self.tmx_data.get_tile_image_by_gid(gid)
                     if image:
                         tile = TileSprite(image, x * self.tile_width, y * self.tile_height)
                         self.tile_group.add(tile)
-        return self.tile_group
+        return [self.tile_group, self.obj_group]

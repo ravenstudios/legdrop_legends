@@ -4,7 +4,7 @@ from constants import *
 
 class Block(main_entity.Main_entity):
 
-    def __init__(self, x, y, w, h, color=(255, 0, 255)):
+    def __init__(self, x, y, w=BLOCK_SIZE, h=BLOCK_SIZE, color=(255, 0, 255)):
         self.x = x
         self.y = y
 
