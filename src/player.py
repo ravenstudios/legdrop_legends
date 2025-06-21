@@ -31,4 +31,5 @@ class Player(main_entity.Main_entity):
         self.animate()
         self.rect.x = max(0, min(self.rect.x, GAME_WIDTH  - self.rect.width))
         self.rect.y = max(0, min(self.rect.top, GAME_HEIGHT - self.rect.height))
-        pygame.display.set_caption(f"cam:{cam_offset}  |  Y:{self.y}  |  Rect.center.y:{self.rect.top}  |  WORLD:{WORLD_WIDTH}-{WORLD_HEIGHT}  |  Halfscreen:{GAME_WIDTH // 2}")
+        # pygame.display.set_caption(f"cam:{cam_offset}  |  Y:{self.y}  |  Rect.center.y:{self.rect.top}  |  WORLD:{WORLD_WIDTH}-{WORLD_HEIGHT}  |  Halfscreen:{GAME_WIDTH // 2}")
+        

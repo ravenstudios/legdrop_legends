@@ -4,7 +4,7 @@ from constants import *
 
 class Door(main_entity.Main_entity):
 
-    def __init__(self, x, y, w=BLOCK_SIZE, h=BLOCK_SIZE, color=(255, 0, 255), map="none"):
+    def __init__(self, x, y, w=BLOCK_SIZE, h=BLOCK_SIZE, color=(255, 0, 255), map_file="none"):
         self.x = x
         self.y = y
 
@@ -17,8 +17,10 @@ class Door(main_entity.Main_entity):
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
         self.animation_speed = 0
-        self.map = map
+        self.map_file = map_file
 
     def update(self, cam_offset=0):
-        self.animate()
+
+        # self.animate()
         self.update_cam_offset(cam_offset)
+        # print(self.rect)

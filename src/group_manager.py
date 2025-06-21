@@ -38,9 +38,12 @@ class GroupManager():
         self.obj_group.update(cam_offset)
         self.player_group.update(cam_offset, self.obj_group, self.npc_group, self.state_manager, self)
         self.npc_group.update(cam_offset, self.map_group)
+        self.door_group.update(cam_offset)
 
     def draw(self, surface):
         self.map_group.draw(surface)
         # self.obj_group.draw(surface)
         self.npc_group.draw(surface)
         self.player_group.draw(surface)
+        self.door_group.draw(surface)
+        self.obj_group.draw(surface)

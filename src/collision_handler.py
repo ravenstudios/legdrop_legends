@@ -15,12 +15,13 @@ class CollisionHandler():
     def update(self, obj_group=None, npc_group=None, state_manager=None, group_manager=None):
         old_x = self.player.x
         old_y = self.player.y
-
         obj_collisions = pygame.sprite.spritecollide(self.player, obj_group, False, collided = None)
         door_collisions = pygame.sprite.spritecollide(self.player, group_manager.door_group, False, collided = None)
+
+
+
         if door_collisions:
-            print("door")
-            group_manager.load_map(door_collisions[0].map)
+            group_manager.load_map(door_collisions[0].map_file)
         if obj_collisions:
             for obj in obj_collisions:
                 fix = self.direction_to_collision_fix.get(self.player.dir)

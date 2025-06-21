@@ -45,7 +45,7 @@ def update():
     #     if joystick.get_button(i):
     #         print(f"Button {i} is pressed")
     state_manager.update()
-    # pygame.display.set_caption(f"FPS:{clock.get_fps()}")
+    pygame.display.set_caption(f"FPS:{clock.get_fps()}")
 def events(events):
     state_manager.events(events)
 
@@ -53,8 +53,8 @@ def draw():
     surface.fill((200, 200, 200))#background
     # draw_grid(surface)
     state_manager.draw(surface)
-    pygame.draw.line(surface, RED, (GAME_WIDTH // 2, 0), (GAME_WIDTH // 2, GAME_HEIGHT), 1)
-    pygame.draw.line(surface, RED, (0, GAME_HEIGHT // 2), (GAME_WIDTH, GAME_HEIGHT // 2), 1)
+    # pygame.draw.line(surface, RED, (GAME_WIDTH // 2, 0), (GAME_WIDTH // 2, GAME_HEIGHT), 1)
+    # pygame.draw.line(surface, RED, (0, GAME_HEIGHT // 2), (GAME_WIDTH, GAME_HEIGHT // 2), 1)
 
     pygame.display.flip()
 
