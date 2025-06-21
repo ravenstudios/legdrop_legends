@@ -20,7 +20,7 @@ class CollisionHandler():
         door_collisions = pygame.sprite.spritecollide(self.player, group_manager.door_group, False, collided = None)
         if door_collisions:
             print("door")
-            group_manager.load_map("test_indoor_map.tmx")
+            group_manager.load_map(door_collisions[0].map)
         if obj_collisions:
             for obj in obj_collisions:
                 fix = self.direction_to_collision_fix.get(self.player.dir)

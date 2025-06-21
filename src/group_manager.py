@@ -24,13 +24,12 @@ class GroupManager():
         self.crawdaddy = wrestlers.crawdaddy.Crawdaddy()
         self.npc_group = pygame.sprite.Group()
         # self.npc_group.add(self.crawdaddy, self.clown)
-        self.blocks_group = pygame.sprite.Group()
         self.camera = camera.Camera()
         self.state_manager = state_manager
 
     def load_map(self, map_file):
+        print("load map")
         self.map = map.Map(map_file)
-
         self.map_group, self.obj_group, self.door_group = self.map.load_map()
 
     def update(self):

@@ -47,12 +47,17 @@ class Map:
 
                     if tile_props and tile_props.get("block"):
                         self.obj_group.add(block.Block(x * BLOCK_SIZE, y * BLOCK_SIZE))
-                    if tile_props and tile_props.get("door"):
-                        self.door_group.add(block.Block(x * BLOCK_SIZE, y * BLOCK_SIZE))
-                    # print(tile_props)
+                    if tile_props and tile_props.get("door") and tile_props.get("map"):
+                        print("good")
+                        self.door_group.add(block.Block(x * BLOCK_SIZE, y * BLOCK_SIZE, map=tile_props.get("map")))
                     image = self.tmx_data.get_tile_image_by_gid(gid)
                     if image:
                         tile = TileSprite(image, x * self.tile_width, y * self.tile_height)
                         self.tile_group.add(tile)
-        print(self.door_group)
+        # for obj in self.tmx_data.objects:
+        #     if obj.type == "door":
+        #
+        #         self.door_group.add(door)
+
+        print(f"doors:{self.door_group}")
         return [self.tile_group, self.obj_group, self.door_group]
