@@ -1,0 +1,46 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "Town1_tileset.tsx": {
+            "dynamicWrapping": false
+        },
+        "Zombie Apocalypse Tileset Reference.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 4.74
+        },
+        "test_tileset.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1.3539,
+            "scaleInEditor": 1.73
+        }
+    },
+    "last.exportedFilePath": "/Users/ravenstudios/Documents/python_projects/skateboarding_game_python/assets/maps",
+    "last.imagePath": "/Users/ravenstudios/Documents/sprites/Legdrop Legends",
+    "map.height": 14,
+    "map.lastUsedExportFilter": "Tiled map files (*.tmx *.xml)",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 44,
+    "openFiles": [
+    ],
+    "project": "town1.tiled-project",
+    "recentFiles": [
+        "Zombie Apocalypse Tileset Reference.tsx",
+        "test_tileset.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.margin": 0,
+    "tileset.spacing": 0,
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    },
+    "tileset.type": 0
+}

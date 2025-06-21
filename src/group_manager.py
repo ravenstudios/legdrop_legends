@@ -13,8 +13,9 @@ class GroupManager():
 
     def __init__(self, state_manager, joystick=None):
         self.joystick = joystick
-        self.map = map.Map()
-        self.map_group = self.map.tile_group
+        self.map = map.Map("town1.tmx")
+        self.map_group = self.map.load_map()
+        print(self.map_group)
         self.player = player.Player(self.joystick)
         self.player_group = pygame.sprite.Group()
         self.player_group.add(self.player)

@@ -1,39 +1,45 @@
+import pygame
+import pytmx
+import os
+
+
 import json
 import pygame
 import block
 import csv
 from constants import *
+from tile_sprites import TileSprite
 
+class Map:
+    def __init__(self, tmx_file):
+        path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "assets/maps", tmx_file)
+        self.tmx_data = pytmx.load_pygame(path)
 
-class Map():
-    def __init__(self):
+        self.tile_width = self.tmx_data.tilewidth
+        self.tile_height = self.tmx_data.tileheight
         self.tile_group = pygame.sprite.Group()
-        self.map = self.load_csv_map("assets/maps/town1.csv")
-        self.load_map(self.map, self.tile_group)
 
-    def load_csv_map(self, filename):
-        with open(filename, newline='') as csvfile:
-            reader = csv.reader(csvfile)
-            map_data = [[int(tile) for tile in row] for row in reader]
-        return map_data
+        # Convert the generator to a list so it can be reused
+        self.visible_layers = list(self.tmx_data.visible_layers)
 
-    def load_map(self, map, group):
-        for y, row in enumerate(map):
-            for x, gid in enumerate(row):
-                # print(f"Tile at ({x}, {y}) has GID: {gid}")
-                if gid == 0:
-                    group.add(block.Block(x * BLOCK_SIZE, y * BLOCK_SIZE,BLOCK_SIZE * 4, BLOCK_SIZE * 4, (255, 0, 255)))
-        # self.map_width = self.tiled_map["width"]
-        # self.map_height = self.tiled_map["height"]
-        # self.tile_width = self.tiled_map["tilewidth"]
-        # self.tile_height = self.tiled_map["tileheight"]
-        #
-        # for layer in self.tiled_map["layers"]:
-        #     if layer["type"] == "tilelayer":
-        #         print(f"Layer: {layer['name']}")
-        #         data = layer["data"]  # 1D list of GIDs
-        #         for row in range(self.map_height):
-        #             for col in range(self.map_width):
-        #                 index = row * self.map_width + col
-        #                 gid = data[index]
-        #                 print(f"Tile at ({col}, {row}) has GID: {gid}")
+
+
+    # def draw(self, surface):
+    #     for layer in self.tmx_data.visible_layers:
+    #         if isinstance(layer, pytmx.TiledTileLayer):
+    #             for x, y, gid in layer:
+    #                 tile = self.tmx_data.get_tile_image_by_gid(gid)
+    #                 print(f"gid:{gid}")
+    #                 if tile:
+    #                     surface.blit(tile, (x * self.tile_width, y * self.tile_height))
+    def load_map(self):
+        for layer in self.visible_layers:
+            if isinstance(layer, pytmx.TiledTileLayer):
+                for x, y, gid in layer:
+                    if gid == 0:
+                        continue  # skip empty tile
+                    image = self.tmx_data.get_tile_image_by_gid(gid)
+                    if image:
+                        tile = TileSprite(image, x * self.tile_width, y * self.tile_height)
+                        self.tile_group.add(tile)
+        return self.tile_group
