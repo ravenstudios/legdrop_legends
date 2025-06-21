@@ -26,12 +26,13 @@ class GroupManager():
         # self.npc_group.add(self.crawdaddy, self.clown)
         self.camera = camera.Camera()
         self.state_manager = state_manager
+        self.map = map.Map()
         self.load_map("town1.tmx")
 
+
     def load_map(self, map_file):
-        self.camera = camera.Camera()
-        self.map = map.Map(map_file)
-        self.map_group, self.obj_group, self.door_group, spawn_point = self.map.load_map()
+        print(self.player.rect)
+        self.map_group, self.obj_group, self.door_group, spawn_point = self.map.load_map(map_file)
         self.player.move_to_new_map(spawn_point)
 
     def update(self):

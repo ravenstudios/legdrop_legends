@@ -25,10 +25,21 @@ class Player(main_entity.Main_entity):
         self.collisions = False
         self.action_button_pressed = False
         self.just_loaded_map = False
+        self.in_submap = False
+        self.prev_cords = ()
+        self.parrent_map = ""
 
     def move_to_new_map(self, spawn_point):
-        self.rect.center = spawn_point
-        self.x, self.y = 0, 0
+        if self.in_submap:
+            print("submap")
+            self.rect = self.prev_cords[0]
+            self.x, self.y = self.prev_cords[1]
+            self.in_submap = False
+            print(f"after move:{self.rect}")
+        else:
+            print("spawn")
+            self.rect.center = spawn_point
+            self.x, self.y = 0, 0
         self.just_loaded_map = True
 
     def update(self, cam_offset, obj_group, npc_group, state_manager, group_manager):

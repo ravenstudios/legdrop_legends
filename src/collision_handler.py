@@ -21,7 +21,16 @@ class CollisionHandler():
 
 
         if door_collisions:
+            if not door_collisions[0].is_exit:
+                self.player.in_submap = True
+                self.player.prev_cords = (
+                    self.player.rect,
+                    (self.player.x, self.player.y)
+                )
+            print(f"collide:{self.player.rect}")
             group_manager.load_map(door_collisions[0].map_file)
+
+
         if obj_collisions:
             for obj in obj_collisions:
                 fix = self.direction_to_collision_fix.get(self.player.dir)

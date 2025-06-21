@@ -8,7 +8,11 @@ import constants
 from tile_sprites import TileSprite
 
 class Map:
-    def __init__(self, tmx_file):
+    def __init__(self):
+        pass
+
+
+    def load_map(self, tmx_file):
         path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "assets/maps", tmx_file)
         self.tmx_data = pytmx.load_pygame(path)
         self.tile_width = self.tmx_data.tilewidth
@@ -22,11 +26,8 @@ class Map:
         self.door_group = pygame.sprite.Group()
         self.visible_layers = list(self.tmx_data.visible_layers)
         self.spawn_point = (0, 0)
-        self.is_parrent_map = False
-        self.parrent_map = ""
+        self.current_map_file = ""
 
-        
-    def load_map(self):
         x_offset = max((GAME_WIDTH - constants.WORLD_WIDTH) // 8, 0)
         y_offset = max((GAME_HEIGHT - constants.WORLD_HEIGHT) // 8, 0)
 
@@ -43,6 +44,7 @@ class Map:
             y = int(obj.y * 4 + y_offset * 4)
             w = int(obj.width * 4)
             h = int(obj.height * 4)
+            map_file = ""
 
             if "spawn_point" in obj.properties:
                 self.spawn_point = (x, y)
@@ -51,13 +53,22 @@ class Map:
                 self.obj_group.add(block.Block(x, y, w, h))
 
             if "door" in obj.properties:
-                map_file = obj.properties["map_file"]
-                self.door_group.add(
-                    door.Door(x, y, w, h, map_file=map_file)
-                )
+                # if "map_file" in obj.properties:
+                #     map_file = obj.properties["map_file"]
+                #     self.door_group.add(
+                #         door.Door(x, y, w, h, map_file, False)
+                #     )
+                if "exit" in obj.properties:
+                    print("exit")
+                    map_file = obj.properties["map_file"]
+                    self.door_group.add(
+                        door.Door(x, y, w, h, map_file, True)
+                    )
+                else:
+                    map_file = obj.properties["map_file"]
+                    self.door_group.add(
+                        door.Door(x, y, w, h, map_file, False)
+                    )
 
-                if self.is_parrent_map:
-                    self.parrent_map = ""
-                    self.is_parrent_map = False
 
         return [self.tile_group, self.obj_group, self.door_group, self.spawn_point]
