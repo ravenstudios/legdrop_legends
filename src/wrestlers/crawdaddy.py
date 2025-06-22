@@ -9,7 +9,7 @@ class Crawdaddy(npc.NPC):
     """docstring for "warrior."""
 
     def __init__(self):
-        super().__init__(200, 200, "craw daddy-Sheet.png")
+        super().__init__(400, 150, "craw daddy-Sheet.png")
         self.battle_object = enemy_battle_object.EnemyBattleObject(500, 50, "crawdaddy_32x32-Sheet.png", 20)
         self.battle_object.hp = 30
         self.battle_object.mp = 20

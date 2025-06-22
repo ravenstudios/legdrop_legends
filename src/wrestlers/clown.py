@@ -9,7 +9,7 @@ class Clown(npc.NPC):
     """docstring for "warrior."""
 
     def __init__(self):
-        super().__init__(400, 200, "clown_16x16-Sheet.png")
+        super().__init__(500, 150, "clown_16x16-Sheet.png")
         self.battle_object = enemy_battle_object.EnemyBattleObject(500, 50, "clown_32x32.png", 1)
         self.battle_object.hp = 30
         self.battle_object.mp = 20

@@ -179,28 +179,28 @@
    <properties>
     <property name="door" type="bool" value="true"/>
     <property name="entrance" type="bool" value="true"/>
-    <property name="map_file" value="test_indoor_map.tmx"/>
+    <property name="map_file" value="legdrop_gym.tmx"/>
    </properties>
   </object>
   <object id="8" x="256.436" y="48" width="32" height="16">
    <properties>
     <property name="door" type="bool" value="true"/>
     <property name="entrance" type="bool" value="true"/>
-    <property name="map_file" value="test_indoor_map.tmx"/>
+    <property name="map_file" value="legdrop_gym.tmx"/>
    </properties>
   </object>
   <object id="9" x="407.921" y="48" width="16.8317" height="16">
    <properties>
     <property name="door" type="bool" value="true"/>
     <property name="entrance" type="bool" value="true"/>
-    <property name="map_file" value="test_indoor_map.tmx"/>
+    <property name="map_file" value="legdrop_gym.tmx"/>
    </properties>
   </object>
   <object id="21" x="585" y="48" width="16" height="16">
    <properties>
     <property name="door" type="bool" value="true"/>
     <property name="entrance" type="bool" value="true"/>
-    <property name="map_file" value="test_indoor_map.tmx"/>
+    <property name="map_file" value="legdrop_gym.tmx"/>
    </properties>
   </object>
  </objectgroup>

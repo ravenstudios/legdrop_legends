@@ -50,7 +50,7 @@ def events(events):
     state_manager.events(events)
 
 def draw():
-    surface.fill((200, 200, 200))#background
+    surface.fill((30, 30, 30))#background
     # draw_grid(surface)
     state_manager.draw(surface)
     # pygame.draw.line(surface, RED, (GAME_WIDTH // 2, 0), (GAME_WIDTH // 2, GAME_HEIGHT), 1)
