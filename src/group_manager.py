@@ -31,7 +31,6 @@ class GroupManager():
 
 
     def load_map(self, map_file):
-        print(self.player.rect)
         self.map_group, self.obj_group, self.door_group, spawn_point = self.map.load_map(map_file)
         self.player.move_to_new_map(spawn_point)
 
@@ -48,5 +47,5 @@ class GroupManager():
         # self.obj_group.draw(surface)
         self.npc_group.draw(surface)
         self.player_group.draw(surface)
-        self.door_group.draw(surface)
-        self.obj_group.draw(surface)
+        # self.door_group.draw(surface)
+        # self.obj_group.draw(surface)

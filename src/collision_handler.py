@@ -21,13 +21,16 @@ class CollisionHandler():
 
 
         if door_collisions:
-            if not door_collisions[0].is_exit:
+            if door_collisions[0].is_exit:
+                self.player.leaving_submap = True
+
+            elif door_collisions[0].is_entrance:
                 self.player.in_submap = True
                 self.player.prev_cords = (
-                    self.player.rect,
+                    self.player.rect.copy().move(0, BLOCK_SIZE),
                     (self.player.x, self.player.y)
                 )
-            print(f"collide:{self.player.rect}")
+
             group_manager.load_map(door_collisions[0].map_file)
 
 

@@ -26,7 +26,6 @@ class Map:
         self.door_group = pygame.sprite.Group()
         self.visible_layers = list(self.tmx_data.visible_layers)
         self.spawn_point = (0, 0)
-        self.current_map_file = ""
 
         x_offset = max((GAME_WIDTH - constants.WORLD_WIDTH) // 8, 0)
         y_offset = max((GAME_HEIGHT - constants.WORLD_HEIGHT) // 8, 0)
@@ -53,22 +52,17 @@ class Map:
                 self.obj_group.add(block.Block(x, y, w, h))
 
             if "door" in obj.properties:
-                # if "map_file" in obj.properties:
-                #     map_file = obj.properties["map_file"]
-                #     self.door_group.add(
-                #         door.Door(x, y, w, h, map_file, False)
-                #     )
+                map_file = obj.properties["map_file"]
+
+                if "entrance" in obj.properties:
+                    self.door_group.add(
+                        door.Door(x, y, w, h, map_file, True, False)
+                    )
                 if "exit" in obj.properties:
-                    print("exit")
-                    map_file = obj.properties["map_file"]
                     self.door_group.add(
-                        door.Door(x, y, w, h, map_file, True)
+                        door.Door(x, y, w, h, map_file, False, True)
                     )
-                else:
-                    map_file = obj.properties["map_file"]
-                    self.door_group.add(
-                        door.Door(x, y, w, h, map_file, False)
-                    )
+
 
 
         return [self.tile_group, self.obj_group, self.door_group, self.spawn_point]

@@ -26,26 +26,28 @@ class Player(main_entity.Main_entity):
         self.action_button_pressed = False
         self.just_loaded_map = False
         self.in_submap = False
+        self.leaving_submap = False
         self.prev_cords = ()
-        self.parrent_map = ""
+        self.spawn_point = ()
 
     def move_to_new_map(self, spawn_point):
-        if self.in_submap:
-            print("submap")
-            self.rect = self.prev_cords[0]
-            self.x, self.y = self.prev_cords[1]
-            self.in_submap = False
-            print(f"after move:{self.rect}")
-        else:
-            print("spawn")
-            self.rect.center = spawn_point
+        if not self.leaving_submap:
+            print(spawn_point)
+            self.spawn_point = spawn_point
             self.x, self.y = 0, 0
         self.just_loaded_map = True
 
     def update(self, cam_offset, obj_group, npc_group, state_manager, group_manager):
         if self.just_loaded_map:
-            self.x = 0
-            self.y = 0
+            if self.leaving_submap:
+                self.x, self.y = self.prev_cords[1]
+                self.rect = self.prev_cords[0]
+                self.leaving_submap = False
+                self.in_submap = False
+            else:
+                self.rect.center = self.spawn_point
+                self.x = 0
+                self.y = 0
             self.just_loaded_map = False
         else:
             self.movement_handler.key_handler(self.joystick, obj_group)
@@ -54,4 +56,4 @@ class Player(main_entity.Main_entity):
         self.animate()
         self.rect.x = max(0, min(self.rect.x, GAME_WIDTH  - self.rect.width))
         self.rect.y = max(0, min(self.rect.top, GAME_HEIGHT - self.rect.height))
-        # pygame.display.set_caption(f"cam:{cam_offset}  |  X:{self.x}  |  Rect.center.y:{self.rect.top}  |  WORLD:{WORLD_WIDTH}-{WORLD_HEIGHT}  |  Halfscreen:{GAME_WIDTH // 2}")
+        # pygame.display.set_caption(f"cam:{cam_offset} Rect.center.y:{self.rect}  |  WORLD:{WORLD_WIDTH}-{WORLD_HEIGHT}  |  Halfscreen:{GAME_WIDTH // 2}")

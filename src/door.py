@@ -4,10 +4,11 @@ from constants import *
 
 class Door(main_entity.Main_entity):
 
-    def __init__(self, x, y, w, h, map_file, is_exit):
+    def __init__(self, x, y, w, h, map_file, is_entrance, is_exit):
         self.x = x
         self.y = y
         self.is_exit = is_exit
+        self.is_entrance = is_entrance
         self.width = w
         self.height = h
         super().__init__(self.x, self.y, self.width, self.height, "Gym_building.png")
