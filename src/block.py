@@ -19,5 +19,5 @@ class Block(main_entity.Main_entity):
         self.animation_speed = 0
 
     def update(self, cam_offset=0):
-        self.animate()
+        # self.animate()
         self.update_cam_offset(cam_offset)

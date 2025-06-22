@@ -27,6 +27,7 @@ class NPC(main_entity.Main_entity):
 
 
     def update(self, cam_offset, map_group):
+
         self.frame_count += 1
 
         if self.frame_count > self.trigger_frame:
@@ -35,7 +36,7 @@ class NPC(main_entity.Main_entity):
 
 
         # self.move()
-        self.collision_handler.update(map_group)
+        # self.collision_handler.update(map_group)
         self.animate()
         self.update_cam_offset(cam_offset)
 

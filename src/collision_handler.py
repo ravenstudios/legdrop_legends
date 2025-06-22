@@ -12,12 +12,12 @@ class CollisionHandler():
             3: lambda player, obj: setattr(player.rect, 'left', obj.rect.right),    # moving left
         }
 
-    def update(self, obj_group=None, npc_group=None, state_manager=None, group_manager=None):
+    def update(self, groups):
+        obj_group, door_group, npc_group, map_group = groups
         old_x = self.player.x
         old_y = self.player.y
-        obj_collisions = pygame.sprite.spritecollide(self.player, obj_group, False, collided = None)
-        if group_manager:
-            door_collisions = pygame.sprite.spritecollide(self.player, group_manager.door_group, False, collided = None)
+        if door_group:
+            door_collisions = pygame.sprite.spritecollide(self.player, door_group, False, collided = None)
             if door_collisions:
                 if door_collisions[0].is_exit:
                     self.player.leaving_submap = True
@@ -29,16 +29,18 @@ class CollisionHandler():
                         (self.player.x, self.player.y)
                     )
 
-                group_manager.load_map(door_collisions[0].map_file)
-
-
-        if obj_collisions:
-            for obj in obj_collisions:
-                fix = self.direction_to_collision_fix.get(self.player.dir)
-                if fix:
-                    fix(self.player, obj)
-            self.player.x = old_x
-            self.player.y = old_y
+                # group_manager.load_map(door_collisions[0].map_file)
+                self.player.event_system.raise_event("load_map", door_collisions[0].map_file)
+        if obj_group:
+            obj_collisions = pygame.sprite.spritecollide(self.player, obj_group, False, collided = None)
+            if obj_collisions:
+                print("obj")
+                for obj in obj_collisions:
+                    fix = self.direction_to_collision_fix.get(self.player.dir)
+                    if fix:
+                        fix(self.player, obj)
+                self.player.x = old_x
+                self.player.y = old_y
 
         npc_collisions = None
         if npc_group:

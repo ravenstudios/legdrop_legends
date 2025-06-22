@@ -1,6 +1,5 @@
 import npc
-import sys
-import os
+
 import enemy_battle_object
 
 

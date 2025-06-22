@@ -33,12 +33,12 @@ class Player(main_entity.Main_entity):
 
     def move_to_new_map(self, spawn_point):
         if not self.leaving_submap:
-            print(spawn_point)
             self.spawn_point = spawn_point
             self.x, self.y = 0, 0
         self.just_loaded_map = True
 
-    def update(self, cam_offset, obj_group, npc_group, state_manager, group_manager):
+    def update(self, cam_offset, groups):
+        obj_group, door_group, npc_group, map_group = groups
         if self.just_loaded_map:
             if self.leaving_submap:
                 self.x, self.y = self.prev_cords[1]
@@ -52,7 +52,7 @@ class Player(main_entity.Main_entity):
             self.just_loaded_map = False
         else:
             self.movement_handler.key_handler(self.joystick, obj_group)
-            self.collision_handler.update(obj_group, npc_group, state_manager, group_manager)
+            self.collision_handler.update(groups)
 
         self.animate()
         self.rect.x = max(0, min(self.rect.x, GAME_WIDTH  - self.rect.width))
