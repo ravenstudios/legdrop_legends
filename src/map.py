@@ -1,8 +1,8 @@
 import pygame
 import pytmx
 import os
-import block
-import door
+from objects.block import Block
+from objects.door import Door
 from constants import *
 import constants
 from tile_sprites import TileSprite
@@ -10,7 +10,6 @@ from tile_sprites import TileSprite
 class Map:
     def __init__(self):
         pass
-
 
     def load_map(self, tmx_file):
         path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "assets/maps", tmx_file)
@@ -49,20 +48,17 @@ class Map:
                 self.spawn_point = (x, y)
 
             if "block" in obj.properties:
-                self.obj_group.add(block.Block(x, y, w, h))
+                self.obj_group.add(Block(x, y, w, h))
 
             if "door" in obj.properties:
                 map_file = obj.properties["map_file"]
 
                 if "entrance" in obj.properties:
                     self.door_group.add(
-                        door.Door(x, y, w, h, map_file, True, False)
+                        Door(x, y, w, h, map_file, True, False)
                     )
                 if "exit" in obj.properties:
                     self.door_group.add(
-                        door.Door(x, y, w, h, map_file, False, True)
+                        Door(x, y, w, h, map_file, False, True)
                     )
-
-
-
         return [self.tile_group, self.obj_group, self.door_group, self.spawn_point]

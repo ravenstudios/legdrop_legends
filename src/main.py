@@ -14,8 +14,16 @@ clock = pygame.time.Clock()
 surface = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))
 pygame.init()
 pygame.joystick.init()
+joysticks = []
+joystick = None
 
-state_manager = state_manager.StateManager()
+for i in range(pygame.joystick.get_count()):
+    joystick = pygame.joystick.Joystick(i)
+    joystick.init()
+    joysticks.append(joystick)
+if joysticks:
+    joystick = joysticks[0]
+state_manager = state_manager.StateManager(joystick)
 
 
 def main():

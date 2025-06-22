@@ -1,13 +1,13 @@
 from states.state import State
 import pygame
 from constants import *
-import player
-import block
-import camera
-import npc
+from player.player import Player
+from objects.block import Block
+from objects.camera import Camera
+from objects.npc import NPC
 import map
-import wrestlers.crawdaddy
-import wrestlers.clown
+from wrestlers.crawdaddy import Crawdaddy
+from wrestlers.clown import Clown
 import dialog_display
 
 class World(State):
@@ -19,14 +19,17 @@ class World(State):
         self.dialog_display_group = pygame.sprite.Group()
         self.dialog_display_group.add(self.dialog_display)
 
-        self.player = player.Player(self.event_system, self.joystick)
+        self.player = Player(self.event_system, self.joystick)
         self.player_group = pygame.sprite.Group()
         self.player_group.add(self.player)
-        self.clown = wrestlers.clown.Clown(self.event_system)
-        self.crawdaddy = wrestlers.crawdaddy.Crawdaddy(self.event_system)
+        self.map_group = pygame.sprite.Group()
+        self.obj_group = pygame.sprite.Group()
+        self.door_group = pygame.sprite.Group()
+        self.clown = Clown(self.event_system)
+        self.crawdaddy = Crawdaddy(self.event_system)
         self.npc_group = pygame.sprite.Group()
         self.npc_group.add(self.crawdaddy, self.clown)
-        self.camera = camera.Camera(self.event_system)
+        self.camera = Camera(self.event_system)
         self.map = map.Map()
         self.load_map("town1.tmx")
         self.groups = [self.obj_group, self.door_group, self.npc_group, self.map_group]
@@ -41,13 +44,12 @@ class World(State):
 
     def draw(self, surface):
         self.map_group.draw(surface)
-        # self.obj_group.draw(surface)
         self.npc_group.draw(surface)
         self.player_group.draw(surface)
         if self.dialog_display.is_visible:
             self.dialog_display_group.draw(surface)
-        self.obj_group.draw(surface)
 
     def load_map(self, map_file):
         self.map_group, self.obj_group, self.door_group, spawn_point = self.map.load_map(map_file)
         self.player.move_to_new_map(spawn_point)
+        self.groups = [self.obj_group, self.door_group, self.npc_group, self.map_group]

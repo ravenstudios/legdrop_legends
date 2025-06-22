@@ -1,8 +1,8 @@
-import main_entity
+from objects.main_entity import MainEntity
 import pygame
 from constants import *
 
-class Door(main_entity.Main_entity):
+class Door(MainEntity):
 
     def __init__(self, x, y, w, h, map_file, is_entrance, is_exit):
         self.x = x

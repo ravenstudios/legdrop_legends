@@ -1,8 +1,8 @@
-import main_entity
+from objects.main_entity import MainEntity
 import pygame
 from constants import *
 
-class Block(main_entity.Main_entity):
+class Block(MainEntity):
 
     def __init__(self, x, y, w=BLOCK_SIZE, h=BLOCK_SIZE, color=(255, 0, 255)):
         self.x = x

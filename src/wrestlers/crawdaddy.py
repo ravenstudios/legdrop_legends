@@ -1,17 +1,15 @@
-import npc
-import sys
-import os
-import enemy_battle_object
+import objects.npc
+import objects.enemy_battle_object
 
 
-import npc
-class Crawdaddy(npc.NPC):
+import objects.npc
+class Crawdaddy(objects.npc.NPC):
     """docstring for "warrior."""
 
     def __init__(self, event_system):
         super().__init__(400, 350, "craw daddy-Sheet.png")
         self.event_system = event_system
-        self.battle_object = enemy_battle_object.EnemyBattleObject(500, 50, "crawdaddy_32x32-Sheet.png", 20)
+        self.battle_object = objects.enemy_battle_object.EnemyBattleObject(500, 50, "crawdaddy_32x32-Sheet.png", 20)
         self.battle_object.hp = 30
         self.battle_object.mp = 20
         self.battle_object.max_hp = 30

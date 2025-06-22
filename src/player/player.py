@@ -1,13 +1,13 @@
-import main_entity
+from objects.main_entity import MainEntity
 import pygame
 from constants import *
 import constants
-import movement_handler
-import player_battle_object
-import collision_handler
+from player.movement_handler import MovementHandler
+from player.player_battle_object import PlayerBattleObject
+from player.collision_handler import CollisionHandler
 
 
-class Player(main_entity.Main_entity):
+class Player(MainEntity):
 
     def __init__(self, event_system, joystick=None):
         self.event_system = event_system
@@ -19,9 +19,9 @@ class Player(main_entity.Main_entity):
         super().__init__(self.x, self.y, self.width, self.height, "Brother16x16-Sheet.png")
         self.y_sprite_sheet_index = 0
         self.speed = 7
-        self.movement_handler = movement_handler.MovementHandler(self)
-        self.collision_handler = collision_handler.CollisionHandler(self)
-        self.battle_object = player_battle_object.PlayerBattleObject()
+        self.movement_handler = MovementHandler(self)
+        self.collision_handler = CollisionHandler(self)
+        self.battle_object = PlayerBattleObject()
         self.dir = 0
         self.collisions = False
         self.action_button_pressed = False

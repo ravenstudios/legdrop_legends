@@ -1,13 +1,11 @@
-import main_entity
+from objects.main_entity import MainEntity
 import pygame
 from constants import *
 import random
-import collision_handler
-
 import battle
 import state_manager
 
-class NPC(main_entity.Main_entity):
+class NPC(MainEntity):
 
     def __init__(self, x, y, spritesheet):
         self.width = BLOCK_SIZE
@@ -16,7 +14,6 @@ class NPC(main_entity.Main_entity):
         self.y_sprite_sheet_index = 0
         self.speed = 1
         self.dir = 0
-        self.collision_handler = collision_handler.CollisionHandler(self)
 
         self.frame_count = 0
         self.trigger_frame = random.randint(50, 300)
@@ -36,7 +33,6 @@ class NPC(main_entity.Main_entity):
 
 
         # self.move()
-        # self.collision_handler.update(map_group)
         self.animate()
         self.update_cam_offset(cam_offset)
 

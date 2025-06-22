@@ -1,16 +1,15 @@
-import npc
+import objects.npc
+import objects.enemy_battle_object
 
-import enemy_battle_object
 
-
-import npc
-class Clown(npc.NPC):
+import objects.npc
+class Clown(objects.npc.NPC):
     """docstring for "warrior."""
 
     def __init__(self, event_system):
         super().__init__(500, 150, "clown_16x16-Sheet.png")
         self.event_system = event_system
-        self.battle_object = enemy_battle_object.EnemyBattleObject(500, 50, "clown_32x32.png", 1)
+        self.battle_object = objects.enemy_battle_object.EnemyBattleObject(500, 50, "clown_32x32.png", 1)
         self.battle_object.hp = 30
         self.battle_object.mp = 20
         self.battle_object.max_hp = 30

@@ -1,6 +1,6 @@
 import random
 
-class EnemyAI(object):
+class EnemyAI():
 
     def __init__(self, player, enemy, battle):
         self.player = player.battle_object

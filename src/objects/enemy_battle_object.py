@@ -1,9 +1,9 @@
-import main_entity
+from objects.main_entity import MainEntity
 import pygame
 from constants import *
 import os
 
-class EnemyBattleObject(main_entity.Main_entity):
+class EnemyBattleObject(MainEntity):
 
     def __init__(self, x, y, spritesheet, max_frame):
         self.x, self.y = x, y
@@ -16,8 +16,9 @@ class EnemyBattleObject(main_entity.Main_entity):
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
 
-        BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-        path = os.path.join(os.path.dirname(__file__), BASE_DIR, "assets", "images", spritesheet)
+        BASE_DIR = os.path.dirname(os.path.dirname(__file__))  # Goes from src/objects/ → src/
+        ASSET_DIR = os.path.join(BASE_DIR, "../assets/images")
+        path = os.path.normpath(os.path.join(ASSET_DIR, spritesheet))
         self.spritesheet = pygame.image.load(path).convert_alpha()
         scaled_width, scaled_height = self.spritesheet.get_size()
         self.spritesheet = pygame.transform.scale(self.spritesheet, (scaled_width * SCALE * 2, scaled_height * SCALE * 2))

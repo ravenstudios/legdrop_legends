@@ -1,11 +1,7 @@
-import npc
-import sys
-import os
-import enemy_battle_object
+import objects.npc
+import objects.enemy_battle_object
 
-
-import npc
-class Warrior(npc.NPC):
+class Warrior(objects.npc.NPC):
     """docstring for "warrior."""
 
     def __init__(self):

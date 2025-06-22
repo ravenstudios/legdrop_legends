@@ -1,8 +1,8 @@
 import pygame
 from constants import *
-import enemy_battle_object
+import objects.enemy_battle_object
 import battle_menu
-import enemy_ai
+import objects.enemy_ai
 
 class Battle():
 
