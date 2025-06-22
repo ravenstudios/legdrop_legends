@@ -2,12 +2,13 @@ import pygame
 from constants import *
 import group_manager
 import battle
-
+import event_system
 
 class StateManager():
     def __init__(self):
         self.joysticks = []
         self.joystick = None
+
         for i in range(pygame.joystick.get_count()):
             joystick = pygame.joystick.Joystick(i)
             joystick.init()
@@ -15,7 +16,9 @@ class StateManager():
             self.joysticks.append(joystick)
         if self.joysticks:
             self.joystick = self.joysticks[0]
-        self.group_manager = group_manager.GroupManager(self, self.joystick)
+
+        self.event_system = event_system.EventSystem()
+        self.group_manager = group_manager.GroupManager(self, self.event_system, self.joystick)
         self.world = World(self.group_manager)
         self.current_state = self.world
 

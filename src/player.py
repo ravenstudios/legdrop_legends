@@ -9,7 +9,8 @@ import collision_handler
 
 class Player(main_entity.Main_entity):
 
-    def __init__(self, joystick=None):
+    def __init__(self, event_system, joystick=None):
+        self.event_system = event_system
         self.joystick = joystick
         self.x = 0
         self.y = 0

@@ -8,8 +8,9 @@ import npc
 class Crawdaddy(npc.NPC):
     """docstring for "warrior."""
 
-    def __init__(self):
-        super().__init__(400, 150, "craw daddy-Sheet.png")
+    def __init__(self, event_system):
+        super().__init__(400, 350, "craw daddy-Sheet.png")
+        self.event_system = event_system
         self.battle_object = enemy_battle_object.EnemyBattleObject(500, 50, "crawdaddy_32x32-Sheet.png", 20)
         self.battle_object.hp = 30
         self.battle_object.mp = 20
@@ -42,7 +43,7 @@ class Crawdaddy(npc.NPC):
                 {"name": "Back"},
             ]
         }
-        self.dialog = f"Hello my name is {self.battle_object.name}. This is where we test the game."
+        self.dialog = f"Hello my name is {self.battle_object.name}. This is where we test the game dialog."
 
         # def update(self):
         #     print("update")

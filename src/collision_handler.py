@@ -45,6 +45,9 @@ class CollisionHandler():
             npc_collisions = pygame.sprite.spritecollide(self.player, npc_group, False)
 
         if npc_collisions:
+            npc = npc_collisions[0]
             if self.player.action_button_pressed:
                 # self.player.dialog(npc_collisions[0])
-                npc_collisions[0].change_state(state_manager, self.player)
+                self.player.event_system.raise_event("set_visible", True)
+                self.player.event_system.raise_event("change_dialog", npc.dialog)
+                # npc_collisions[0].change_state(state_manager, self.player)

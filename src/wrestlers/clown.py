@@ -8,8 +8,9 @@ import npc
 class Clown(npc.NPC):
     """docstring for "warrior."""
 
-    def __init__(self):
+    def __init__(self, event_system):
         super().__init__(500, 150, "clown_16x16-Sheet.png")
+        self.event_system = event_system
         self.battle_object = enemy_battle_object.EnemyBattleObject(500, 50, "clown_32x32.png", 1)
         self.battle_object.hp = 30
         self.battle_object.mp = 20
