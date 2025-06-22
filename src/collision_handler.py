@@ -16,22 +16,20 @@ class CollisionHandler():
         old_x = self.player.x
         old_y = self.player.y
         obj_collisions = pygame.sprite.spritecollide(self.player, obj_group, False, collided = None)
-        door_collisions = pygame.sprite.spritecollide(self.player, group_manager.door_group, False, collided = None)
+        if group_manager:
+            door_collisions = pygame.sprite.spritecollide(self.player, group_manager.door_group, False, collided = None)
+            if door_collisions:
+                if door_collisions[0].is_exit:
+                    self.player.leaving_submap = True
 
+                elif door_collisions[0].is_entrance:
+                    self.player.in_submap = True
+                    self.player.prev_cords = (
+                        self.player.rect.copy().move(0, BLOCK_SIZE),
+                        (self.player.x, self.player.y)
+                    )
 
-
-        if door_collisions:
-            if door_collisions[0].is_exit:
-                self.player.leaving_submap = True
-
-            elif door_collisions[0].is_entrance:
-                self.player.in_submap = True
-                self.player.prev_cords = (
-                    self.player.rect.copy().move(0, BLOCK_SIZE),
-                    (self.player.x, self.player.y)
-                )
-
-            group_manager.load_map(door_collisions[0].map_file)
+                group_manager.load_map(door_collisions[0].map_file)
 
 
         if obj_collisions:
@@ -47,4 +45,6 @@ class CollisionHandler():
             npc_collisions = pygame.sprite.spritecollide(self.player, npc_group, False)
 
         if npc_collisions:
-            npc_collisions[0].change_state(state_manager, self.player)
+            if self.player.action_button_pressed:
+                # self.player.dialog(npc_collisions[0])
+                npc_collisions[0].change_state(state_manager, self.player)

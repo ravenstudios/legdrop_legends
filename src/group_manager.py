@@ -7,15 +7,17 @@ import npc
 import map
 import wrestlers.crawdaddy
 import wrestlers.clown
-
+import dialog_display
 class GroupManager():
 
 
     def __init__(self, state_manager, joystick=None):
         self.joystick = joystick
-        # self.map = map.Map("town1.tmx")
-        #
-        # self.map_group, self.obj_group, self.door_group = self.map.load_map()
+
+        self.dialog_display = dialog_display.DialogDisplay()
+        self.dialog_display_group = pygame.sprite.Group()
+        self.dialog_display_group.add(self.dialog_display)
+
 
         self.player = player.Player(self.joystick)
         self.player_group = pygame.sprite.Group()
@@ -23,7 +25,7 @@ class GroupManager():
         self.clown = wrestlers.clown.Clown()
         self.crawdaddy = wrestlers.crawdaddy.Crawdaddy()
         self.npc_group = pygame.sprite.Group()
-        # self.npc_group.add(self.crawdaddy, self.clown)
+        self.npc_group.add(self.crawdaddy, self.clown)
         self.camera = camera.Camera()
         self.state_manager = state_manager
         self.map = map.Map()
@@ -41,11 +43,13 @@ class GroupManager():
         self.player_group.update(cam_offset, self.obj_group, self.npc_group, self.state_manager, self)
         self.npc_group.update(cam_offset, self.map_group)
         self.door_group.update(cam_offset)
+        self.dialog_display.update_text("this is a test")
 
     def draw(self, surface):
         self.map_group.draw(surface)
         # self.obj_group.draw(surface)
         self.npc_group.draw(surface)
         self.player_group.draw(surface)
+        self.dialog_display_group.draw(surface)
         # self.door_group.draw(surface)
         # self.obj_group.draw(surface)

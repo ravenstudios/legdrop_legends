@@ -34,7 +34,7 @@ class NPC(main_entity.Main_entity):
             self.dir = random.randint(0, 3)
 
 
-        self.move()
+        # self.move()
         self.collision_handler.update(map_group)
         self.animate()
         self.update_cam_offset(cam_offset)

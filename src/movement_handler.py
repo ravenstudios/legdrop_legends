@@ -27,6 +27,7 @@ class MovementHandler():
 
         elif keys[pygame.K_RETURN]:
             self.action_button()
+            return
 
         if self.player.joystick:
             if  joystick.get_button(12):
@@ -43,6 +44,7 @@ class MovementHandler():
 
             elif joystick.get_button(0):
                 self.action_button()
+                return
 
         self.player.action_button_pressed = False
 

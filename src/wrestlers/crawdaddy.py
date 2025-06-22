@@ -42,6 +42,7 @@ class Crawdaddy(npc.NPC):
                 {"name": "Back"},
             ]
         }
+        self.dialog = f"Hello my name is {self.battle_object.name}. This is where we test the game."
 
         # def update(self):
         #     print("update")
