@@ -4,10 +4,18 @@ class PlayerBattleObject():
         self.mp = 20
         self.max_hp = 30
         self.max_mp = 20
+        self.powder_rate = 10
+        self.level = 1
+        self.def = 5
+        self.class = "brawler"
+        self.luck = 5
+        self.face = 0
+        self.heel = 0
+
         self.options = {
             "Attacks": [
-                {"name": "Chop - D:3  C:2", "dmg": 3, "cost": 2, "type":"attack", "message":"Player used Chop, it dealt 3 damage."},
-                {"name": "Kick - D:5  C:5", "dmg": 5, "cost": 5, "type":"attack", "message":"Player used Kick, it dealt 5 damage."},
+                {"name": "Chop - D:3  C:2", "dmg": 3, "cost": 2, "type":"attack", "message":"Player used Chop."},
+                {"name": "Kick - D:5  C:5", "dmg": 5, "cost": 5, "type":"attack", "message":"Player used Kick."},
                 {"name": "Powder", "mp": 10, "type":"restore_mp", "message":"Player powered"},
                 {"name": "Back"}
             ],

@@ -1,11 +1,8 @@
 import objects.npc
 import objects.enemy_battle_object
-
-
 import objects.npc
-class Clown(objects.npc.NPC):
-    """docstring for "warrior."""
 
+class Clown(objects.npc.NPC):
     def __init__(self, event_system):
         super().__init__(500, 150, "clown_16x16-Sheet.png")
         self.event_system = event_system
@@ -16,6 +13,13 @@ class Clown(objects.npc.NPC):
         self.battle_object.max_mp = 20
         self.battle_object.powder_rate = 10
         self.battle_object.name = "Funny Guy"
+        self.level = 1
+        self.def = 5
+        self.class = "tactician"
+        self.luck = 5
+        self.face = 0
+        self.heel = 0
+
         self.battle_object.options = {
             "Attacks": [
                 {"name": "Silly Slap", "dmg": 3, "cost": 2, "type":"attack", "message":f"{self.battle_object.name} used Silly Slap, it dealt 3 damage"},

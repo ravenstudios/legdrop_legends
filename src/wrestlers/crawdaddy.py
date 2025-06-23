@@ -1,11 +1,8 @@
 import objects.npc
 import objects.enemy_battle_object
-
-
 import objects.npc
-class Crawdaddy(objects.npc.NPC):
-    """docstring for "warrior."""
 
+class Crawdaddy(objects.npc.NPC):
     def __init__(self, event_system):
         super().__init__(400, 350, "craw daddy-Sheet.png")
         self.event_system = event_system
@@ -15,6 +12,12 @@ class Crawdaddy(objects.npc.NPC):
         self.battle_object.max_hp = 30
         self.battle_object.max_mp = 20
         self.battle_object.powder_rate = 10
+        self.level = 1
+        self.def = 5
+        self.class = "brawler"
+        self.luck = 5
+        self.face = 0
+        self.heel = 0
         self.battle_object.name = "Craw Daddy"
         self.battle_object.options = {
             "Attacks": [

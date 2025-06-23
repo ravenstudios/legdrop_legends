@@ -145,3 +145,29 @@ class Battle():
 
                 if key["type"] == "restore_mp":
                     self.restore_mp(key)
+
+    def battle_attack(self, player, enemy, turn, attack):
+        p_stats = player
+        e_stats = enemy
+        p_class = p_stats.class
+        e_class = e_stats.class
+        won_rps = self.won_rps(p_class, e_class)
+        atk = None
+        wps_dmg = 0
+        if self.turn == "player":
+            atk = player.options["Attacks"][attack]
+        if won_rps:
+            wps_dmg = 10
+
+        return atk["dmg"] + wps_dmg - p_stats.def
+
+
+
+    def won_rps(self, p_class, e_class):
+        if p_class == "brawler" and e_class == "tactician":
+            return True
+        if p_class == "tactician" and e_class == "high_flyer":
+            return True
+        if p_class == "high_flyer" and e_class == "brawler":
+            return True
+        return False
