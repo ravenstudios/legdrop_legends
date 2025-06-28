@@ -69,7 +69,23 @@ class Battle():
             else:
                 self.action(key)
 
+
+    def player_died(self):
+        print("player died")
+        self.player.battle_object.hp = self.player.battle_object.max_hp
+        self.player.event_system.raise_event("change_to_parent_state")
+
+    def enemy_died(self):
+        print("enemy died")
+        self.enemy.hp = self.enemy.max_hp
+        self.player.event_system.raise_event("change_to_parent_state")
+
     def update(self):
+        if self.enemy.hp <= 0:
+            self.enemy_died()
+
+        if self.player.battle_object.hp <= 0:
+            self.player_died()
 
         self.enemy_group.update()
         self.index = max(0, min(self.index, len(self.current_menu) - 1))
@@ -146,3 +162,6 @@ class Battle():
 
                 if key["type"] == "restore_mp":
                     self.restore_mp(key)
+
+                if key["type"] == "run":
+                    self.player.event_system.raise_event("change_to_parent_state")

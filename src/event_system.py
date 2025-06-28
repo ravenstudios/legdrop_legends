@@ -2,7 +2,7 @@ class EventSystem:
     def __init__(self):
         self.listeners = {}
 
-    def on(self, event_name, callback):
+    def on(self, event_name, callback=None):
         if event_name not in self.listeners:
             self.listeners[event_name] = []
         self.listeners[event_name].append(callback)
