@@ -12,7 +12,7 @@ class CollisionHandler:
             3: lambda player, obj: setattr(player.rect, 'left', obj.rect.right),    # moving left
         }
 
-    def push_player_away_from_npc(self, npc, distance=2):
+    def push_player_away_from_npc(self, npc, distance=10):
         # Vector from npc center to player center
         dx = self.player.rect.centerx - npc.rect.centerx
         dy = self.player.rect.centery - npc.rect.centery
@@ -67,7 +67,7 @@ class CollisionHandler:
         # NPC dialog interaction — separate from collision
         if npc_group:
             for npc in npc_group:
-                interaction_zone = npc.rect.inflate(20, 20)  # 20 px bigger for easier interaction
+                interaction_zone = npc.rect.inflate(5, 5)  # 20 px bigger for easier interaction
                 if interaction_zone.colliderect(self.player.rect):
 
                     if self.player.action_button_pressed and not getattr(self.player, "in_dialog", False):

@@ -102,7 +102,7 @@ class DialogDisplay(pygame.sprite.Sprite):
                 print(f"player:{player}")
                 bs = battle_state.BattleState(player, self.npc)
                 self.event_system.raise_event("change_state", bs)
-                back()
+                self.back()
             # self.event_system.raise_event(f"dialog_action_{node['action']}")
             # If action is 'end_dialogue', 'back' will be called from the event hook
             return
