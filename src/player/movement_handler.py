@@ -11,40 +11,41 @@ class MovementHandler():
 
 
     def key_handler(self, joystick, obj_group=None):
-        keys = pygame.key.get_pressed()
+        if not self.player.in_dialog:
+            keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_UP]:
-            self.move_up(obj_group)
-
-        elif keys[pygame.K_RIGHT]:
-            self.move_right(obj_group)
-
-        elif keys[pygame.K_LEFT]:
-            self.move_left(obj_group)
-
-        elif keys[pygame.K_DOWN]:
-            self.move_down(obj_group)
-
-        elif keys[pygame.K_RETURN]:
-            self.action_button()
-            return
-
-        if self.player.joystick:
-            if  joystick.get_button(12):
-                self.move_down(obj_group)
-
-            elif joystick.get_button(13):
-                self.move_left(obj_group)
-
-            elif joystick.get_button(14):
-                self.move_right(obj_group)
-
-            elif joystick.get_button(11):
+            if keys[pygame.K_UP]:
                 self.move_up(obj_group)
 
-            elif joystick.get_button(0):
+            elif keys[pygame.K_RIGHT]:
+                self.move_right(obj_group)
+
+            elif keys[pygame.K_LEFT]:
+                self.move_left(obj_group)
+
+            elif keys[pygame.K_DOWN]:
+                self.move_down(obj_group)
+
+            elif keys[pygame.K_RETURN]:
                 self.action_button()
                 return
+
+            if self.player.joystick:
+                if  joystick.get_button(12):
+                    self.move_down(obj_group)
+
+                elif joystick.get_button(13):
+                    self.move_left(obj_group)
+
+                elif joystick.get_button(14):
+                    self.move_right(obj_group)
+
+                elif joystick.get_button(11):
+                    self.move_up(obj_group)
+
+                elif joystick.get_button(0):
+                    self.action_button()
+                    return
 
         self.player.action_button_pressed = False
 

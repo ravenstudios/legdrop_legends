@@ -5,12 +5,11 @@ import os
 
 class EnemyBattleObject(MainEntity):
 
-    def __init__(self, x, y, spritesheet, max_frame):
+    def __init__(self, x, y, spritesheet, max_frame, name):
         self.x, self.y = x, y
         self.width = 64 * SCALE
         self.height = 64 * SCALE
         super().__init__(self.x, self.y, self.width, self.height)
-
         self.image = pygame.Surface([self.width, self.height], pygame.SRCALPHA)
         self.image = self.image.convert_alpha()
         self.rect = self.image.get_rect()
@@ -22,15 +21,12 @@ class EnemyBattleObject(MainEntity):
         self.spritesheet = pygame.image.load(path).convert_alpha()
         scaled_width, scaled_height = self.spritesheet.get_size()
         self.spritesheet = pygame.transform.scale(self.spritesheet, (scaled_width * SCALE * 2, scaled_height * SCALE * 2))
-
+        print(f"{self} {self.spritesheet}")
         self.max_frame = max_frame - 1
         self.animation_speed = 10
         self.y_sprite_sheet_index = 0
 
-        self.hp = 0
-        self.mp = 0
-        self.max_hp = 0
-        self.max_mp = 0
+
 
         self.options = {
             "Attacks": [

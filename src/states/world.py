@@ -34,6 +34,10 @@ class World(State):
         self.load_map("town1.tmx")
         self.groups = [self.obj_group, self.door_group, self.npc_group, self.map_group]
 
+
+    def events(self, events):
+        self.dialog_display.events(events)
+
     def update(self):
         cam_offset = self.camera.update_offset(self.player)
         self.map_group.update(cam_offset)

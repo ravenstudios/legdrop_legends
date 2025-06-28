@@ -7,10 +7,9 @@ import objects.enemy_ai
 class Battle():
 
     def __init__(self, player, enemy):
-
         self.player = player
-        self.enemy = enemy
-        self.enemy_ai = enemy_ai.EnemyAI(self.player, self.enemy, self)
+        self.enemy = enemy.battle_object
+        self.enemy_ai = objects.enemy_ai.EnemyAI(self.player, self.enemy, self)
         self.enemy_group = pygame.sprite.Group()
         self.enemy_group.add(self.enemy)
         self.battle_menu = battle_menu.BattleMenu(self)
@@ -82,6 +81,8 @@ class Battle():
 
     def draw(self, surface):
         self.battle_menu.draw(surface)
+        self.enemy_group.draw(surface)
+
 
 
     def attack(self, key):

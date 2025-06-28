@@ -4,12 +4,14 @@ import pygame
 class BattleMenu(object):
     """docstring for BattleMenu."""
 
-    def __init__(self, player):
-        self.player = player
+    def __init__(self, battle):
+        self.battle = battle
         self.message = ""
         self.message_index = 0
+        self.enemy_bo = self.battle.enemy
 
     def draw(self, surface):
+        surface.fill((255, 255, 255))
         WIDTH, HEIGHT = surface.get_size()
         BORDER_COLOR = (0, 0, 0)
         GREEN = (100, 200, 100)
@@ -32,7 +34,7 @@ class BattleMenu(object):
         message_box.topleft = (player_box.center[0] - message_box.width // 2, player_box.bottom - message_box.height - padding)
 
         option_box = menu_box.inflate(0, -menu_box.height + (font_size))
-        option_box.topleft = (menu_box.x, menu_box.y + self.player.index * font_size + text_padding)
+        option_box.topleft = (menu_box.x, menu_box.y + self.battle.index * font_size + text_padding)
 
         text_box = menu_box
 
@@ -44,12 +46,12 @@ class BattleMenu(object):
 
         enemy_health_box = pygame.Rect(padding * 4, padding, w, BLOCK_SIZE // 2)
         enemy_mp_box = pygame.Rect(padding * 4, padding * 4, w, BLOCK_SIZE // 2)
-        enemy_name_box = self.player.enemy.rect.move(0, self.player.enemy.rect.bottom - padding)
+        enemy_name_box = self.battle.enemy.rect.move(0, self.battle.enemy.rect.bottom - padding)
         pygame.draw.rect(surface, (200, 0, 200), player_box)
         pygame.draw.rect(surface, (200, 200, 200), menu_box)
         pygame.draw.rect(surface, (255, 200, 200), message_box)
 
-        for i, option in enumerate(self.player.current_menu):
+        for i, option in enumerate(self.battle.current_menu):
             text = None
             str = ""
             if isinstance(option, dict):
@@ -61,9 +63,9 @@ class BattleMenu(object):
             else:
                 text = font.render(option, True, (0, 0, 0))
             surface.blit(text, (text_box.x, text_box.y + font_size * i + text_padding))
-        if self.player.message and self.player.message_index < len(self.player.message):
-            self.message += self.player.message[self.player.message_index]
-            self.player.message_index += 1
+        if self.battle.message and self.battle.message_index < len(self.battle.message):
+            self.message += self.battle.message[self.battle.message_index]
+            self.battle.message_index += 1
         message_text = font.render(self.message, True, (0, 0, 0))
         surface.blit(message_text, message_box)
 
@@ -71,35 +73,34 @@ class BattleMenu(object):
         pygame.draw.rect(surface, BORDER_COLOR, option_box, 3)
 
 
-        hp_ratio = self.player.player.battle_object.hp / self.player.player.battle_object.max_hp
+        hp_ratio = self.battle.player.battle_object.hp / self.battle.player.battle_object.max_hp
         pygame.draw.rect(surface, GREEN, (health_box.x, health_box.y, hp_ratio * health_box.width, health_box.height))
         pygame.draw.rect(surface, BLACK, health_box.inflate(5, 5), 6)
 
-        mp_ratio = self.player.player.battle_object.mp / self.player.player.battle_object.max_mp
+        mp_ratio = self.battle.player.battle_object.mp / self.battle.player.battle_object.max_mp
         pygame.draw.rect(surface, BLUE, (mp_box.x, mp_box.y, mp_ratio * mp_box.width, mp_box.height))
         pygame.draw.rect(surface, BLACK, mp_box.inflate(5, 5), 6)
 
-
-        enemy_hp_ratio = self.player.enemy.hp / self.player.enemy.max_hp
+        enemy_hp_ratio = self.enemy_bo.hp / self.enemy_bo.max_hp
         pygame.draw.rect(surface, GREEN, (enemy_health_box.x, enemy_health_box.y, enemy_hp_ratio * enemy_health_box.width, enemy_health_box.height))
         pygame.draw.rect(surface, BLACK, enemy_health_box.inflate(5, 5), 6)
 
-        enemy_mp_ratio = self.player.enemy.mp / self.player.enemy.max_mp
+        enemy_mp_ratio = self.enemy_bo.mp / self.enemy_bo.max_mp
         pygame.draw.rect(surface, BLUE, (enemy_mp_box.x, enemy_mp_box.y, enemy_mp_ratio * enemy_mp_box.width, enemy_mp_box.height))
         pygame.draw.rect(surface, BLACK, enemy_mp_box.inflate(5, 5), 6)
 
-        hp_text = font.render(f"HP:{self.player.player.battle_object.hp} / {self.player.player.battle_object.max_hp}", True, (0, 0, 0))
+        hp_text = font.render(f"HP:{self.battle.player.battle_object.hp} / {self.battle.player.battle_object.max_hp}", True, (0, 0, 0))
         surface.blit(hp_text, health_box)
 
-        mp_text = font.render(f"MP:{self.player.player.battle_object.mp} / {self.player.player.battle_object.max_mp}", True, (0, 0, 0))
+        mp_text = font.render(f"MP:{self.battle.player.battle_object.mp} / {self.battle.player.battle_object.max_mp}", True, (0, 0, 0))
         surface.blit(mp_text, mp_box)
 
-        enemy_hp_text = font.render(f"HP:{self.player.enemy.hp} / {self.player.enemy.max_hp}", True, (0, 0, 0))
+        enemy_hp_text = font.render(f"HP:{self.enemy_bo.hp} / {self.enemy_bo.max_hp}", True, (0, 0, 0))
         surface.blit(enemy_hp_text, enemy_health_box)
 
-        enemy_mp_text = font.render(f"MP:{self.player.enemy.mp} / {self.player.enemy.max_mp}", True, (0, 0, 0))
+        enemy_mp_text = font.render(f"MP:{self.enemy_bo.mp} / {self.enemy_bo.max_mp}", True, (0, 0, 0))
         surface.blit(enemy_mp_text, enemy_mp_box)
 
-        self.player.enemy_group.draw(surface)
-        enemy_name = font.render(self.player.enemy.name, True, (0, 0, 0))
+        self.battle.enemy_group.draw(surface)
+        enemy_name = font.render(self.enemy_bo.name, True, (0, 0, 0))
         surface.blit(enemy_name, enemy_name_box)

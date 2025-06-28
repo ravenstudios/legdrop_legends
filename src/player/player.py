@@ -11,6 +11,9 @@ class Player(MainEntity):
 
     def __init__(self, event_system, joystick=None):
         self.event_system = event_system
+        self.event_system.on("player_set_in_menu", self.set_in_menu)
+        self.event_system.on("player_set_in_dialog", self.set_in_dialog)
+        self.event_system.on("player_get_player", self.get_player)
         self.joystick = joystick
         self.x = 0
         self.y = 0
@@ -30,6 +33,18 @@ class Player(MainEntity):
         self.leaving_submap = False
         self.prev_cords = ()
         self.spawn_point = ()
+        self.in_menu = False
+        self.in_dialog = False
+
+
+    def get_player(self, arg=None):
+        return self
+
+    def set_in_menu(self, bool):
+        self.in_menu = bool
+
+    def set_in_dialog(self, bool):
+        self.in_dialog = bool
 
     def move_to_new_map(self, spawn_point):
         if not self.leaving_submap:
