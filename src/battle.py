@@ -22,6 +22,8 @@ class Battle():
         self.can_enemy_turn = False
         self.turn_delay = 2000
         self.turn_delay_timer = 0
+        self.shake_delay = 500
+        self.shake_delay_timer = 0
         self.message = ""
         self.message_index = 0
 
@@ -81,6 +83,9 @@ class Battle():
         self.player.event_system.raise_event("change_to_parent_state")
 
     def update(self):
+        if self.enemy.can_shake:
+            self.enemy.shake()
+
         if self.enemy.hp <= 0:
             self.enemy_died()
 
@@ -94,6 +99,8 @@ class Battle():
             now = pygame.time.get_ticks()
             if now - self.turn_delay_timer >= self.turn_delay:
                 self.enemy_ai.enemy_turn()
+            if now - self.shake_delay_timer >= self.shake_delay:
+                self.enemy.set_shake(False)
 
     def draw(self, surface):
         self.battle_menu.draw(surface)
@@ -114,6 +121,8 @@ class Battle():
             self.current_menu = self.parent_menu
             self.index = 0
             self.in_submenu = False
+            self.enemy.set_shake(True)
+            self.shake_delay_timer = pygame.time.get_ticks()
 
         else:
             self.battle_menu.message = ""

@@ -1,5 +1,6 @@
 from constants import *
 import pygame
+import random
 
 class BattleMenu(object):
     """docstring for BattleMenu."""
@@ -9,6 +10,7 @@ class BattleMenu(object):
         self.message = ""
         self.message_index = 0
         self.enemy_bo = self.battle.enemy
+        
 
     def draw(self, surface):
         surface.fill((255, 255, 255))

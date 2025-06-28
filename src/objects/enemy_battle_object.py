@@ -2,6 +2,8 @@ from objects.main_entity import MainEntity
 import pygame
 from constants import *
 import os
+import random
+
 
 class EnemyBattleObject(MainEntity):
 
@@ -21,12 +23,12 @@ class EnemyBattleObject(MainEntity):
         self.spritesheet = pygame.image.load(path).convert_alpha()
         scaled_width, scaled_height = self.spritesheet.get_size()
         self.spritesheet = pygame.transform.scale(self.spritesheet, (scaled_width * SCALE * 2, scaled_height * SCALE * 2))
-        print(f"{self} {self.spritesheet}")
         self.max_frame = max_frame - 1
         self.animation_speed = 10
         self.y_sprite_sheet_index = 0
-
-
+        self.orginal_pos_rect = None
+        self.can_shake = False
+        self.shake_movement = 5
 
         self.options = {
             "Attacks": [
@@ -49,3 +51,18 @@ class EnemyBattleObject(MainEntity):
             ],
 
         }
+
+    def set_shake(self, bool):
+        if not self.can_shake and bool:
+            self.orginal_pos_rect = self.rect
+            self.can_shake = bool
+            return
+        elif not bool:
+            self.can_shake = bool
+            self.rect = self.orginal_pos_rect
+
+    def shake(self):
+        if self.can_shake:
+            x = random.randint(-self.shake_movement, self.shake_movement)
+            y = random.randint(-self.shake_movement, self.shake_movement)
+            self.rect = self.rect.move(x, y)
