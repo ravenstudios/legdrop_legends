@@ -105,7 +105,10 @@ class DialogDisplay(pygame.sprite.Sprite):
                 self.back()
             # self.event_system.raise_event(f"dialog_action_{node['action']}")
             # If action is 'end_dialogue', 'back' will be called from the event hook
-            return
+                return
+            if node["action"] == "end_dialogue":
+                print("end dialog")
+                self.back()
 
         self.back()
 
