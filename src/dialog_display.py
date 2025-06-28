@@ -36,6 +36,9 @@ class DialogDisplay(pygame.sprite.Sprite):
 
         # Font
         self.font = pygame.font.SysFont(None, 28)
+        self.text = ""
+        self.running_text = ""
+        self.text_index = 0
 
     # ------------------------------
     # Event Hooks
@@ -48,7 +51,11 @@ class DialogDisplay(pygame.sprite.Sprite):
     def set_visible(self, visible):
         self.is_visible = visible
 
-
+    def update(self):
+        if self.text_index < len(self.text):
+            self.running_text += self.text[self.text_index]
+            self.text_index += 1
+            self.update_text(self.running_text)
     # ------------------------------
     # Input Handling
     # ------------------------------
@@ -76,8 +83,6 @@ class DialogDisplay(pygame.sprite.Sprite):
         self.showing_options = False
         self.index = 0
         self.event_system.raise_event("player_set_in_dialog", False)
-        # self.event_system.raise_event("player_set_in_dialog", False)
-        print("out of dialog")
 
     def enter(self):
         node = self.dialog[self.current_node]
@@ -99,7 +104,6 @@ class DialogDisplay(pygame.sprite.Sprite):
         if "action" in node:
             if node["action"] == "start_battle":
                 player = self.event_system.raise_event("player_get_player", False)[0]
-                print(f"player:{player}")
                 bs = battle_state.BattleState(player, self.npc)
                 self.event_system.raise_event("change_state", bs)
                 self.back()
@@ -107,7 +111,6 @@ class DialogDisplay(pygame.sprite.Sprite):
             # If action is 'end_dialogue', 'back' will be called from the event hook
                 return
             if node["action"] == "end_dialogue":
-                print("end dialog")
                 self.back()
 
         self.back()
@@ -124,8 +127,10 @@ class DialogDisplay(pygame.sprite.Sprite):
         self.index = 0
         self.set_visible(True)
         self.set_has_controles(True)
-        self.update_text(self.dialog[self.current_node].get("text", ""))
-
+        # self.update_text(self.dialog[self.current_node].get("text", ""))
+        self.text = self.dialog[self.current_node].get("text", "")
+        self.text_index = 0
+        self.running_text = ""
     def display_node(self, node_key):
         self.current_node = node_key
         node = self.dialog[node_key]
@@ -135,8 +140,10 @@ class DialogDisplay(pygame.sprite.Sprite):
         if self.showing_options:
             self.update_text()
         else:
-            self.update_text(node.get("text", ""))
-
+            # self.update_text(node.get("text", ""))
+            self.text = node.get("text", "")
+            self.text_index = 0
+            self.running_text = ""
     # ------------------------------
     # Drawing Text
     # ------------------------------
@@ -171,6 +178,4 @@ class DialogDisplay(pygame.sprite.Sprite):
                     pygame.draw.rect(
                         self.image,
                         (255, 255, 0),
-                        (15, y_offset + idx * self.font.get_linesize() - 2, self.width - 30, self.font.get_linesize() + 4),
-                        2,
-                    )
+                        (15, y_offset + idx * self.font.get_linesize() - 2, self.width - 30, self.font.get_linesize() + 4), 2)

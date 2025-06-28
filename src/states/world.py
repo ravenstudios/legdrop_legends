@@ -45,6 +45,7 @@ class World(State):
         self.player_group.update(cam_offset, self.groups)
         self.npc_group.update(cam_offset, self.map_group)
         self.door_group.update(cam_offset)
+        self.dialog_display.update()
 
     def draw(self, surface):
         self.map_group.draw(surface)
