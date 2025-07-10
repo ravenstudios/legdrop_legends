@@ -10,11 +10,23 @@ class Clown(objects.npc.NPC):
         super().__init__(500, 350, "clown_16x16-Sheet.png")
         self.event_system = event_system
         self.battle_object = objects.enemy_battle_object.EnemyBattleObject(500, 50, "clown_32x32.png", 1, "cl")
-        self.battle_object.hp = 30
-        self.battle_object.mp = 20
-        self.battle_object.max_hp = 30
-        self.battle_object.max_mp = 20
+
+        self.battle_object.max_hp = 35
+        self.battle_object.max_mp = 50
+        self.battle_object.hp = self.battle_object.max_hp
+        self.battle_object.mp = self.battle_object.max_mp
+
         self.battle_object.powder_rate = 10
+        # total 280
+        self.battle_object.speed = 50
+        self.battle_object.power = 35
+        self.battle_object.defense = 35
+        self.battle_object.technique = 35
+        self.battle_object.charisma = 40
+        self.battle_object.type_class = "high flyer"
+
+        self.battle_object.luck = 30
+
         self.battle_object.name = "Funny Guy"
         self.battle_object.options = {
             "Attacks": [

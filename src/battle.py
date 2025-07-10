@@ -3,6 +3,8 @@ from constants import *
 import objects.enemy_battle_object
 import battle_menu
 import objects.enemy_ai
+import battle_calc
+
 
 class Battle():
 
@@ -109,13 +111,16 @@ class Battle():
 
 
     def attack(self, key):
-
         if self.player.battle_object.mp >= key["cost"]:
-            self.enemy.hp -= key["dmg"]
+            atk_dmg = battle_calc.damage(key["power"], self.player.battle_object, self.enemy)
+            self.enemy.hp -= atk_dmg[0]
             self.player.battle_object.mp -= key["cost"]
             self.battle_menu.message = ""
             self.message_index = 0
-            self.message = key["message"]
+            if atk_dmg[1]:
+                self.message = f"Critical Hit!! Dealt {atk_dmg[0]} damage"
+            else:
+                self.message = f"Dealt {atk_dmg[0]} damage"
             self.turn = "enemy"
             self.turn_delay_timer = pygame.time.get_ticks()
             self.current_menu = self.parent_menu

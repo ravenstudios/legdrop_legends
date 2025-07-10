@@ -1,4 +1,6 @@
 import random
+import battle_calc
+
 
 class EnemyAI():
 
@@ -14,11 +16,17 @@ class EnemyAI():
         cost = attack["cost"]
         dmg = attack["dmg"]
         if self.enemy.mp >= cost:
-            self.player.hp -= dmg
+            atk_dmg = battle_calc.damage(dmg, self.enemy, self.player)
+
+            self.player.hp -= atk_dmg[0]
             self.enemy.mp -= cost
             self.battle.battle_menu.message = ""
             self.battle.message_index = 0
-            self.battle.message = attack["message"]
+            # self.battle.message = attack["message"]
+            if atk_dmg[1]:
+                self.battle.message = f"Critical Hit!! Dealt {atk_dmg[0]} damage"
+            else:
+                self.battle.message = f"Dealt {atk_dmg[0]} damage"
 
         else:
 
