@@ -7,7 +7,7 @@ import random
 
 class EnemyBattleObject(MainEntity):
 
-    def __init__(self, x, y, spritesheet, max_frame, name):
+    def __init__(self, x, y, spritesheet, max_frame):
         self.x, self.y = x, y
         self.width = 64 * SCALE
         self.height = 64 * SCALE
@@ -30,27 +30,7 @@ class EnemyBattleObject(MainEntity):
         self.can_shake = False
         self.shake_movement = 5
 
-        self.options = {
-            "Attacks": [
-                {"name": "", "dmg": 0, "cost": 0, "type":"attack", "message":""},
-                {"name": "Back"}
-            ],
-            "Items": [
-                {"name": "", "hp": 0, "type":"restore_hp", "message":""},
-                {"name": "", "mp": 0, "type":"restore_mp", "message":""},
-                {"name": ""}
-            ],
-            "Powder": [
-                {"name": "Powder", "mp": 0, "type":"restore_mp", "message":""},
-                {"name": "Back"},
-            ],
-            "Tag Partner": [
-                {"name": "Tag Partner", "type":"tag", "message":"Player tagged"},
-                {"name": "Back"},
 
-            ],
-
-        }
 
     def set_shake(self, bool):
         if not self.can_shake and bool:

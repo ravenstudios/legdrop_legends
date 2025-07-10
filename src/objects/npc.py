@@ -18,12 +18,12 @@ class NPC(MainEntity):
         self.frame_count = 0
         self.trigger_frame = random.randint(50, 300)
 
-    # 
+    #
     # def change_state(self, state_manager, player):
     #     state_manager.current_state = battle.Battle(player, self.battle_object)
 
 
-    def update(self, cam_offset, map_group):
+    def update(self, cam_offset=None, map_group=None):
 
         self.frame_count += 1
 

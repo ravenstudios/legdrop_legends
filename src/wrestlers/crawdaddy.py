@@ -6,33 +6,33 @@ import objects.npc
 class Crawdaddy(objects.npc.NPC):
     """docstring for "warrior."""
 
-    def __init__(self, event_system):
+    def __init__(self, event_system, x=700, y=50):
         super().__init__(400, 350, "craw daddy-Sheet.png")
         self.event_system = event_system
-        self.battle_object = objects.enemy_battle_object.EnemyBattleObject(500, 50, "crawdaddy_32x32-Sheet.png", 20, "cd")
+        self.battle_object = objects.enemy_battle_object.EnemyBattleObject(x, y, "crawdaddy_32x32-Sheet.png", 20)
 
         self.battle_object.max_hp = 50
-        self.battle_object.max_mp = 20
+        self.battle_object.max_mp = 50
         self.battle_object.hp = self.battle_object.max_hp
         self.battle_object.mp = self.battle_object.max_mp
-        self.battle_object.powder_rate = 10
+        self.battle_object.powder_rate = 50
 
         # total 280
-        self.battle_object.speed = 35
+        self.battle_object.speed = 50
         self.battle_object.power = 50
         self.battle_object.defense = 50
-        self.battle_object.technique = 35
-        self.battle_object.charisma = 40
+        self.battle_object.technique = 50
+        self.battle_object.charisma = 50
         self.battle_object.type_class = "brawler"
 
-        self.battle_object.luck = 30
+        self.battle_object.luck = 10
 
 
         self.battle_object.name = "Craw Daddy"
         self.battle_object.options = {
             "Attacks": [
-                {"name": "Nipple Chop", "power": 3, "cost": 2, "type":"attack", "message":"Craw Daddy used Chop, it dealt 3 damage"},
-                {"name": "Elbow", "power": 5, "cost": 2, "type":"attack", "message":"Craw Daddy used Kick, it dealt 5 damage"},
+                {"name": "Nipple Chop", "power": 5, "cost": 2, "type":"attack", "message":"Craw Daddy used Chop, it dealt 3 damage"},
+                {"name": "Elbow", "power": 10, "cost": 2, "type":"attack", "message":"Craw Daddy used Kick, it dealt 5 damage"},
                             ],
             "Items": [
                 {"name": "Bandaid", "hp": 5, "type":"restore_hp", "message":"Craw Daddy used Bandaid"},

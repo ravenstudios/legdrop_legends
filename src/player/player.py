@@ -24,7 +24,7 @@ class Player(MainEntity):
         self.speed = 7
         self.movement_handler = MovementHandler(self)
         self.collision_handler = CollisionHandler(self)
-        self.battle_object = brother.Brother(self.event_system)
+        self.current_wrestler = brother.Brother(self.event_system, 50, 300)
         self.dir = 0
         self.collisions = False
         self.action_button_pressed = False
@@ -35,8 +35,6 @@ class Player(MainEntity):
         self.spawn_point = ()
         self.in_menu = False
         self.in_dialog = False
-        self.battle_object_group = pygame.sprite.Group()
-        self.battle_object_group.add(self.battle_object)
 
 
     def get_player(self, arg=None):
@@ -54,9 +52,6 @@ class Player(MainEntity):
             self.x, self.y = 0, 0
         self.just_loaded_map = True
 
-
-    def draw(self, surface):
-        self.battle_object_group.draw(surface)
 
 
     def update(self, cam_offset, groups):

@@ -5,31 +5,31 @@ import objects.enemy_battle_object
 import objects.npc
 class Brother(objects.npc.NPC):
 
-    def __init__(self, event_system):
+    def __init__(self, event_system, x=500, y=50):
         super().__init__(400, 350, "Brother16x16-Sheet.png")
         self.event_system = event_system
-        self.battle_object = objects.enemy_battle_object.EnemyBattleObject(50, 500, "Brother64x64-Sheet.png", 20, "cd")
+        self.battle_object = objects.enemy_battle_object.EnemyBattleObject(x, y, "Brother64x64-Sheet.png", 20)
 
-        self.battle_object.max_hp = 40
-        self.battle_object.max_mp = 35
+        self.battle_object.max_hp = 50
+        self.battle_object.max_mp = 50
 
         self.battle_object.hp = self.battle_object.max_hp
         self.battle_object.mp = self.battle_object.max_mp
 
-        self.battle_object.speed = 40
-        self.battle_object.power = 40
-        self.battle_object.defense = 40
-        self.battle_object.technique = 45
-        self.battle_object.charisma = 40
-        self.battle_object.luck = 50
+        self.battle_object.speed = 50
+        self.battle_object.power = 50
+        self.battle_object.defense = 50
+        self.battle_object.technique = 50
+        self.battle_object.charisma = 50
+        self.battle_object.luck = 10
         self.battle_object.type_class = "grappler"
 
 
 
         self.battle_object.options = {
             "Attacks": [
-                {"name": "Leg Drop", "power": 20, "cost": 5, "type":"attack", "message":"Player used Chop, it dealt 3 damage."},
-                {"name": "Clothesline", "power": 25, "cost": 7, "type":"attack", "message":"Player used Kick, it dealt 5 damage."},
+                {"name": "Leg Drop", "power": 5, "cost": 5, "type":"attack", "message":"Player used Chop, it dealt 3 damage."},
+                {"name": "Clothesline", "power": 10, "cost": 7, "type":"attack", "message":"Player used Kick, it dealt 5 damage."},
                 {"name": "Powder", "mp": 10, "type":"restore_mp", "message":"Player powered"},
                 {"name": "Back"}
             ],

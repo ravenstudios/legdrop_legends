@@ -9,11 +9,13 @@ import battle_calc
 class Battle():
 
     def __init__(self, player, enemy):
-        self.player = player.battle_object
+        self.player = player.current_wrestler
         self.enemy = enemy.battle_object
         self.enemy_ai = objects.enemy_ai.EnemyAI(self.player, self.enemy, self)
         self.enemy_group = pygame.sprite.Group()
         self.enemy_group.add(self.enemy)
+        self.player_group = pygame.sprite.Group()
+        self.player_group.add(self.player.battle_object)
         self.battle_menu = battle_menu.BattleMenu(self)
         self.index = 0
         self.current_menu = list(self.player.battle_object.options.keys())
@@ -85,6 +87,9 @@ class Battle():
         self.player.event_system.raise_event("change_to_parent_state")
 
     def update(self):
+        self.player_group.update()
+        self.enemy_group.update()
+
         if self.enemy.can_shake:
             self.enemy.shake()
 
@@ -94,7 +99,8 @@ class Battle():
         if self.player.battle_object.hp <= 0:
             self.player_died()
 
-        self.enemy_group.update()
+
+
         self.index = max(0, min(self.index, len(self.current_menu) - 1))
         if self.turn == "enemy":
 
@@ -107,6 +113,7 @@ class Battle():
     def draw(self, surface):
         self.battle_menu.draw(surface)
         self.enemy_group.draw(surface)
+        self.player_group.draw(surface)
 
 
 
