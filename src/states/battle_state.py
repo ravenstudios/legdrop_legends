@@ -17,3 +17,4 @@ class BattleState(State):
 
     def draw(self, surface):
         self.battle.draw(surface)
+        self.player.draw(surface)

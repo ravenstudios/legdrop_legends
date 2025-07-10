@@ -14,7 +14,7 @@ class EnemyAI():
     def attack(self):
         attack = random.choice(self.attacks)
         cost = attack["cost"]
-        dmg = attack["dmg"]
+        dmg = attack["power"]
         if self.enemy.mp >= cost:
             atk_dmg = battle_calc.damage(dmg, self.enemy, self.player)
 

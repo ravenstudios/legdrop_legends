@@ -23,15 +23,15 @@ class Clown(objects.npc.NPC):
         self.battle_object.defense = 35
         self.battle_object.technique = 35
         self.battle_object.charisma = 40
-        self.battle_object.type_class = "high flyer"
+        self.battle_object.type_class = "high_flyer"
 
         self.battle_object.luck = 30
 
         self.battle_object.name = "Funny Guy"
         self.battle_object.options = {
             "Attacks": [
-                {"name": "Silly Slap", "dmg": 3, "cost": 2, "type":"attack", "message":f"{self.battle_object.name} used Silly Slap, it dealt 3 damage"},
-                {"name": "Head Juggle", "dmg": 2, "cost": 2, "type":"attack", "message":f"{self.battle_object.name} used Head Juggle, it dealt 2 damage"},
+                {"name": "Silly Slap", "power": 20, "cost": 2, "type":"attack", "message":f"{self.battle_object.name} used Silly Slap, it dealt 3 damage"},
+                {"name": "Head Juggle", "power": 25, "cost": 2, "type":"attack", "message":f"{self.battle_object.name} used Head Juggle, it dealt 2 damage"},
                             ],
             "Items": [
                 {"name": "Bandaid", "hp": 5, "type":"restore_hp", "message":f"{self.battle_object.name} used Bandaid"},

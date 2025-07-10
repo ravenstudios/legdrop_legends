@@ -9,7 +9,7 @@ import battle_calc
 class Battle():
 
     def __init__(self, player, enemy):
-        self.player = player
+        self.player = player.battle_object
         self.enemy = enemy.battle_object
         self.enemy_ai = objects.enemy_ai.EnemyAI(self.player, self.enemy, self)
         self.enemy_group = pygame.sprite.Group()

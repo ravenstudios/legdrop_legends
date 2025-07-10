@@ -13,6 +13,7 @@ def damage(atk_power, attacker, defender):
     if crit > 1:
         crit_flag = True
     rps = get_type_bonus(attacker, defender)
+    print(f"rps:{rps}")
 
 
     dmg = int((atk_power + (attacker.power - defender.defense)) * crit * rps)
@@ -24,13 +25,16 @@ def damage(atk_power, attacker, defender):
 def get_type_bonus(attacker, defender):
     wins_against = {
         "brawler": "grappler",
-        "grappler": "high-flyer",
-        "high-flyer": "brawler"
+        "grappler": "high_flyer",
+        "high_flyer": "brawler"
     }
 
     if attacker.type_class == defender.type_class:
-        return 1.0  # Neutral
+        print("Same class")
+        return 1.0
     elif wins_against.get(attacker.type_class) == defender.type_class:
-        return 1.5  # Super effective
+        print("Better class")
+        return 1.25
     else:
-        return 0.5  # Not very effective
+        print("Lower class")
+        return 0.75

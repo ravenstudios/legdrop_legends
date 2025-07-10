@@ -31,8 +31,8 @@ class Crawdaddy(objects.npc.NPC):
         self.battle_object.name = "Craw Daddy"
         self.battle_object.options = {
             "Attacks": [
-                {"name": "Chop", "dmg": 3, "cost": 2, "type":"attack", "message":"Craw Daddy used Chop, it dealt 3 damage"},
-                {"name": "Kick", "dmg": 5, "cost": 2, "type":"attack", "message":"Craw Daddy used Kick, it dealt 5 damage"},
+                {"name": "Nipple Chop", "power": 3, "cost": 2, "type":"attack", "message":"Craw Daddy used Chop, it dealt 3 damage"},
+                {"name": "Elbow", "power": 5, "cost": 2, "type":"attack", "message":"Craw Daddy used Kick, it dealt 5 damage"},
                             ],
             "Items": [
                 {"name": "Bandaid", "hp": 5, "type":"restore_hp", "message":"Craw Daddy used Bandaid"},
