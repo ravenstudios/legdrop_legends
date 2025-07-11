@@ -2,14 +2,29 @@
 
 ## To-Do
 - [ ] Add music and sounds
-- [ ] Add attack animation and screen shake
-- [ ] Add dialog
+- [x] Add attack animation and screen shake
+- [x] Add dialog
 - [ ] Dice rolls for injuries
 - [ ] Pin mechanics with mini game that relies on enemy health
-- [ ] Load new maps for worlds and in buildings
+- [x] Load new maps for worlds and in buildings
 - [ ] Need company name
 - [ ] Training
 - [ ] Ref
+- [ ] Battle message for poison delay
+- [ ] Battle end screen
+- [ ] Store
+- [ ] Inventory
+- [ ] Hospital
+- [ ] 
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
 
 
 ## Ideas
