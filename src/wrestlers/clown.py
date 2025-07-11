@@ -24,6 +24,7 @@ class Clown(objects.npc.NPC):
         self.battle_object.technique = 50
         self.battle_object.charisma = 50
         self.battle_object.type_class = "high_flyer"
+        self.battle_object.is_poisoned = False
 
         self.battle_object.luck = 10
 

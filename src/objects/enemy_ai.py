@@ -15,6 +15,10 @@ class EnemyAI():
         attack = random.choice(self.attacks)
         cost = attack["cost"]
         dmg = attack["power"]
+
+        self.battle.battle_menu.message = ""
+        self.battle.message_index = 0
+        
         if self.enemy.mp >= cost:
             atk_dmg = battle_calc.damage(dmg, self.enemy, self.player)
 
@@ -30,12 +34,10 @@ class EnemyAI():
 
         else:
 
-            self.battle.battle_menu.message = ""
-            self.battle.message_index = 0
             self.battle.message = "Crawdaddy Powered"
             self.powder()
-
         self.battle.turn = "player"
+        self.battle.is_start_of_turn = True
 
     def powder(self):
         self.enemy.mp += self.enemy.powder_rate

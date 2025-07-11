@@ -9,6 +9,7 @@ import battle_calc
 class Battle():
 
     def __init__(self, player, enemy):
+        print(f"enemy:{enemy}")
         self.player = player.current_wrestler
         self.enemy = enemy.battle_object
         self.enemy_ai = objects.enemy_ai.EnemyAI(self.player, self.enemy, self)
@@ -30,6 +31,8 @@ class Battle():
         self.shake_delay_timer = 0
         self.message = ""
         self.message_index = 0
+
+        self.is_start_of_turn = True
 
     def events(self, events):
         action = None
@@ -99,6 +102,19 @@ class Battle():
         if self.player.battle_object.hp <= 0:
             self.player_died()
 
+        if self.player.battle_object.is_poisoned and self.is_start_of_turn:
+            self.is_start_of_turn = False
+            self.player.battle_object.hp -= 5
+            self.battle_menu.message = ""
+            self.message_index = 0
+            self.message = "Player damaged by poison"
+
+        if self.enemy.is_poisoned and self.is_start_of_turn:
+            self.is_start_of_turn = False
+            self.enemy.hp -= 5
+            self.battle_menu.message = ""
+            self.message_index = 0
+            self.message = "Enemy damaged by poison"
 
 
         self.index = max(0, min(self.index, len(self.current_menu) - 1))
@@ -106,6 +122,7 @@ class Battle():
 
             now = pygame.time.get_ticks()
             if now - self.turn_delay_timer >= self.turn_delay:
+                print("enemy turn")
                 self.enemy_ai.enemy_turn()
             if now - self.shake_delay_timer >= self.shake_delay:
                 self.enemy.set_shake(False)
@@ -118,6 +135,7 @@ class Battle():
 
 
     def attack(self, key):
+        self.is_start_of_turn = False
         if self.player.battle_object.mp >= key["cost"]:
             atk_dmg = battle_calc.damage(key["power"], self.player.battle_object, self.enemy)
             self.enemy.hp -= atk_dmg[0]
@@ -142,6 +160,7 @@ class Battle():
             self.message = "Not enough MP!"
 
     def restore_health(self, key):
+        self.is_start_of_turn = False
         self.battle_menu.message = ""
         self.message_index = 0
         self.message = key["message"]
@@ -155,6 +174,7 @@ class Battle():
         self.in_submenu = False
 
     def restore_mp(self, key):
+        self.is_start_of_turn = False
         self.battle_menu.message = ""
         self.message_index = 0
         self.message = key["message"]
@@ -167,8 +187,22 @@ class Battle():
         self.index = 0
         self.in_submenu = False
 
+
+    def poison_attack(self, key):
+        self.is_start_of_turn = False
+        self.enemy.is_poisoned = True
+        self.turn = "enemy"
+        self.turn_delay_timer = pygame.time.get_ticks()
+        self.battle_menu.message = ""
+        self.message_index = 0
+        self.message = "Player poisoned enemy"
+        self.enemy.set_shake(True)
+        self.shake_delay_timer = pygame.time.get_ticks()
+
+
     def action(self, key):
         if self.turn == "player":
+
             if "type" in key:
                 if key["type"] == "attack":
                     self.attack(key)
@@ -180,6 +214,8 @@ class Battle():
                         key["qty"] = current_qty
                         self.restore_health(key)
 
+                if key["type"] == "poison":
+                    self.poison_attack(key)
 
                 if key["type"] == "restore_mp":
                     self.restore_mp(key)

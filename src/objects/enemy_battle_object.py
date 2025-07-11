@@ -26,20 +26,28 @@ class EnemyBattleObject(MainEntity):
         self.max_frame = max_frame - 1
         self.animation_speed = 10
         self.y_sprite_sheet_index = 0
-        self.orginal_pos_rect = None
+        self.orginal_pos_rect = self.rect.copy()
         self.can_shake = False
         self.shake_movement = 5
 
 
 
-    def set_shake(self, bool):
-        if not self.can_shake and bool:
-            self.orginal_pos_rect = self.rect
-            self.can_shake = bool
-            return
-        elif not bool:
-            self.can_shake = bool
-            self.rect = self.orginal_pos_rect
+    # def set_shake(self, bool):
+    #     if not self.can_shake and bool:
+    #         self.orginal_pos_rect = self.rect.copy()
+    #         self.can_shake = bool
+    #         return
+    #     elif not bool:
+    #         self.can_shake = bool
+    #         self.rect = self.orginal_pos_rect.copy()
+    def set_shake(self, do_shake):
+        if not self.can_shake and do_shake:
+            self.orginal_pos_rect = self.rect.copy()  # ← COPY, not reference
+            self.can_shake = True
+        elif not do_shake:
+            self.can_shake = False
+            self.rect = self.orginal_pos_rect.copy()  # ← COPY again for safety
+
 
     def shake(self):
         if self.can_shake:

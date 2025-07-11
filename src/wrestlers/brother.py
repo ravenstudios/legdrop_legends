@@ -23,13 +23,15 @@ class Brother(objects.npc.NPC):
         self.battle_object.charisma = 50
         self.battle_object.luck = 10
         self.battle_object.type_class = "grappler"
-
+        self.battle_object.is_poisoned = False
+        self.battle_object.name = "Brother"
 
 
         self.battle_object.options = {
             "Attacks": [
-                {"name": "Leg Drop", "power": 5, "cost": 5, "type":"attack", "message":"Player used Chop, it dealt 3 damage."},
-                {"name": "Clothesline", "power": 10, "cost": 7, "type":"attack", "message":"Player used Kick, it dealt 5 damage."},
+                {"name": "Leg Drop", "power": 5, "cost": 5, "type":"attack"},
+                {"name": "Clothesline", "power": 10, "cost": 7, "type":"attack"},
+                {"name": "Choke Hold", "power": 10, "cost": 7, "type":"poison"},
                 {"name": "Powder", "mp": 10, "type":"restore_mp", "message":"Player powered"},
                 {"name": "Back"}
             ],
