@@ -52,3 +52,8 @@ class Brother(objects.npc.NPC):
                 {"name": "Back"},
             ]
         }
+
+        def heal(self):
+            self.battle_object.hp = self.battle_object.max_hp
+            self.battle_object.mp = self.battle_object.max_mp
+            self.battle_object.is_poisoned = False
