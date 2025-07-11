@@ -113,6 +113,12 @@ class DialogDisplay(pygame.sprite.Sprite):
             if node["action"] == "end_dialogue":
                 self.back()
 
+            if node["action"] == "heal":
+                print("player healed!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                player = self.event_system.raise_event("player_get_player", False)[0]
+                player.current_wrestler.heal()
+                self.back()
+
         self.back()
 
     # ------------------------------
