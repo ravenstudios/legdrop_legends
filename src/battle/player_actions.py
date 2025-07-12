@@ -1,14 +1,14 @@
-import battle_calc
+from  battle import battle_calc
 from event_system import event_system
 
-class BattleActions():
 
 
+class PlayerActions():
     def __init__(self, battle):
 
         self.battle = battle
-
-
+        self.attack_message_delay = 2000
+        self.poisoned_message_delay = 1000
 
     def player_died(self):
         print("player died")
@@ -27,12 +27,26 @@ class BattleActions():
             atk_dmg = battle_calc.damage(key["power"], self.battle.m_player, self.battle.enemy)
             self.battle.enemy.hp -= atk_dmg[0]
             self.battle.m_player.mp -= key["cost"]
-            self.battle.battle_graphics.message = ""
-            self.battle.message_index = 0
+
+            str = f"Player used {key['name']}"
+            # self.battle.message_display.set_message(str)
+
+            txt = ""
             if atk_dmg[1]:
-                self.battle.message = f"Critical Hit!! Dealt {atk_dmg[0]} damage"
+                txt = f"{str} Critical Hit!! It dealt {atk_dmg[0]} damage"
             else:
-                self.battle.message = f"Dealt {atk_dmg[0]} damage"
+                txt = f"{str} it dealt {atk_dmg[0]} damage"
+            self.battle.message_display.set_message(txt)
+
+
+            # event_system.raise_event("add_timer", [
+            #     self.attack_message_delay,
+            #     msg,
+            #     True
+            # ])
+
+
+
             self.set_enemy_turn()
             self.battle.current_menu = self.battle.parent_menu
             self.battle.index = 0
@@ -41,9 +55,7 @@ class BattleActions():
             self.set_enemy_shake()
 
         else:
-            self.battle.battle_graphics.message = ""
-            self.battle.message_index = 0
-            self.battle.message = "Not enough MP!"
+            self.battle.message_display.set_message("Not enough MP!")
 
     def set_enemy_shake(self):
         self.battle.enemy.set_shake(True)
@@ -62,9 +74,7 @@ class BattleActions():
         ])
 
     def restore_health(self, key):
-        self.battle.is_start_of_turn = False
-        self.battle.battle_graphics.message = ""
-        self.battle.message_index = 0
+        self.battle.is_start_of_turn = Fals
         self.battle.message = key["message"]
         bo = self.battle.m_player
         bo.hp += key["hp"]
@@ -75,9 +85,7 @@ class BattleActions():
         self.battle.in_submenu = False
 
     def restore_mp(self, key):
-        self.battle.is_start_of_turn = False
-        self.battle.battle_graphics.message = ""
-        self.battle.message_index = 0
+        self.battle.is_start_of_turn = Fals
         self.battle.message = key["message"]
         bo = self.battle.m_player
         bo.mp += key["mp"]
@@ -93,8 +101,6 @@ class BattleActions():
         self.battle.is_start_of_turn = False
         self.battle.enemy.is_poisoned = True
         self.set_enemy_turn()
-        self.battle.battle_graphics.message = ""
-        self.battle.message_index = 0
         self.battle.message = "Player poisoned enemy"
         self.set_enemy_shake()
 
@@ -125,13 +131,11 @@ class BattleActions():
         if self.battle.m_player.is_poisoned and self.battle.is_start_of_turn:
             self.battle.is_start_of_turn = False
             self.battle.m_player.hp -= 5
-            self.battle.battle_graphics.message = ""
-            self.battle.message_index = 0
+
             self.battle.message = "Player damaged by poison"
 
         if self.battle.enemy.is_poisoned and self.battle.is_start_of_turn:
             self.battle.is_start_of_turn = False
             self.battle.enemy.hp -= 5
-            self.battle.battle_graphics.message = ""
-            self.battle.message_index = 0
+
             self.battle.message = "Enemy damaged by poison"

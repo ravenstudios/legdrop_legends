@@ -1,12 +1,12 @@
 from states.state import State
 from states import state
-import battle
+from battle.battle import Battle
 
 
 class BattleState(State):
     def __init__(self, enemy):
         self.enemy = enemy
-        self.battle = battle.Battle(self.enemy)
+        self.battle = Battle(self.enemy)
 
     def events(self, events):
         self.battle.events(events)

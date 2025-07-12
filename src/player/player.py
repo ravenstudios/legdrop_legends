@@ -2,8 +2,8 @@ from objects.main_entity import MainEntity
 import pygame
 from constants import *
 import constants
+import random
 from player.movement_handler import MovementHandler
-from player.player_battle_object import PlayerBattleObject
 from player.collision_handler import CollisionHandler
 from wrestlers import brother
 from event_system import event_system
@@ -38,23 +38,28 @@ class Player(MainEntity):
         self.in_menu = False
         self.in_dialog = False
 
+
     def get_current_wrestler(self):
         return self.current_wrestler
+
+
     def get_player(self, arg=None):
         return self
+
 
     def set_in_menu(self, bool):
         self.in_menu = bool
 
+
     def set_in_dialog(self, bool):
         self.in_dialog = bool
+
 
     def move_to_new_map(self, spawn_point):
         if not self.leaving_submap:
             self.spawn_point = spawn_point
             self.x, self.y = 0, 0
         self.just_loaded_map = True
-
 
 
     def update(self, cam_offset, groups):
@@ -77,5 +82,8 @@ class Player(MainEntity):
         self.animate()
         self.rect.x = max(0, min(self.rect.x, GAME_WIDTH  - self.rect.width))
         self.rect.y = max(0, min(self.rect.top, GAME_HEIGHT - self.rect.height))
-        # pygame.display.set_caption(f"cam:{cam_offset} Rect.center.y:{self.rect}  |  WORLD:{WORLD_WIDTH}-{WORLD_HEIGHT}  |  Halfscreen:{GAME_WIDTH // 2}")
+
+
+
+
 main_player = Player()

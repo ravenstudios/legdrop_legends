@@ -1,5 +1,5 @@
 import objects.npc
-import objects.enemy_battle_object
+import objects.battle_object
 from event_system import event_system
 
 import objects.npc
@@ -8,7 +8,7 @@ class Brother(objects.npc.NPC):
     def __init__(self, x=500, y=50):
         super().__init__(400, 350, "Brother16x16-Sheet.png")
 
-        self.battle_object = objects.enemy_battle_object.EnemyBattleObject(x, y, "brother_32x32-Sheet.png", 20)
+        self.battle_object = objects.battle_object.BattleObject(x, y, "brother_32x32-Sheet.png", 20)
 
         self.battle_object.max_hp = 50
         self.battle_object.max_mp = 50

@@ -2,16 +2,16 @@ from constants import *
 import pygame
 import random
 from player.player import main_player
-
+from event_system import event_system
 
 class BattleGraphics(object):
     """docstring for BattleMenu."""
 
     def __init__(self, battle):
         self.battle = battle
-        self.message = ""
-        self.message_index = 0
         self.enemy_bo = self.battle.enemy
+
+
 
 
     def draw(self, surface):
@@ -68,12 +68,17 @@ class BattleGraphics(object):
             else:
                 text = font.render(option, True, (0, 0, 0))
 
-            surface.blit(text, (text_box.x+ text_padding, text_box.y + font_size * i + text_padding))
-        if self.battle.message and self.battle.message_index < len(self.battle.message):
-            self.message += self.battle.message[self.battle.message_index]
-            self.battle.message_index += 1
-        message_text = font.render(self.message, True, (0, 0, 0))
-        surface.blit(message_text, message_box)
+            surface.blit(text, (text_box.x + text_padding, text_box.y + font_size * i + text_padding))
+
+
+        # message_text = font.render(self.battle.message_display.get_message(), True, (0, 0, 0))
+        # surface.blit(message_text, message_box)
+        message_lines = self.wrap_text(self.battle.message_display.get_message(), 40)  # 40 chars per line
+        line_height = font.get_height()
+
+        for i, line in enumerate(message_lines):
+            rendered = font.render(line, True, (0, 0, 0))
+            surface.blit(rendered, (message_box.x + 10, message_box.y + 10 + i * line_height))
 
 
         pygame.draw.rect(surface, BORDER_COLOR, option_box.inflate(5, 5), 3)
@@ -110,3 +115,16 @@ class BattleGraphics(object):
         self.battle.enemy_group.draw(surface)
         enemy_name = font.render(self.enemy_bo.name, True, (0, 0, 0))
         surface.blit(enemy_name, enemy_name_box)
+
+
+    def wrap_text(self, text, max_chars):
+        lines = []
+        while len(text) > max_chars:
+            # Find the last space within limit
+            split_index = text.rfind(" ", 0, max_chars)
+            if split_index == -1:
+                split_index = max_chars  # force break
+            lines.append(text[:split_index])
+            text = text[split_index:].lstrip()
+        lines.append(text)
+        return lines

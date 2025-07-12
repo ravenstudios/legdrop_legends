@@ -1,7 +1,6 @@
 import random
 
 def damage(atk_power, attacker, defender):
-    print(f"attacker:{attacker}")
     crit_flag = False
     # print(f"atk_power:{atk_power}")
     # print(f"attacker power:{attacker.power}")
@@ -31,11 +30,8 @@ def get_type_bonus(attacker, defender):
     }
 
     if attacker.type_class == defender.type_class:
-        print("Same class")
         return 1.0
     elif wins_against.get(attacker.type_class) == defender.type_class:
-        print("Better class")
         return 1.25
     else:
-        print("Lower class")
         return 0.75

@@ -5,7 +5,7 @@ import os
 import random
 
 
-class EnemyBattleObject(MainEntity):
+class BattleObject(MainEntity):
 
     def __init__(self, x, y, spritesheet, max_frame):
         self.x, self.y = x, y

@@ -1,5 +1,5 @@
 import objects.npc
-import objects.enemy_battle_object
+import objects.battle_object
 
 
 import objects.npc
@@ -9,7 +9,7 @@ class Clown(objects.npc.NPC):
     def __init__(self, event_system, x=700, y=50):
         super().__init__(500, 350, "clown_16x16-Sheet.png")
         self.event_system = event_system
-        self.battle_object = objects.enemy_battle_object.EnemyBattleObject(x, y, "clown_32x32.png", 1)
+        self.battle_object = objects.battle_object.BattleObject(x, y, "clown_32x32.png", 1)
 
         self.battle_object.max_hp = 50
         self.battle_object.max_mp = 50

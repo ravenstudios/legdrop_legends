@@ -1,6 +1,6 @@
 import pygame
 from constants import *
-from battle import Battle
+from battle import battle
 from states import state, battle_state
 from player import player
 
