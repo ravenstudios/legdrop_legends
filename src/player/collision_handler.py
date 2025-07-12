@@ -42,7 +42,7 @@ class CollisionHandler:
                         self.player.rect.copy().move(0, BLOCK_SIZE // 8),
                         (self.player.x, self.player.y)
                     )
-                self.player.event_system.raise_event("load_map", door.map_file)
+                event_system.raise_event("load_map", door.map_file)
 
         # Object collisions (walls, obstacles)
         if obj_group:
