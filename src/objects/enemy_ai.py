@@ -16,7 +16,7 @@ class EnemyAI():
         cost = attack["cost"]
         dmg = attack["power"]
 
-        self.battle.battle_menu.message = ""
+        self.battle.battle_graphics.message = ""
         self.battle.message_index = 0
 
         if self.enemy.mp >= cost:
@@ -24,7 +24,7 @@ class EnemyAI():
 
             self.player_bo.hp -= atk_dmg[0]
             self.enemy.mp -= cost
-            self.battle.battle_menu.message = ""
+            self.battle.battle_graphics.message = ""
             self.battle.message_index = 0
             # self.battle.message = attack["message"]
             if atk_dmg[1]:

@@ -55,9 +55,12 @@ class DialogDisplay(pygame.sprite.Sprite):
 
     def update(self):
         if self.text_index < len(self.text):
+            self.set_has_controles(False)
             self.running_text += self.text[self.text_index]
             self.text_index += 1
             self.update_text(self.running_text)
+        else:
+            self.set_has_controles(True)
     # ------------------------------
     # Input Handling
     # ------------------------------
@@ -83,7 +86,7 @@ class DialogDisplay(pygame.sprite.Sprite):
         self.is_visible = False
         self.has_controles = False
         self.showing_options = False
-        self.index = 0
+        # self.index = 0
         self.event_system.raise_event("player_set_in_dialog", False)
 
     def enter(self):
@@ -139,10 +142,12 @@ class DialogDisplay(pygame.sprite.Sprite):
         self.text = self.dialog[self.current_node].get("text", "")
         self.text_index = 0
         self.running_text = ""
+
+
     def display_node(self, node_key):
         self.current_node = node_key
         node = self.dialog[node_key]
-        self.index = 0
+        # self.index = 0
         self.showing_options = "options" in node
 
         if self.showing_options:

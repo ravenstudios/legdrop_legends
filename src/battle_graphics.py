@@ -4,7 +4,7 @@ import random
 from player.player import main_player
 
 
-class BattleMenu(object):
+class BattleGraphics(object):
     """docstring for BattleMenu."""
 
     def __init__(self, battle):
