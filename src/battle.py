@@ -4,22 +4,25 @@ import objects.enemy_battle_object
 import battle_menu
 import objects.enemy_ai
 import battle_calc
+from event_system import event_system
+from player.player import main_player
 
 
 class Battle():
 
-    def __init__(self, player, enemy):
-        print(f"enemy:{enemy}")
-        self.player = player.current_wrestler
+    def __init__(self, enemy):
+
+        self.m_player = main_player.current_wrestler.battle_object
+
         self.enemy = enemy.battle_object
-        self.enemy_ai = objects.enemy_ai.EnemyAI(self.player, self.enemy, self)
+        self.enemy_ai = objects.enemy_ai.EnemyAI(self.enemy, self)
         self.enemy_group = pygame.sprite.Group()
         self.enemy_group.add(self.enemy)
         self.player_group = pygame.sprite.Group()
-        self.player_group.add(self.player.battle_object)
+        self.player_group.add(self.m_player)
         self.battle_menu = battle_menu.BattleMenu(self)
         self.index = 0
-        self.current_menu = list(self.player.battle_object.options.keys())
+        self.current_menu = list(self.m_player.options.keys())
         self.in_submenu = False
         self.parrent_menu = None
 
@@ -64,7 +67,7 @@ class Battle():
     def action_button(self):
         key = self.current_menu[self.index]
         if not self.in_submenu:
-            submenu_data = self.player.battle_object.options[key]
+            submenu_data = self.m_player.options[key]
             if isinstance(submenu_data, list):
                 self.parent_menu = self.current_menu
                 self.current_menu = submenu_data  # now current_menu is a list of dicts
@@ -81,15 +84,16 @@ class Battle():
 
     def player_died(self):
         print("player died")
-        self.player.battle_object.hp = self.player.battle_object.max_hp
-        self.player.event_system.raise_event("change_to_parent_state")
+        self.m_player.hp = self.m_player.max_hp
+        event_system.raise_event("change_to_parent_state")
 
     def enemy_died(self):
         print("enemy died")
         self.enemy.hp = self.enemy.max_hp
-        self.player.event_system.raise_event("change_to_parent_state")
+        event_system.raise_event("change_to_parent_state")
 
     def update(self):
+        # print(f"main player:{self.m_player}")
         self.player_group.update()
         self.enemy_group.update()
 
@@ -99,12 +103,12 @@ class Battle():
         if self.enemy.hp <= 0:
             self.enemy_died()
 
-        if self.player.battle_object.hp <= 0:
-            self.player_died()
+        if self.m_player.hp <= 0:
+            player_died()
 
-        if self.player.battle_object.is_poisoned and self.is_start_of_turn:
+        if self.m_player.is_poisoned and self.is_start_of_turn:
             self.is_start_of_turn = False
-            self.player.battle_object.hp -= 5
+            self.m_player.hp -= 5
             self.battle_menu.message = ""
             self.message_index = 0
             self.message = "Player damaged by poison"
@@ -124,8 +128,9 @@ class Battle():
             if now - self.turn_delay_timer >= self.turn_delay:
                 print("enemy turn")
                 self.enemy_ai.enemy_turn()
-            if now - self.shake_delay_timer >= self.shake_delay:
-                self.enemy.set_shake(False)
+            # if now - self.shake_delay_timer >= self.shake_delay:
+
+            # self.enemy.set_shake(False)
 
     def draw(self, surface):
         self.battle_menu.draw(surface)
@@ -136,38 +141,52 @@ class Battle():
 
     def attack(self, key):
         self.is_start_of_turn = False
-        if self.player.battle_object.mp >= key["cost"]:
-            atk_dmg = battle_calc.damage(key["power"], self.player.battle_object, self.enemy)
+        if self.m_player.mp >= key["cost"]:
+            atk_dmg = battle_calc.damage(key["power"], self.m_player, self.enemy)
             self.enemy.hp -= atk_dmg[0]
-            self.player.battle_object.mp -= key["cost"]
+            self.m_player.mp -= key["cost"]
             self.battle_menu.message = ""
             self.message_index = 0
             if atk_dmg[1]:
                 self.message = f"Critical Hit!! Dealt {atk_dmg[0]} damage"
             else:
                 self.message = f"Dealt {atk_dmg[0]} damage"
-            self.turn = "enemy"
+            self.set_enemy_turn()
             self.turn_delay_timer = pygame.time.get_ticks()
             self.current_menu = self.parent_menu
             self.index = 0
             self.in_submenu = False
+
             self.enemy.set_shake(True)
-            self.shake_delay_timer = pygame.time.get_ticks()
+            event_system.raise_event("add_timer", [
+                500,
+                lambda: self.enemy.set_shake(False),
+                True
+            ])
+            # self.shake_delay_timer = pygame.time.get_ticks()
 
         else:
             self.battle_menu.message = ""
             self.message_index = 0
             self.message = "Not enough MP!"
 
+
+    def set_enemy_turn(self):
+        event_system.raise_event("add_timer", [
+            500,
+            lambda: setattr(self, "turn", "enemy"),
+            True
+        ])
+
     def restore_health(self, key):
         self.is_start_of_turn = False
         self.battle_menu.message = ""
         self.message_index = 0
         self.message = key["message"]
-        bo = self.player.battle_object
+        bo = self.m_player
         bo.hp += key["hp"]
         bo.hp = min(bo.hp, bo.max_hp)
-        self.turn = "enemy"
+        self.set_enemy_turn()
         self.turn_delay_timer = pygame.time.get_ticks()
         self.current_menu = self.parent_menu
         self.index = 0
@@ -178,10 +197,10 @@ class Battle():
         self.battle_menu.message = ""
         self.message_index = 0
         self.message = key["message"]
-        bo = self.player.battle_object
+        bo = self.m_player
         bo.mp += key["mp"]
         bo.mp = min(bo.mp, bo.max_mp)
-        self.turn = "enemy"
+        self.set_enemy_turn()
         self.turn_delay_timer = pygame.time.get_ticks()
         self.current_menu = self.parent_menu
         self.index = 0
@@ -191,7 +210,7 @@ class Battle():
     def poison_attack(self, key):
         self.is_start_of_turn = False
         self.enemy.is_poisoned = True
-        self.turn = "enemy"
+        self.set_enemy_turn()
         self.turn_delay_timer = pygame.time.get_ticks()
         self.battle_menu.message = ""
         self.message_index = 0
@@ -202,11 +221,9 @@ class Battle():
 
     def action(self, key):
         if self.turn == "player":
-
             if "type" in key:
                 if key["type"] == "attack":
                     self.attack(key)
-
 
                 if key["type"] == "restore_hp":
                     if key["qty"] > 0:
@@ -221,4 +238,4 @@ class Battle():
                     self.restore_mp(key)
 
                 if key["type"] == "run":
-                    self.player.event_system.raise_event("change_to_parent_state")
+                    event_system.raise_event("change_to_parent_state")

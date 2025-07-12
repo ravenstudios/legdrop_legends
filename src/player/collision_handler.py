@@ -1,5 +1,7 @@
 import pygame
 from constants import *
+from event_system import event_system
+
 
 class CollisionHandler:
     def __init__(self, player):
@@ -73,8 +75,8 @@ class CollisionHandler:
                     if self.player.action_button_pressed and not getattr(self.player, "in_dialog", False):
                         print("in dialog")
                         self.player.in_dialog = True
-                        self.player.event_system.raise_event("dialog_set_visible", True)
-                        self.player.event_system.raise_event("dialog_start_chat", npc)
-                        self.player.event_system.raise_event("dialog_set_has_controles", True)
+                        event_system.raise_event("dialog_set_visible", True)
+                        event_system.raise_event("dialog_start_chat", npc)
+                        event_system.raise_event("dialog_set_has_controles", True)
                         self.push_player_away_from_npc(npc)
                         break  # Only trigger for one NPC at a time

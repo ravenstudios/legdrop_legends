@@ -1,6 +1,6 @@
 from constants import *
 import pygame
-import state_manager
+
 
 import os
 
@@ -10,12 +10,15 @@ os.environ['SDL_VIDEO_WINDOW_POS'] = "-1200,0"
 
 
 clock = pygame.time.Clock()
-
-surface = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))
 pygame.init()
+surface = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))
+
 pygame.joystick.init()
 joysticks = []
 joystick = None
+
+import state_manager
+
 
 for i in range(pygame.joystick.get_count()):
     joystick = pygame.joystick.Joystick(i)

@@ -2,6 +2,8 @@ import pygame
 from constants import *
 from battle import Battle
 from states import state, battle_state
+from player import player
+
 
 class DialogDisplay(pygame.sprite.Sprite):
     def __init__(self, event_system):
@@ -103,8 +105,8 @@ class DialogDisplay(pygame.sprite.Sprite):
 
         if "action" in node:
             if node["action"] == "start_battle":
-                player = self.event_system.raise_event("player_get_player", False)[0]
-                bs = battle_state.BattleState(player, self.npc)
+                # player = self.event_system.raise_event("player_get_player", False)[0]
+                bs = battle_state.BattleState(self.npc)
                 self.event_system.raise_event("change_state", bs)
                 self.back()
             # self.event_system.raise_event(f"dialog_action_{node['action']}")
@@ -115,7 +117,7 @@ class DialogDisplay(pygame.sprite.Sprite):
 
             if node["action"] == "heal":
                 print("player healed!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                player = self.event_system.raise_event("player_get_player", False)[0]
+                # player = self.event_system.raise_event("player_get_player", False)[0]
                 player.current_wrestler.heal()
                 self.back()
 

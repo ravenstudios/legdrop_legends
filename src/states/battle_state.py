@@ -4,10 +4,9 @@ import battle
 
 
 class BattleState(State):
-    def __init__(self, player, enemy):
-        self.player = player
+    def __init__(self, enemy):
         self.enemy = enemy
-        self.battle = battle.Battle(self.player, self.enemy)
+        self.battle = battle.Battle(self.enemy)
 
     def events(self, events):
         self.battle.events(events)

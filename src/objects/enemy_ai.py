@@ -1,11 +1,11 @@
 import random
 import battle_calc
-
+from player.player import main_player
 
 class EnemyAI():
 
-    def __init__(self, player, enemy, battle):
-        self.player = player.battle_object
+    def __init__(self, enemy, battle):
+        self.player_bo = main_player.get_current_wrestler().battle_object
         self.enemy = enemy
         self.battle = battle
         self.attacks = self.enemy.options["Attacks"]
@@ -18,11 +18,11 @@ class EnemyAI():
 
         self.battle.battle_menu.message = ""
         self.battle.message_index = 0
-        
-        if self.enemy.mp >= cost:
-            atk_dmg = battle_calc.damage(dmg, self.enemy, self.player)
 
-            self.player.hp -= atk_dmg[0]
+        if self.enemy.mp >= cost:
+            atk_dmg = battle_calc.damage(dmg, self.enemy, self.player_bo)
+
+            self.player_bo.hp -= atk_dmg[0]
             self.enemy.mp -= cost
             self.battle.battle_menu.message = ""
             self.battle.message_index = 0

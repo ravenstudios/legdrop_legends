@@ -1,7 +1,7 @@
 from states.state import State
 import pygame
 from constants import *
-from player.player import Player
+from player.player import main_player
 from objects.block import Block
 from objects.camera import Camera
 from objects.npc import NPC
@@ -18,10 +18,8 @@ class World(State):
         self.dialog_display = dialog_display.DialogDisplay(self.event_system)
         self.dialog_display_group = pygame.sprite.Group()
         self.dialog_display_group.add(self.dialog_display)
-
-        self.player = Player(self.event_system, self.joystick)
         self.player_group = pygame.sprite.Group()
-        self.player_group.add(self.player)
+        self.player_group.add(main_player)
         self.map_group = pygame.sprite.Group()
         self.obj_group = pygame.sprite.Group()
         self.door_group = pygame.sprite.Group()
@@ -39,7 +37,7 @@ class World(State):
         self.dialog_display.events(events)
 
     def update(self):
-        cam_offset = self.camera.update_offset(self.player)
+        cam_offset = self.camera.update_offset(main_player)
         self.map_group.update(cam_offset)
         self.obj_group.update(cam_offset)
         self.player_group.update(cam_offset, self.groups)
@@ -56,5 +54,5 @@ class World(State):
 
     def load_map(self, map_file):
         self.map_group, self.obj_group, self.door_group, spawn_point = self.map.load_map(map_file)
-        self.player.move_to_new_map(spawn_point)
+        main_player.move_to_new_map(spawn_point)
         self.groups = [self.obj_group, self.door_group, self.npc_group, self.map_group]

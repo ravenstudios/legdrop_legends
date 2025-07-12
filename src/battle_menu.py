@@ -1,6 +1,8 @@
 from constants import *
 import pygame
 import random
+from player.player import main_player
+
 
 class BattleMenu(object):
     """docstring for BattleMenu."""
@@ -10,9 +12,10 @@ class BattleMenu(object):
         self.message = ""
         self.message_index = 0
         self.enemy_bo = self.battle.enemy
-        
+
 
     def draw(self, surface):
+        player_bo = main_player.current_wrestler.battle_object
         surface.fill((255, 255, 255))
         WIDTH, HEIGHT = surface.get_size()
         BORDER_COLOR = (0, 0, 0)
@@ -76,11 +79,11 @@ class BattleMenu(object):
         pygame.draw.rect(surface, BORDER_COLOR, option_box.inflate(5, 5), 3)
 
 
-        hp_ratio = self.battle.player.battle_object.hp / self.battle.player.battle_object.max_hp
+        hp_ratio = player_bo.hp / player_bo.max_hp
         pygame.draw.rect(surface, GREEN, (health_box.x, health_box.y, hp_ratio * health_box.width, health_box.height))
         pygame.draw.rect(surface, BLACK, health_box.inflate(5, 5), 6)
 
-        mp_ratio = self.battle.player.battle_object.mp / self.battle.player.battle_object.max_mp
+        mp_ratio = player_bo.mp / player_bo.max_mp
         pygame.draw.rect(surface, BLUE, (mp_box.x, mp_box.y, mp_ratio * mp_box.width, mp_box.height))
         pygame.draw.rect(surface, BLACK, mp_box.inflate(5, 5), 6)
 
@@ -92,10 +95,10 @@ class BattleMenu(object):
         pygame.draw.rect(surface, BLUE, (enemy_mp_box.x, enemy_mp_box.y, enemy_mp_ratio * enemy_mp_box.width, enemy_mp_box.height))
         pygame.draw.rect(surface, BLACK, enemy_mp_box.inflate(5, 5), 6)
 
-        hp_text = font.render(f"HP:{self.battle.player.battle_object.hp} / {self.battle.player.battle_object.max_hp}", True, (0, 0, 0))
+        hp_text = font.render(f"HP:{player_bo.hp} / {player_bo.max_hp}", True, (0, 0, 0))
         surface.blit(hp_text, health_box.inflate(-text_padding * 2, -text_padding))
 
-        mp_text = font.render(f"MP:{self.battle.player.battle_object.mp} / {self.battle.player.battle_object.max_mp}", True, (0, 0, 0))
+        mp_text = font.render(f"MP:{player_bo.mp} / {player_bo.max_mp}", True, (0, 0, 0))
         surface.blit(mp_text, mp_box.inflate(-text_padding * 2, -text_padding))
 
         enemy_hp_text = font.render(f"HP:{self.enemy_bo.hp} / {self.enemy_bo.max_hp}", True, (0, 0, 0))

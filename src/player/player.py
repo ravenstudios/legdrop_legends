@@ -6,15 +6,17 @@ from player.movement_handler import MovementHandler
 from player.player_battle_object import PlayerBattleObject
 from player.collision_handler import CollisionHandler
 from wrestlers import brother
+from event_system import event_system
+
 
 class Player(MainEntity):
 
-    def __init__(self, event_system, joystick=None):
-        self.event_system = event_system
-        self.event_system.on("player_set_in_menu", self.set_in_menu)
-        self.event_system.on("player_set_in_dialog", self.set_in_dialog)
-        self.event_system.on("player_get_player", self.get_player)
-        self.joystick = joystick
+    def __init__(self):
+
+        event_system.on("player_set_in_menu", self.set_in_menu)
+        event_system.on("player_set_in_dialog", self.set_in_dialog)
+        event_system.on("player_get_player", self.get_player)
+        self.joystick = None
         self.x = 0
         self.y = 0
         self.width = BLOCK_SIZE
@@ -24,7 +26,7 @@ class Player(MainEntity):
         self.speed = 7
         self.movement_handler = MovementHandler(self)
         self.collision_handler = CollisionHandler(self)
-        self.current_wrestler = brother.Brother(self.event_system, 50, 300)
+        self.current_wrestler = brother.Brother(50, 300)
         self.dir = 0
         self.collisions = False
         self.action_button_pressed = False
@@ -36,7 +38,8 @@ class Player(MainEntity):
         self.in_menu = False
         self.in_dialog = False
 
-
+    def get_current_wrestler(self):
+        return self.current_wrestler
     def get_player(self, arg=None):
         return self
 
@@ -75,3 +78,4 @@ class Player(MainEntity):
         self.rect.x = max(0, min(self.rect.x, GAME_WIDTH  - self.rect.width))
         self.rect.y = max(0, min(self.rect.top, GAME_HEIGHT - self.rect.height))
         # pygame.display.set_caption(f"cam:{cam_offset} Rect.center.y:{self.rect}  |  WORLD:{WORLD_WIDTH}-{WORLD_HEIGHT}  |  Halfscreen:{GAME_WIDTH // 2}")
+main_player = Player()
