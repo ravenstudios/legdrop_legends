@@ -11,7 +11,7 @@ class Crawdaddy(objects.npc.NPC):
         self.event_system = event_system
         self.battle_object = objects.battle_object.BattleObject(x, y, "crawdaddy_32x32-Sheet.png", 20)
 
-        self.battle_object.max_hp = 50
+        self.battle_object.max_hp = 20
         self.battle_object.max_mp = 50
         self.battle_object.hp = self.battle_object.max_hp
         self.battle_object.mp = self.battle_object.max_mp

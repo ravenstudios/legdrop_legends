@@ -29,15 +29,15 @@ class Brother(objects.npc.NPC):
 
         self.battle_object.options = {
             "Attacks": [
-                {"name": "Leg Drop", "power": 5, "cost": 5, "type":"attack"},
-                {"name": "Clothesline", "power": 10, "cost": 7, "type":"attack"},
+                {"name": "Leg Drop", "power": 15, "cost": 5, "type":"attack"},
+                {"name": "Clothesline", "power": 20, "cost": 7, "type":"attack"},
                 {"name": "Choke Hold", "power": 10, "cost": 7, "type":"poison"},
-                {"name": "Powder", "mp": 10, "type":"restore_mp", "message":"Player powered"},
+                {"name": "Powder", "mp": 20, "type":"restore_mp", "message":"Player powered"},
                 {"name": "Back"}
             ],
             "Items": [
-                {"name": "Bandaid - HP+5", "hp": 5, "type":"restore_hp", "message":"Player used Bandaid", "qty":3},
-                {"name": "Beer - MP+10", "mp": 10, "type":"restore_mp", "message":"Player used Beer", "qty":3},
+                {"name": "Bandaid - HP+25", "hp": 25, "type":"restore_hp", "message":"Player used Bandaid", "qty":3},
+                {"name": "Beer - MP+10", "mp": 25, "type":"restore_mp", "message":"Player used Beer", "qty":3},
 
                 {"name": "Back"}
             ],

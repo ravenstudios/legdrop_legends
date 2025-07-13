@@ -1,6 +1,6 @@
 from  battle import battle_calc
 from event_system import event_system
-
+import random
 
 
 class PlayerActions():
@@ -9,16 +9,46 @@ class PlayerActions():
         self.battle = battle
         self.attack_message_delay = 2000
         self.poisoned_message_delay = 1000
+        self.run_dice = 5
+
+
+
+    def reset(self):
+        self.battle.enemy.reset()
+        self.battle.m_player.reset()
+        event_system.raise_event("change_to_parent_state")
+
+
 
     def player_died(self):
-        print("player died")
-        self.battle.m_player.hp = self.battle.m_player.max_hp
-        event_system.raise_event("change_to_parent_state")
+        self.battle.m_player.is_dead = True
+        event_system.raise_event("add_timer", [
+            self.attack_message_delay * 2,
+            lambda:self.battle.message_display.set_message("You got knocked the fuck on out!!"),
+            True
+        ])
+
+        event_system.raise_event("add_timer", [
+            self.attack_message_delay * 4,
+            self.reset,
+            True
+        ])
+
 
     def enemy_died(self):
-        print("enemy died")
-        self.battle.enemy.hp = self.battle.enemy.max_hp
-        event_system.raise_event("change_to_parent_state")
+        self.battle.enemy.is_dead = True
+        event_system.raise_event("add_timer", [
+            self.attack_message_delay * 2,
+            lambda:self.battle.message_display.set_message(f"You knocked {self.battle.enemy.name} fuck on out!!"),
+            True
+        ])
+
+        event_system.raise_event("add_timer", [
+            self.attack_message_delay * 4,
+            self.reset,
+            True
+        ])
+
 
 
     def attack(self, key):
@@ -37,16 +67,7 @@ class PlayerActions():
             else:
                 txt = f"{str} it dealt {atk_dmg[0]} damage"
             self.battle.message_display.set_message(txt)
-
-
-            # event_system.raise_event("add_timer", [
-            #     self.attack_message_delay,
-            #     msg,
-            #     True
-            # ])
-
-
-
+            self.battle.m_player.start_lunge(self.battle.enemy)
             self.set_enemy_turn()
             self.battle.current_menu = self.battle.parent_menu
             self.battle.index = 0
@@ -67,6 +88,7 @@ class PlayerActions():
 
 
     def set_enemy_turn(self):
+        self.battle.has_controls = False
         event_system.raise_event("add_timer", [
             self.battle.turn_delay,
             lambda: setattr(self.battle, "turn", "enemy"),
@@ -85,12 +107,11 @@ class PlayerActions():
         self.battle.in_submenu = False
 
     def restore_mp(self, key):
-        self.battle.is_start_of_turn = Fals
+        self.battle.is_start_of_turn = False
         self.battle.message = key["message"]
         bo = self.battle.m_player
         bo.mp += key["mp"]
         bo.mp = min(bo.mp, bo.max_mp)
-        self.set_enemy_turn()
         self.set_enemy_turn()
         self.battle.current_menu = self.battle.parent_menu
         self.battle.index = 0
@@ -101,9 +122,9 @@ class PlayerActions():
         self.battle.is_start_of_turn = False
         self.battle.enemy.is_poisoned = True
         self.set_enemy_turn()
-        self.battle.message = "Player poisoned enemy"
         self.set_enemy_shake()
-
+        self.battle.message_display.set_message("Player poisoned enemy")
+        self.battle.m_player.start_lunge(self.battle.enemy)
 
     def action(self, key):
         if self.battle.turn == "player":
@@ -124,7 +145,24 @@ class PlayerActions():
                     self.restore_mp(key)
 
                 if key["type"] == "run":
-                    event_system.raise_event("change_to_parent_state")
+                    self.run()
+
+
+    def run(self):
+        dice = random.randint(1, self.run_dice)
+        if dice == 1:
+            self.battle.message_display.set_message("Player ran away")
+            event_system.raise_event("add_timer", [
+                self.attack_message_delay,
+                lambda:event_system.raise_event("change_to_parent_state"),
+                True
+            ])
+        else:
+            self.battle.message_display.set_message("Player couldnt run away")
+            self.set_enemy_turn()
+            self.battle.current_menu = self.battle.parent_menu
+            self.battle.index = 0
+            self.battle.in_submenu = False
 
 
     def check_poison(self):

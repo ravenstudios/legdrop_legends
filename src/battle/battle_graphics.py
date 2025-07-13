@@ -12,8 +12,6 @@ class BattleGraphics(object):
         self.enemy_bo = self.battle.enemy
 
 
-
-
     def draw(self, surface):
         player_bo = main_player.current_wrestler.battle_object
         surface.fill((255, 255, 255))
@@ -23,8 +21,6 @@ class BattleGraphics(object):
         RED = (200, 50, 50)
         BLUE = (100, 100, 255)
         GRAY = (230, 230, 230)
-
-
         w = BLOCK_SIZE * 3
         h = BLOCK_SIZE * 2.5
         font_size = 20
@@ -43,11 +39,9 @@ class BattleGraphics(object):
 
         text_box = menu_box
 
-
         health_box = pygame.Rect(padding * 4, player_box.y + padding * 2, w, BLOCK_SIZE // 2)
         mp_box = pygame.Rect(padding * 4, health_box.y + padding * 3, w, BLOCK_SIZE // 2)
         font = pygame.font.SysFont("Arial", font_size)
-
 
         enemy_health_box = pygame.Rect(padding * 4, padding, w, BLOCK_SIZE // 2)
         enemy_mp_box = pygame.Rect(padding * 4, padding * 4, w, BLOCK_SIZE // 2)
@@ -70,9 +64,6 @@ class BattleGraphics(object):
 
             surface.blit(text, (text_box.x + text_padding, text_box.y + font_size * i + text_padding))
 
-
-        # message_text = font.render(self.battle.message_display.get_message(), True, (0, 0, 0))
-        # surface.blit(message_text, message_box)
         message_lines = self.wrap_text(self.battle.message_display.get_message(), 40)  # 40 chars per line
         line_height = font.get_height()
 
@@ -80,9 +71,8 @@ class BattleGraphics(object):
             rendered = font.render(line, True, (0, 0, 0))
             surface.blit(rendered, (message_box.x + 10, message_box.y + 10 + i * line_height))
 
-
-        pygame.draw.rect(surface, BORDER_COLOR, option_box.inflate(5, 5), 3)
-
+        if self.battle.has_controls:
+            pygame.draw.rect(surface, BORDER_COLOR, option_box.inflate(5, 5), 3)
 
         hp_ratio = player_bo.hp / player_bo.max_hp
         pygame.draw.rect(surface, GREEN, (health_box.x, health_box.y, hp_ratio * health_box.width, health_box.height))

@@ -27,6 +27,7 @@ class Player(MainEntity):
         self.movement_handler = MovementHandler(self)
         self.collision_handler = CollisionHandler(self)
         self.current_wrestler = brother.Brother(50, 300)
+        self.current_wrestler.battle_object.lunge_dir = (1, -1)
         self.dir = 0
         self.collisions = False
         self.action_button_pressed = False

@@ -17,7 +17,7 @@ class EnemyAI():
         self.message_display.set_message(f"{self.enemy.name} has enterd the ring")
         self.is_start_of_turn = False
         self.turn_in_progress = False
-        self.poisoned_message_delay = 1000
+        self.poisoned_message_delay = 2000
 
 
     def update(self):
@@ -36,32 +36,27 @@ class EnemyAI():
         if self.enemy.mp >= cost:
             atk_dmg = battle_calc.damage(dmg, self.enemy, self.player_bo)
             str = f"{self.enemy.name} used {attack['name']}"
-            def msg():
-                if atk_dmg[1]:
-                    self.message_display.set_message(f"{str} Critical Hit!! it deal {atk_dmg[0]} damage")
-                else:
-                    self.message_display.set_message(f"{str} it dealt {atk_dmg[0]} damage")
-                self.player_bo.hp -= atk_dmg[0]
-                self.enemy.mp -= cost
-                self.set_player_shake()
-                # self.set_player_turn()
+            # def msg():
+            if atk_dmg[1]:
+                self.message_display.set_message(f"{str} Critical Hit!! it deal {atk_dmg[0]} damage")
+            else:
+                self.message_display.set_message(f"{str} it dealt {atk_dmg[0]} damage")
+            self.player_bo.hp -= atk_dmg[0]
+            self.enemy.mp -= cost
+            self.set_player_shake()
+            self.enemy.start_lunge(self.player_bo)
 
-            event_system.raise_event("add_timer", [
-                self.attack_message_delay,
-                msg,
-                True
-            ])
         else:
             self.message_display.set_message("Crawdaddy Powered")
             self.powder()
 
-        self.battle.turn = "player"
+        self.battle.set_player_turn()
         self.battle.is_start_of_turn = True
 
 
     def powder(self):
         self.enemy.mp += self.enemy.powder_rate
-
+        self.battle.set_player_turn()
 
     def restore_health(self, key):
         pass
@@ -79,8 +74,9 @@ class EnemyAI():
         self.is_start_of_turn = True
 
         if self.enemy.is_poisoned and self.is_start_of_turn:
+            self.battle.enemy.hp -= 5
             self.is_start_of_turn = False
-            self.message_display.set_message(f"{self.enemy.name} is poisoned.")
+            self.message_display.set_message(f"{self.enemy.name} is damaged by poison.")
             self.battle.player_actions.set_enemy_shake()
             event_system.raise_event("add_timer", [
                 self.poisoned_message_delay,
@@ -93,7 +89,8 @@ class EnemyAI():
     def _continue_enemy_turn(self):
         self.is_start_of_turn = False
         self.turn_in_progress = False
-        self.attack()
+        if not self.battle.has_enemy_died:
+            self.attack()
 
 
     def set_player_shake(self):
