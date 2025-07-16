@@ -7,6 +7,8 @@ class BattleState(State):
     def __init__(self, enemy):
         self.enemy = enemy
         self.battle = Battle(self.enemy)
+        self.state_name = "battle"
+
 
     def events(self, events):
         self.battle.events(events)

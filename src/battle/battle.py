@@ -5,7 +5,7 @@ import battle.enemy_ai
 from player.player import main_player
 from battle.player_actions import PlayerActions
 from  battle import message_display
-
+from event_system import event_system
 
 
 class Battle():
@@ -36,6 +36,10 @@ class Battle():
         self.has_player_died = False
         self.has_enemy_died = False
 
+        event_system.on("battle_index_up", self.index_up)
+        event_system.on("battle_index_down", self.index_down)
+        event_system.on("battle_action_button", self.action_button)
+
     def update(self):
         self.player_group.update()
         self.enemy_group.update()
@@ -55,10 +59,6 @@ class Battle():
             self.player_actions.enemy_died()
             self.has_controls = False
 
-
-        # self.player_actions.check_poison()
-
-
         self.index = max(0, min(self.index, len(self.current_menu) - 1))
         if self.turn == "enemy" and not self.has_enemy_died:
             self.enemy_ai.enemy_turn()
@@ -76,26 +76,7 @@ class Battle():
 
 
     def events(self, events):
-        action = None
-        if self.has_controls:
-            for event in events:
-                if event.type == pygame.JOYBUTTONDOWN:
-                    if event.button == 0:
-                        action = "action_button"
-                    elif event.button == 11:
-                        action = "index_up"
-                    elif event.button == 12:
-                        action = "index_down"
-
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_UP:
-                        action = "index_up"
-                    elif event.key == pygame.K_DOWN:
-                        action = "index_down"
-                    elif event.key == pygame.K_RETURN:
-                        action = "action_button"
-            if action and self.turn == "player":
-                getattr(self, action)()
+        pass
 
 
     def index_up(self):

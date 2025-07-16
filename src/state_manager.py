@@ -38,8 +38,9 @@ class StateManager():
     def change_state(self, state):
         self.parrent_state = self.current_state
         self.transition_state.start(lambda:setattr(self, "current_state", state))
-
+        self.input_handler.set_control_state(state.state_name)
 
     def change_to_parent_state(self, arg=None):
         self.transition_state.start(lambda:setattr(self, "current_state", self.parrent_state))
         # self.transition_state.start(lambda:self.current_state = self.parrent_state)
+        self.input_handler.set_control_state(self.parrent_state.state_name)

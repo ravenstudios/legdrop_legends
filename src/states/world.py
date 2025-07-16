@@ -31,7 +31,7 @@ class World(State):
         self.map = map.Map()
         self.load_map("town1.tmx")
         self.groups = [self.obj_group, self.door_group, self.npc_group, self.map_group]
-
+        self.state_name = "world"
 
     def events(self, events):
         self.dialog_display.events(events)

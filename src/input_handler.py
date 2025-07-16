@@ -34,14 +34,7 @@ class InputHandler:
             elif action == "action_button":
                 event_system.raise_event("action_button")
 
-        elif self.control_state == "battle":
-            event_system.raise_event(f"battle_{action}")
 
-        elif self.control_state == "menu":
-            event_system.raise_event(f"menu_{action}")
-
-        elif self.control_state == "dialog":
-            event_system.raise_event(f"dialog_{action}")
 
 
 
@@ -53,8 +46,18 @@ class InputHandler:
             elif event.type == pygame.KEYUP:
                 self.handle_keyup(event.key)
 
+
+
     def handle_keydown(self, key):
-        pass
+        if self.control_state == "battle":
+            if key == pygame.K_UP:
+                event_system.raise_event("battle_index_up")
+            elif key == pygame.K_DOWN:
+                event_system.raise_event("battle_index_down")
+            elif key == pygame.K_RETURN:
+                event_system.raise_event("battle_action_button")
+
+
 
     def handle_keyup(self, key):
         pass
