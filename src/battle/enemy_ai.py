@@ -12,7 +12,6 @@ class EnemyAI():
         self.battle = battle
         self.message_display = battle.message_display
         self.attacks = self.enemy.options["Attacks"]
-        self.items = self.enemy.options["Items"]
         self.attack_message_delay = 2000
         self.message_display.set_message(f"{self.enemy.name} has enterd the ring")
         self.is_start_of_turn = False

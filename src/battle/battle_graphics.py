@@ -5,15 +5,16 @@ from player.player import main_player
 from event_system import event_system
 
 class BattleGraphics(object):
-    """docstring for BattleMenu."""
-
     def __init__(self, battle):
         self.battle = battle
         self.enemy_bo = self.battle.enemy
+        self.player_bo = main_player.current_wrestler.battle_object
+        self.player_bo.rect.topleft = (0, 300)
+        self.player_bo.orginal_pos_rect = self.player_bo.rect.copy()
 
 
     def draw(self, surface):
-        player_bo = main_player.current_wrestler.battle_object
+        player_bo = self.player_bo
         surface.fill((255, 255, 255))
         WIDTH, HEIGHT = surface.get_size()
         BORDER_COLOR = (0, 0, 0)

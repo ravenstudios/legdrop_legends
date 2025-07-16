@@ -42,23 +42,23 @@ class Brother(objects.npc.NPC):
                 {"name": "Clothesline", "power": 20, "cost": 7, "type":"attack"},
                 {"name": "Choke Hold", "power": 10, "cost": 7, "type":"poison"},
                 {"name": "Powder", "mp": 20, "type":"restore_mp", "message":"Player powered"},
-                {"name": "Back"}
+
             ],
             "Items": [
                 {"name": "Bandaid - HP+25", "hp": 25, "type":"restore_hp", "message":"Player used Bandaid", "qty":3},
                 {"name": "Beer - MP+10", "mp": 25, "type":"restore_mp", "message":"Player used Beer", "qty":3},
 
-                {"name": "Back"}
+
             ],
             "Tag Partner": [
                 {"name": "Tag Partner", "type":"tag", "message":"Player tagged"},
-                {"name": "Back"},
+
 
             ],
 
             "Run": [
                 {"name": "Run", "type":"run", "message":"Player tried running"},
-                {"name": "Back"},
+                
             ]
         }
 

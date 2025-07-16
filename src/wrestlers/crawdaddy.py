@@ -37,25 +37,25 @@ class Crawdaddy(objects.npc.NPC):
                 {"name": "Nipple Chop", "power": 5, "cost": 2, "type":"attack", "message":"Craw Daddy used Chop, it dealt 3 damage"},
                 {"name": "Elbow", "power": 10, "cost": 2, "type":"attack", "message":"Craw Daddy used Kick, it dealt 5 damage"},
                             ],
-            "Items": [
-                {"name": "Bandaid", "hp": 5, "type":"restore_hp", "message":"Craw Daddy used Bandaid"},
-                {"name": "Beer", "mp": 10, "type":"restore_mp", "message":"Craw Daddy used Beer"},
-                {"name": "Powder", "mp": 5, "type":"restore_mp", "message":"Craw Daddy powered"},
-                            ],
-            "Tag Partner": [
-                {"name": "Tag Partner", "type":"tag", "message":"Player tagged"},
-
-
-            ],
-            "Powder": [
-                {"name": "Powder", "mp": 0, "type":"restore_mp", "message":""},
-
-            ],
-
-            "Run": [
-                {"name": "Run", "type":"run", "message":"Player tried running"},
-                {"name": "Back"},
-            ]
+            # "Items": [
+            #     {"name": "Bandaid", "hp": 5, "type":"restore_hp", "message":"Craw Daddy used Bandaid"},
+            #     {"name": "Beer", "mp": 10, "type":"restore_mp", "message":"Craw Daddy used Beer"},
+            #     {"name": "Powder", "mp": 5, "type":"restore_mp", "message":"Craw Daddy powered"},
+            #                 ],
+            # "Tag Partner": [
+            #     {"name": "Tag Partner", "type":"tag", "message":"Player tagged"},
+            #
+            #
+            # ],
+            # "Powder": [
+            #     {"name": "Powder", "mp": 0, "type":"restore_mp", "message":""},
+            #
+            # ],
+            #
+            # "Run": [
+            #     {"name": "Run", "type":"run", "message":"Player tried running"},
+            #
+            # ]
         }
         self.dialog = {
             "start": {

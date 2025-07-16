@@ -58,6 +58,11 @@ class InputHandler:
                 event_system.raise_event("battle_index_down")
             elif key == pygame.K_RETURN:
                 event_system.raise_event("battle_action_button")
+            elif key == pygame.K_ESCAPE:
+                event_system.raise_event("battle_back")
+
+
+
 
 
     def handle_keyup(self, key):

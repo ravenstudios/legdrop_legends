@@ -7,7 +7,7 @@ class MenuStable():
     def __init__(self):
         from player.player import main_player
         self.player = main_player.current_wrestler.battle_object
-        self.items = self.player.options["Items"]
+        # self.items = self.player.options["Items"]
         self.player_group = pygame.sprite.Group()
         for wrestler in main_player.stable:
             self.player_group.add(wrestler.battle_object)
@@ -17,7 +17,7 @@ class MenuStable():
 
     def update(self):
         self.player_group.update()
-        self.index = self.index % len(self.items)
+        # self.index = self.index % len(self.items)
 
 
     def draw(self, surface):

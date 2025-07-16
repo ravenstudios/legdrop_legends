@@ -11,14 +11,14 @@ class Menu():
         event_system.on("set_menu_stable_visible", self.set_stable_visible)
         from player.player import main_player
         self.player = main_player.current_wrestler.battle_object
-        self.items = self.player.options["Items"]
+        # self.items = self.player.options["Items"]
         self.player_group = pygame.sprite.Group()
         for wrestler in main_player.stable:
             self.player_group.add(wrestler.battle_object)
         self.player.rect.topleft = (0, 0)
         self.index = 0
         self.menu_stable = MenuStable()
-        self.is_visible = True
+        self.is_visible = False
         self.is_stable_visible = False
 
 
@@ -33,7 +33,7 @@ class Menu():
 
     def update(self):
         self.player_group.update()
-        self.index = self.index % len(self.items)
+        # self.index = self.index % len(self.items)
 
 
     def events(self, events):
@@ -73,19 +73,19 @@ class Menu():
             text_padding = 10
             font = pygame.font.SysFont("Arial", font_size)
 
-            for i, option in enumerate(self.items):
-                text = None
-                str = ""
-                if isinstance(option, dict):
-                    if "qty" in option:
-                        str = f"{option['name']} - Qty:{option['qty']}"
-                    else:
-                        str = option['name']
-                    text = font.render(str, True, BLACK)
-                else:
-                    text = font.render(option, True, BLACK)
-
-                surface.blit(text, (text_padding, font_size * i + text_padding * i + text_padding - 2))
+            # for i, option in enumerate(self.items):
+            #     text = None
+            #     str = ""
+            #     if isinstance(option, dict):
+            #         if "qty" in option:
+            #             str = f"{option['name']} - Qty:{option['qty']}"
+            #         else:
+            #             str = option['name']
+            #         text = font.render(str, True, BLACK)
+            #     else:
+            #         text = font.render(option, True, BLACK)
+            #
+            #     surface.blit(text, (text_padding, font_size * i + text_padding * i + text_padding - 2))
 
             # selection_box = pygame.Rect(0,  0 + font_size * self.index + text_padding * self.index, items_box.width, font_size + padding)
             # pygame.draw.rect(surface, RED, selection_box, 6)
