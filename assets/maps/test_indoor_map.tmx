@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="5">
+ <tileset firstgid="1" source="../../../skateboarding_game_python/assets/maps/Town1_tileset.tsx"/>
+ <layer id="1" name="Ground" width="10" height="10">
+  <data encoding="csv">
+17,17,17,17,17,17,17,17,17,17,
+17,17,17,17,17,17,17,17,17,17,
+17,17,17,17,17,17,17,17,17,17,
+17,17,17,17,17,17,17,17,17,17,
+17,17,17,17,17,17,17,17,17,17,
+17,17,17,17,17,17,17,17,17,17,
+17,17,17,17,17,17,17,17,17,17,
+17,17,17,17,17,17,17,17,17,17,
+17,17,17,17,17,17,17,17,17,17,
+17,17,17,17,17,17,17,17,17,17
+</data>
+ </layer>
+ <objectgroup id="2" name="Door">
+  <object id="1" x="72" y="145.013" width="32" height="14.8248">
+   <properties>
+    <property name="door" type="bool" value="true"/>
+    <property name="exit" type="bool" value="true"/>
+    <property name="map_file" value="town1.tmx"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="3" name="Player Spawn">
+  <object id="2" x="80" y="128" width="16" height="16">
+   <properties>
+    <property name="spawn_point" type="object" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
