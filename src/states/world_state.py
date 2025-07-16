@@ -11,7 +11,7 @@ from wrestlers.clown import Clown
 from wrestlers.brother import Brother
 import dialog_display
 import menu
-class World(State):
+class WorldState(State):
     def __init__(self, event_system, joystick=None):
         self.joystick = joystick
         self.event_system = event_system
@@ -32,6 +32,7 @@ class World(State):
         self.groups = [self.obj_group, self.door_group, self.npc_group, self.map_group]
         self.state_name = "world"
         self.menu = menu.Menu()
+        self.song = "town.mp3"
 
 
 

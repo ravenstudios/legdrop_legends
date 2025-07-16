@@ -3,7 +3,7 @@ from event_system import event_system
 
 class InputHandler:
     def __init__(self):
-        self.control_state = "player"  # 'player', 'menu', or 'battle'
+        self.control_state = "world"  # 'player', 'menu', or 'battle'
         event_system.on("set_control_state", self.set_control_state)
 
 
@@ -20,6 +20,7 @@ class InputHandler:
             pygame.K_RIGHT: "move_right",
             pygame.K_ESCAPE: "escape",
             pygame.K_RETURN: "action_button",
+            pygame.K_p: "set_menu_visible",
         }
 
         for key, action in key_actions.items():
@@ -28,7 +29,7 @@ class InputHandler:
 
 
     def handle_action(self, action):
-        if self.control_state == "player":
+        if self.control_state == "world":
             if action in ("move_up", "move_down", "move_left", "move_right"):
                 event_system.raise_event(action)
             elif action == "escape":
@@ -46,6 +47,10 @@ class InputHandler:
 
 
     def handle_keydown(self, key):
+        if self.control_state == "world":
+            if key == pygame.K_p:
+                print("p")
+                event_system.raise_event("set_menu_visible")
         if self.control_state == "battle":
             if key == pygame.K_UP:
                 event_system.raise_event("battle_index_up")

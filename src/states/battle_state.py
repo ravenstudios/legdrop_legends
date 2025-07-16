@@ -8,7 +8,7 @@ class BattleState(State):
         self.enemy = enemy
         self.battle = Battle(self.enemy)
         self.state_name = "battle"
-
+        self.song = "wrestler.mp3"
 
     def events(self, events):
         self.battle.events(events)

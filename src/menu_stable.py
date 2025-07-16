@@ -20,29 +20,6 @@ class MenuStable():
         self.index = self.index % len(self.items)
 
 
-    # def events(self, events):
-    #     action = None
-    #     for event in events:
-    #         if event.type == pygame.JOYBUTTONDOWN:
-    #             if event.button == 0:
-    #                 action = "action_button"
-    #             elif event.button == 11:
-    #                 action = "index_up"
-    #             elif event.button == 12:
-    #                 action = "index_down"
-    #
-    #         elif event.type == pygame.KEYDOWN:
-    #             if event.key == pygame.K_UP:
-    #                 action = "index_up"
-    #             elif event.key == pygame.K_DOWN:
-    #                 action = "index_down"
-    #             elif event.key == pygame.K_RETURN:
-    #                 action = "enter"
-    #             elif event.key == pygame.K_p:
-    #                 # event_system.raise_event("change_to_parent_state")
-    #         if action:
-    #             getattr(self, action)()
-
     def draw(self, surface):
 
         # player_bo = self.player.current_wrestler.battle_object
@@ -78,10 +55,10 @@ class MenuStable():
             name_box = pygame.Rect(x, y, w, h)
             pygame.draw.rect(surface, BLACK, name_box, 3)
             info = [
-                f"Name:{self.player.name}",
-                f"Class:{self.player.type_class}",
-                f"HP:{self.player.hp} / {self.player.max_hp}",
-                f"MP:{self.player.mp} / {self.player.max_mp}"
+                f"Name:{wrestler.name}",
+                f"Class:{wrestler.type_class}",
+                f"HP:{wrestler.hp} / {wrestler.max_hp}",
+                f"MP:{wrestler.mp} / {wrestler.max_mp}"
             ]
 
             for index, i in enumerate(info):
@@ -97,7 +74,7 @@ class MenuStable():
             l = len(stat_names)
             info_box = pygame.Rect(x, y, w, h)
             pygame.draw.rect(surface, BLACK, info_box, 3)
-            for index, stat in enumerate(self.player.stats):
+            for index, stat in enumerate(wrestler.stats):
                 text = font.render(f"{stat_names[index]}: {stat}", True, BLACK)
                 if index < 4:
                     surface.blit(text, (info_box.x + text_padding, info_box.y + text_padding + index * font_size))
