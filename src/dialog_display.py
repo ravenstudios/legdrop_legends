@@ -37,7 +37,8 @@ class DialogDisplay(pygame.sprite.Sprite):
         self.rect.topleft = (self.x, self.y)
 
         # Font
-        self.font = pygame.font.SysFont(None, 28)
+        self.font = pygame.font.Font("game_font.ttf", 18)
+
         self.text = ""
         self.running_text = ""
         self.text_index = 0

@@ -60,32 +60,32 @@ class Clown(objects.npc.NPC):
             # ]
         }
         self.dialog = {
-            "start": {
-                "text": "Big Rick stares you down.",
-                "next": "options"
-            },
+        "start": {
+            "text": "A squeaky horn honks from nowhere... Slappy Taffy rolls up in a tiny invisible car. 'HONK HONK! You lookin’ for a laugh or a smackdown?'",
+            "next": "options"
+        },
+        "options": {
             "options": {
-                "options": {
-                    "1": {"text": "I'm here to fight. Let’s do this.", "next": "fight"},
-                    "2": {"text": "Not lookin’ for trouble.", "next": "no_fight"},
-                    "3": {"text": "Who are you, anyway?", "next": "who"},
-                    "4": {"text": "What is this place?", "next": "where"},
-                }
-            },
-            "who": {
-                "text": "Big Rick: 'Name's Big Rick. King of the Backyard. Ain’t nobody throws a slam like me.'",
-                "next": "options"
-            },
-            "where": {
-                "text": "Big Rick: 'This here’s The Yard. Broken fences, busted dreams, and a whole lotta bruised egos.'",
-                "next": "options"
-            },
-            "fight": {
-                "text": "Big Rick: 'HA! Now you're speakin' my language!'",
-                "action": "start_battle"
-            },
-            "no_fight": {
-                "text": "Big Rick: 'Tch... Figures. Come back when you grow a spine.'",
-                "action": "end_dialogue"
+                "1": {"text": "I’m here to fight, clown.", "next": "fight"},
+                "2": {"text": "No thanks, I’m allergic to greasepaint.", "next": "no_fight"},
+                "3": {"text": "Who even *are* you?", "next": "who"},
+                "4": {"text": "Where *is* this?", "next": "where"},
             }
+        },
+        "who": {
+            "text": "Slappy Taffy: 'Name’s Slappy Taffy — the ticklish terror of turnbuckle town! I’ve tripped over more chairs than you’ve seen matches!'",
+            "next": "options"
+        },
+        "where": {
+            "text": "Slappy Taffy: 'This? This is The Yard, baby! Where dreams go SPLAT and pies go SMACK. Step right up!'",
+            "next": "options"
+        },
+        "fight": {
+            "text": "Slappy Taffy: 'AHAHAHA! Let’s see if you can dodge my Balloon Suplex!'",
+            "action": "start_battle"
+        },
+        "no_fight": {
+            "text": "Slappy Taffy: 'Pfft... You’re about as fun as a flat whoopee cushion. Come back when you're ready to boogie with the buffoon.'",
+            "action": "end_dialogue"
         }
+    }

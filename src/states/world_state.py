@@ -9,6 +9,7 @@ import map
 from wrestlers.crawdaddy import Crawdaddy
 from wrestlers.clown import Clown
 from wrestlers.brother import Brother
+from wrestlers.punching_bag import Punching_bag
 import dialog_display
 import menu
 class WorldState(State):
@@ -25,7 +26,8 @@ class WorldState(State):
         self.obj_group = pygame.sprite.Group()
         self.door_group = pygame.sprite.Group()
         self.npc_group = pygame.sprite.Group()
-        self.npc_group.add(Crawdaddy(), Clown(), Brother())
+
+        self.npc_group.add(Crawdaddy(), Clown(), Brother(), Punching_bag())
         self.camera = Camera(self.event_system)
         self.map = map.Map()
         self.load_map("town1.tmx")

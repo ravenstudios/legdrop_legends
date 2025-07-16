@@ -24,7 +24,7 @@ class BattleGraphics(object):
         GRAY = (230, 230, 230)
         w = BLOCK_SIZE * 3
         h = BLOCK_SIZE * 2.5
-        font_size = 20
+        font_size = 15
         padding = 20
         text_padding = 10
 
@@ -42,7 +42,7 @@ class BattleGraphics(object):
 
         health_box = pygame.Rect(padding * 4, player_box.y + padding * 2, w, BLOCK_SIZE // 2)
         mp_box = pygame.Rect(padding * 4, health_box.y + padding * 3, w, BLOCK_SIZE // 2)
-        font = pygame.font.SysFont("Arial", font_size)
+        font = pygame.font.Font("game_font.ttf", font_size)
 
         enemy_health_box = pygame.Rect(padding * 4, padding, w, BLOCK_SIZE // 2)
         enemy_mp_box = pygame.Rect(padding * 4, padding * 4, w, BLOCK_SIZE // 2)

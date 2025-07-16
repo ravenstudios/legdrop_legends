@@ -13,7 +13,7 @@ class EnemyAI():
         self.message_display = battle.message_display
         self.attacks = self.enemy.options["Attacks"]
         self.attack_message_delay = 2000
-        self.message_display.set_message(f"{self.enemy.name} has enterd the ring")
+        self.message_display.set_message(f"{self.enemy.name} has entered the ring")
         self.is_start_of_turn = False
         self.turn_in_progress = False
         self.poisoned_message_delay = 2000
@@ -36,10 +36,12 @@ class EnemyAI():
             atk_dmg = battle_calc.damage(dmg, self.enemy, self.player_bo)
             str = f"{self.enemy.name} used {attack['name']}"
             # def msg():
+
             if atk_dmg[1]:
-                self.message_display.set_message(f"{str} Critical Hit!! it deal {atk_dmg[0]} damage")
+                self.message_display.set_message(f"{str} Critical Hit!! it dealt {atk_dmg[0]} damage")
             else:
                 self.message_display.set_message(f"{str} it dealt {atk_dmg[0]} damage")
+
             self.player_bo.hp -= atk_dmg[0]
             self.enemy.mp -= cost
             self.set_player_shake()

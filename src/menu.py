@@ -71,7 +71,8 @@ class Menu():
             font_size = 20
             padding = 20
             text_padding = 10
-            font = pygame.font.SysFont("Arial", font_size)
+            font = pygame.font.Font("game_font.ttf", font_size)
+
 
             # for i, option in enumerate(self.items):
             #     text = None
