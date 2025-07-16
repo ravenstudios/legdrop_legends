@@ -4,7 +4,7 @@ import os
 class MusicManager:
     def __init__(self):
         self.track = None
-        self.volume = 0.4
+        self.volume = 0.0
         pygame.mixer.init()
 
     def play(self, file, loop=True):
@@ -21,6 +21,7 @@ class MusicManager:
 
         pygame.mixer.music.set_volume(self.volume)
         pygame.mixer.music.play(-1 if loop else 0)
+
 
     def stop(self):
         pygame.mixer.music.stop()

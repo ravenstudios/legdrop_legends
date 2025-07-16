@@ -21,22 +21,17 @@ class MenuStable():
 
 
     def draw(self, surface):
-
-        # player_bo = self.player.current_wrestler.battle_object
-        surface.fill((255, 255, 255))
-
-        # self.player_group.draw(surface)
-
         WIDTH, HEIGHT = surface.get_size()
         font_size = 20
         padding = 20
         text_padding = 10
 
         font = pygame.font.SysFont("Arial", font_size)
-        main_x = 200
-        main_y = 100
+
         main_w = BLOCK_SIZE * 10 + padding * 3
         main_h = BLOCK_SIZE * len(self.player_group) * 2 + padding * 5
+        main_x = WIDTH // 2 - main_w // 2
+        main_y = HEIGHT // 2 - main_h // 2
 
         main_box = info_box = pygame.Rect(main_x, main_y, main_w, main_h)
         pygame.draw.rect(surface, (0, 200, 0), main_box)
@@ -81,39 +76,6 @@ class MenuStable():
                 else:
                     surface.blit(text, (info_box.x + text_padding + (font_size * 6), info_box.y + text_padding + (index - 4) * font_size))
 
-
-
-
-
-
-
-
-
-
-
-
-        #
-        #
-        #
-        #
-        # for i, option in enumerate(self.items):
-        #     text = None
-        #     str = ""
-        #     if isinstance(option, dict):
-        #         if "qty" in option:
-        #             str = f"{option['name']} - Qty:{option['qty']}"
-        #         else:
-        #             str = option['name']
-        #         text = font.render(str, True, BLACK)
-        #     else:
-        #         text = font.render(option, True, BLACK)
-        #
-        #     surface.blit(text, (items_box.x + text_padding, items_box.y + font_size * i + text_padding * i + text_padding - 2))
-        #
-        # selection_box = pygame.Rect(items_box.left,  items_box.y + font_size * self.index + text_padding * self.index, items_box.width, font_size + padding)
-        # pygame.draw.rect(surface, RED, selection_box, 6)
-
-
     def draw_scaled(self, sprite, surface):
         scale = 0.5
         scaled_image = pygame.transform.scale(sprite.image, (
@@ -122,28 +84,3 @@ class MenuStable():
         ))
         rect = scaled_image.get_rect(topleft=sprite.rect.topleft)
         surface.blit(scaled_image, rect)
-
-
-
-    def wrap_text(self, text, max_chars):
-        lines = []
-        while len(text) > max_chars:
-            # Find the last space within limit
-            split_index = text.rfind(" ", 0, max_chars)
-            if split_index == -1:
-                split_index = max_chars  # force break
-            lines.append(text[:split_index])
-            text = text[split_index:].lstrip()
-        lines.append(text)
-        return lines
-
-
-    def index_up(self):
-        self.index -= 1
-
-
-    def index_down(self):
-        self.index += 1
-
-    def enter(self):
-        print("enter")

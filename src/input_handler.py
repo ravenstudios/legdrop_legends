@@ -49,7 +49,6 @@ class InputHandler:
     def handle_keydown(self, key):
         if self.control_state == "world":
             if key == pygame.K_p:
-                print("p")
                 event_system.raise_event("set_menu_visible")
         if self.control_state == "battle":
             if key == pygame.K_UP:
