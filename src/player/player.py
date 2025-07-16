@@ -21,7 +21,7 @@ class Player(MainEntity):
         self.y = 0
         self.width = BLOCK_SIZE
         self.height = BLOCK_SIZE
-        super().__init__(self.x, self.y, self.width, self.height, "Brother16x16-Sheet.png")
+        super().__init__(self.x, self.y, self.width, self.height, "manager-Sheet.png")
         self.y_sprite_sheet_index = 0
         self.speed = 7
         self.movement_handler = MovementHandler(self)
