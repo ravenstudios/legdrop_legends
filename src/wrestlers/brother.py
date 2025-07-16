@@ -4,7 +4,6 @@ from event_system import event_system
 
 import objects.npc
 class Brother(objects.npc.NPC):
-
     def __init__(self, x=500, y=50):
         super().__init__(400, 350, "Brother16x16-Sheet.png")
 
@@ -15,17 +14,27 @@ class Brother(objects.npc.NPC):
 
         self.battle_object.hp = self.battle_object.max_hp
         self.battle_object.mp = self.battle_object.max_mp
-
+        self.battle_object.level = 5
+        self.battle_object.exp = 0
         self.battle_object.speed = 50
         self.battle_object.power = 50
         self.battle_object.defense = 50
         self.battle_object.technique = 50
         self.battle_object.charisma = 50
         self.battle_object.luck = 10
-        self.battle_object.type_class = "grappler"
+        self.battle_object.type_class = "Grappler"
         self.battle_object.is_poisoned = False
         self.battle_object.name = "Brother"
-
+        self.battle_object.stats = [
+            self.battle_object.level,
+            self.battle_object.exp,
+            self.battle_object.speed,
+            self.battle_object.power,
+            self.battle_object.defense,
+            self.battle_object.technique,
+            self.battle_object.charisma,
+            self.battle_object.luck
+        ]
 
         self.battle_object.options = {
             "Attacks": [

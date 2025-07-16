@@ -8,8 +8,9 @@ from objects.npc import NPC
 import map
 from wrestlers.crawdaddy import Crawdaddy
 from wrestlers.clown import Clown
+from wrestlers.brother import Brother
 import dialog_display
-
+import menu
 class World(State):
     def __init__(self, event_system, joystick=None):
         self.joystick = joystick
@@ -23,15 +24,16 @@ class World(State):
         self.map_group = pygame.sprite.Group()
         self.obj_group = pygame.sprite.Group()
         self.door_group = pygame.sprite.Group()
-        self.clown = Clown(self.event_system)
-        self.crawdaddy = Crawdaddy(self.event_system)
         self.npc_group = pygame.sprite.Group()
-        self.npc_group.add(self.crawdaddy, self.clown)
+        self.npc_group.add(Crawdaddy(), Clown(), Brother())
         self.camera = Camera(self.event_system)
         self.map = map.Map()
         self.load_map("town1.tmx")
         self.groups = [self.obj_group, self.door_group, self.npc_group, self.map_group]
         self.state_name = "world"
+        self.menu = menu.Menu()
+
+
 
     def events(self, events):
         self.dialog_display.events(events)
@@ -44,6 +46,8 @@ class World(State):
         self.npc_group.update(cam_offset, self.map_group)
         self.door_group.update(cam_offset)
         self.dialog_display.update()
+        self.menu.update()
+
 
     def draw(self, surface):
         self.map_group.draw(surface)
@@ -51,6 +55,9 @@ class World(State):
         self.player_group.draw(surface)
         if self.dialog_display.is_visible:
             self.dialog_display_group.draw(surface)
+        if self.menu.is_visible:
+            self.menu.draw(surface)
+
 
     def load_map(self, map_file):
         self.map_group, self.obj_group, self.door_group, spawn_point = self.map.load_map(map_file)

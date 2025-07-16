@@ -5,14 +5,14 @@ import constants
 import random
 from player.movement_handler import MovementHandler
 from player.collision_handler import CollisionHandler
-from wrestlers import brother
+from wrestlers.brother import Brother
+from wrestlers.clown import Clown
+from wrestlers.crawdaddy import Crawdaddy
 from event_system import event_system
 
 
 class Player(MainEntity):
-
     def __init__(self):
-
         event_system.on("player_set_in_menu", self.set_in_menu)
         event_system.on("player_set_in_dialog", self.set_in_dialog)
         event_system.on("player_get_player", self.get_player)
@@ -26,7 +26,13 @@ class Player(MainEntity):
         self.speed = 7
         self.movement_handler = MovementHandler(self)
         self.collision_handler = CollisionHandler(self)
-        self.current_wrestler = brother.Brother(50, 300)
+        self.stable = [
+            Brother(),
+            Crawdaddy(),
+            Clown(),
+            Brother()
+        ]
+        self.current_wrestler = self.stable[2]
         self.current_wrestler.battle_object.lunge_dir = (1, -1)
         self.dir = 0
         self.collisions = False
