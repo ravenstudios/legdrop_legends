@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="12" height="12" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="15">
+ <tileset firstgid="1" source="clinic.tsx"/>
+ <layer id="1" name="floor and walls" width="12" height="12">
+  <data encoding="csv">
+22,23,23,23,23,23,23,23,23,23,23,24,
+30,31,31,31,31,31,31,31,31,31,31,32,
+10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,17,19,10,10,10,10,10,
+10,10,10,10,10,33,35,10,10,10,10,10
+</data>
+ </layer>
+ <layer id="3" name="Objects" width="12" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,
+49,0,0,3,0,0,0,3,0,0,0,49,
+57,0,0,0,0,0,0,0,0,0,0,57,
+0,0,1,2,0,0,1,2,0,1,2,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+4,5,5,5,5,5,5,5,5,5,5,6,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,49,0,0,0,0,0,0,0,0,49,0,
+0,57,0,0,0,0,0,0,0,0,57,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="4" name="Computer" width="12" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+7,0,0,0,0,0,0,0,0,0,0,7,
+0,0,12,0,0,0,0,12,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+7,0,0,0,0,0,0,0,0,0,0,7,
+0,0,0,0,7,0,0,7,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="5" name="Door">
+  <properties>
+   <property name="map_file" value="town1.tmx"/>
+  </properties>
+  <object id="1" x="80" y="186" width="32" height="4.81478">
+   <properties>
+    <property name="door" type="bool" value="true"/>
+    <property name="exit" type="bool" value="true"/>
+    <property name="map_file" value="town1.tmx"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="7" name="spawn point">
+  <object id="14" x="95.3466" y="163.898">
+   <properties>
+    <property name="spawn_point" value=""/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="6" name="Blocking">
+  <object id="2" x="161.888" y="151.17" width="11.1647" height="9.15506">
+   <properties>
+    <property name="block" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="3" x="179.752" y="150.277" width="8.48517" height="9.60164">
+   <properties>
+    <property name="block" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="4" x="18.7567" y="151.617" width="11.1647" height="7.14541">
+   <properties>
+    <property name="block" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="5" x="4.01929" y="149.83" width="9.15506" height="8.93176">
+   <properties>
+    <property name="block" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="6" x="66.5416" y="165.907" width="8.93176" height="9.82494">
+   <properties>
+    <property name="block" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="7" x="0" y="188.46" width="79.0461" height="3.34941">
+   <properties>
+    <property name="block" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="8" x="112.317" y="188.46" width="79.4927" height="3.12612">
+   <properties>
+    <property name="block" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="9" x="112.763" y="160.325" width="2.45623" height="27.0186">
+   <properties>
+    <property name="block" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="10" x="76.3666" y="160.772" width="3.34941" height="27.6885">
+   <properties>
+    <property name="block" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="11" x="-0.893176" y="101.152" width="5.13576" height="87.0847">
+   <properties>
+    <property name="block" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="12" x="4.24259" y="105.618" width="183.994" height="5.35906">
+   <properties>
+    <property name="block" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="13" x="188.237" y="105.618" width="4.01929" height="82.3955">
+   <properties>
+    <property name="block" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="2" name="Top of walls" width="12" height="12">
+  <data encoding="csv">
+21,0,0,0,0,0,0,0,0,0,0,20,
+29,0,0,0,0,0,0,0,0,0,0,28,
+29,0,0,0,0,0,0,0,0,0,0,28,
+29,0,0,0,0,0,0,0,0,0,0,28,
+29,0,0,0,0,0,0,0,0,0,0,28,
+29,0,0,0,0,0,0,0,0,0,0,28,
+29,0,0,0,0,0,0,0,0,0,0,28,
+29,0,0,0,0,0,0,0,0,0,0,28,
+29,0,0,0,0,0,0,0,0,0,0,28,
+29,0,0,0,0,0,0,0,0,0,0,28,
+29,0,0,0,20,0,0,21,0,0,0,28,
+60,39,39,39,61,0,0,60,39,39,39,61
+</data>
+ </layer>
+</map>
