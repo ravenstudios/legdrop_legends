@@ -10,7 +10,10 @@ from wrestlers.crawdaddy import Crawdaddy
 from wrestlers.clown import Clown
 from wrestlers.brother import Brother
 import dialog_display
-import menu
+from menu import menu
+
+
+
 class WorldState(State):
     def __init__(self, event_system, joystick=None):
         self.joystick = joystick

@@ -9,7 +9,7 @@ from wrestlers.brother import Brother
 from wrestlers.clown import Clown
 from wrestlers.crawdaddy import Crawdaddy
 from event_system import event_system
-
+from player.item_manager import item_manager
 
 class Player(MainEntity):
     def __init__(self):
@@ -24,6 +24,7 @@ class Player(MainEntity):
         super().__init__(self.x, self.y, self.width, self.height, "manager-Sheet.png")
         self.y_sprite_sheet_index = 0
         self.speed = 7
+        self.item_manager = item_manager
         self.movement_handler = MovementHandler(self)
         self.collision_handler = CollisionHandler(self)
         self.stable = [
@@ -44,6 +45,7 @@ class Player(MainEntity):
         self.spawn_point = ()
         self.in_menu = False
         self.in_dialog = False
+        self.in_menu = False
 
 
     def get_current_wrestler(self):
