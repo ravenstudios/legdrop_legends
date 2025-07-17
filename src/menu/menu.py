@@ -36,7 +36,7 @@ class Menu():
         self.menu_game_options = MenuGameOptions(self)
         self.menu_items = MenuItems(self)
 
-        self.is_visible = True
+        self.is_visible = False
         self.stable_visible = False
         self.status_visible = False
         self.items_visible = False

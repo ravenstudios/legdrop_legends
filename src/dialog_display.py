@@ -86,7 +86,7 @@ class DialogDisplay(pygame.sprite.Sprite):
         self.is_visible = False
         self.has_controles = False
         self.showing_options = False
-        # self.index = 0
+        self.index = 0
         self.event_system.raise_event("player_set_in_dialog", False)
 
     def enter(self):

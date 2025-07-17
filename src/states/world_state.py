@@ -11,7 +11,7 @@ from wrestlers.clown import Clown
 from wrestlers.brother import Brother
 import dialog_display
 from menu import menu
-
+from npcs.nurse import Nurse
 
 
 class WorldState(State):
@@ -28,7 +28,7 @@ class WorldState(State):
         self.obj_group = pygame.sprite.Group()
         self.door_group = pygame.sprite.Group()
         self.npc_group = pygame.sprite.Group()
-        self.npc_group.add(Crawdaddy(), Clown(), Brother())
+        self.npc_group.add(Crawdaddy(), Clown(), Brother(), Nurse())
         self.camera = Camera(self.event_system)
         self.map = map.Map()
         self.load_map("town1.tmx")
