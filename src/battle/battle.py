@@ -10,12 +10,14 @@ from event_system import event_system
 
 class Battle():
     def __init__(self, enemy):
+        print("battle")
+        event_system.raise_event("player_set_in_dialog", False)
         event_system.raise_event("set_control_state", "battle")
         self.message_display = message_display.MessageDisplay()
         self.player_actions = PlayerActions(self)
         self.m_player = main_player.current_wrestler.battle_object
         self.enemy = enemy.battle_object
-
+        self.enemy.rect.topleft = (700, 20)
         self.enemy_group = pygame.sprite.Group()
         self.enemy_group.add(self.enemy)
         self.player_group = pygame.sprite.Group()
@@ -100,11 +102,13 @@ class Battle():
 
 
     def index_up(self):
-        self.index -= 1
+        if self.has_controls:
+            self.index -= 1
 
 
     def index_down(self):
-        self.index += 1
+        if self.has_controls:
+            self.index += 1
 
     def back(self):
         self.current_menu = self.parent_menu
@@ -112,18 +116,19 @@ class Battle():
         self.in_submenu = False
 
     def action_button(self):
-        key = self.current_menu[self.index]
-        if not self.in_submenu:
-            submenu_data = self.battle_options[key]
-            if isinstance(submenu_data, list):
-                self.parent_menu = self.current_menu
-                self.current_menu = submenu_data
-                self.index = 0
-                self.in_submenu = True
-        # if isinstance(key, dict):
-        #     if key["name"] == "Back":
-        #         self.current_menu = self.parent_menu
-        #         self.index = 0
-        #         self.in_submenu = False
-        #     else:
-        self.player_actions.action(key)
+        if self.has_controls:
+            key = self.current_menu[self.index]
+            if not self.in_submenu:
+                submenu_data = self.battle_options[key]
+                if isinstance(submenu_data, list):
+                    self.parent_menu = self.current_menu
+                    self.current_menu = submenu_data
+
+                    self.in_submenu = True
+            # if isinstance(key, dict):
+            #     if key["name"] == "Back":
+            #         self.current_menu = self.parent_menu
+            #         self.index = 0
+            #         self.in_submenu = False
+            #     else:
+            self.player_actions.action(key)

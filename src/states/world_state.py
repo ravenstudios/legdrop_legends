@@ -9,7 +9,7 @@ import map
 from wrestlers.crawdaddy import Crawdaddy
 from wrestlers.clown import Clown
 from wrestlers.brother import Brother
-import dialog_display
+from dialog_display import dialog_display
 from menu import menu
 from npcs.nurse import Nurse
 
@@ -19,9 +19,8 @@ class WorldState(State):
         self.joystick = joystick
         self.event_system = event_system
         self.event_system.on("load_map", self.load_map)
-        self.dialog_display = dialog_display.DialogDisplay(self.event_system)
         self.dialog_display_group = pygame.sprite.Group()
-        self.dialog_display_group.add(self.dialog_display)
+        self.dialog_display_group.add(dialog_display)
         self.player_group = pygame.sprite.Group()
         self.player_group.add(main_player)
         self.map_group = pygame.sprite.Group()
@@ -50,7 +49,7 @@ class WorldState(State):
         self.player_group.update(cam_offset, self.groups)
         self.npc_group.update(cam_offset, self.map_group)
         self.door_group.update(cam_offset)
-        self.dialog_display.update()
+        self.dialog_display_group.update()
         self.menu.update()
 
 
@@ -58,7 +57,7 @@ class WorldState(State):
         self.map_group.draw(surface)
         self.npc_group.draw(surface)
         self.player_group.draw(surface)
-        if self.dialog_display.is_visible:
+        if dialog_display.is_visible:
             self.dialog_display_group.draw(surface)
         if self.menu.is_visible:
             self.menu.draw(surface)

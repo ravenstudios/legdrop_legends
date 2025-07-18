@@ -96,7 +96,7 @@ class PlayerActions():
         ])
 
     def restore_health(self, key):
-        self.battle.is_start_of_turn = Fals
+        self.battle.is_start_of_turn = False
         self.battle.message = key["message"]
         bo = self.battle.m_player
         bo.hp += key["hp"]
@@ -151,6 +151,7 @@ class PlayerActions():
     def run(self):
         dice = random.randint(1, self.run_dice)
         if dice == 1:
+            event_system.raise_event("set_control_state", "world")
             self.battle.message_display.set_message("Player ran away")
             event_system.raise_event("add_timer", [
                 self.attack_message_delay,

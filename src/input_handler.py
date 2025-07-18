@@ -5,7 +5,10 @@ class InputHandler:
     def __init__(self):
         self.control_state = "world"  # 'player', 'menu', or 'battle'
         event_system.on("set_control_state", self.set_control_state)
+        event_system.on("get_control_state", self.get_control_state)
 
+    def get_control_state(self):
+        return self.control_state
 
     def set_control_state(self, state):
         self.control_state = state
@@ -19,12 +22,12 @@ class InputHandler:
             pygame.K_LEFT: "move_left",
             pygame.K_RIGHT: "move_right",
             pygame.K_ESCAPE: "escape",
-            pygame.K_RETURN: "action_button",
+            # pygame.K_RETURN: "action_button",
             pygame.K_p: "set_menu_visible",
         }
 
         for key, action in key_actions.items():
-            if keys[key]:
+            if keys[key] and self.control_state == "world":
                 self.handle_action(action)
 
 
@@ -79,6 +82,12 @@ class InputHandler:
                 event_system.raise_event("dialog_enter")
             elif key == pygame.K_ESCAPE:
                 event_system.raise_event("dialog_back")
+
+        if self.control_state == "world":
+            if key == pygame.K_RETURN:
+                event_system.raise_event("action_button_pressed")
+        #     elif key == pygame.K_ESCAPE:
+        #         event_system.raise_event("dialog_back")
 
 
 

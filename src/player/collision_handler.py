@@ -14,7 +14,7 @@ class CollisionHandler:
             3: lambda player, obj: setattr(player.rect, 'left', obj.rect.right),    # moving left
         }
 
-    def push_player_away_from_npc(self, npc, distance=10):
+    def push_player_away_from_npc(self, npc, distance=12):
         # Vector from npc center to player center
         dx = self.player.rect.centerx - npc.rect.centerx
         dy = self.player.rect.centery - npc.rect.centery
@@ -71,12 +71,18 @@ class CollisionHandler:
         # NPC dialog interaction — separate from collision
         if npc_group:
             for npc in npc_group:
-                interaction_zone = npc.rect.inflate(20, 20)  # 20 px bigger for easier interaction
+                interaction_zone = npc.rect.inflate(10, 10)  # 20 px bigger for easier interaction
                 if interaction_zone.colliderect(self.player.rect):
-
-                    if self.player.action_button_pressed and not getattr(self.player, "in_dialog", False):
+                    if (
+                        self.player.action_button_pressed and
+                        not getattr(self.player, "in_dialog", False) and
+                        event_system.raise_event("get_control_state")[0] == "world"
+                    ):
                         self.player.in_dialog = True
+                        self.player.action_button_pressed = False  # <- directly stop input retrigger
+                        event_system.raise_event("action_button_released")
                         event_system.raise_event("dialog_set_visible", True)
                         event_system.raise_event("dialog_start_chat", npc)
                         self.push_player_away_from_npc(npc)
-                        break  # Only trigger for one NPC at a time
+                        break
+ # Only trigger for one NPC at a time

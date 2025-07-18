@@ -8,16 +8,18 @@ from event_system import event_system
 
 # Created from world_state
 class DialogDisplay(pygame.sprite.Sprite):
-    def __init__(self, event_system):
+    def __init__(self):
         super().__init__()
-        self.event_system = event_system
-        self.event_system.on("dialog_start_chat", self.chat)
-        self.event_system.on("dialog_set_visible", self.set_visible)
-        self.event_system.on("dialog_action_end_dialogue", self.end_dialogue)
-        self.event_system.on("dialog_index_up", self.index_up)
-        self.event_system.on("dialog_index_down", self.index_down)
-        self.event_system.on("dialog_enter", self.enter)
-        self.event_system.on("dialog_back", self.back)
+        print("DialogDisplay initialized and event listeners registered")
+
+        
+        event_system.on("dialog_start_chat", self.chat)
+        event_system.on("dialog_set_visible", self.set_visible)
+        event_system.on("dialog_action_end_dialogue", self.end_dialogue)
+        event_system.on("dialog_index_up", self.index_up)
+        event_system.on("dialog_index_down", self.index_down)
+        event_system.on("dialog_enter", self.enter)
+        event_system.on("dialog_back", self.back)
 
         self.width = BLOCK_SIZE * 10
         self.height = BLOCK_SIZE * 3
@@ -40,21 +42,26 @@ class DialogDisplay(pygame.sprite.Sprite):
         self.text = ""
         self.running_text = ""
         self.text_index = 0
+        self.pending_back = False
 
 
     def set_visible(self, visible):
         self.is_visible = visible
         if visible:
+            event_system.raise_event("action_button_released")
             event_system.raise_event("set_control_state", "dialog")
 
 
     def update(self):
+        # print(f"dialog_diaply:self.is_visible:{self.is_visible}")
         if self.text_index < len(self.text):
             self.running_text += self.text[self.text_index]
             self.text_index += 1
             self.update_text(self.running_text)
 
-
+        if self.pending_back:
+            self.pending_back = False
+            self.back()
 
     def events(self, events):
         pass
@@ -79,10 +86,11 @@ class DialogDisplay(pygame.sprite.Sprite):
 
 
     def back(self, arg=None):
+        self.dialog = None
         self.is_visible = False
         self.showing_options = False
         self.index = 0
-        self.event_system.raise_event("player_set_in_dialog", False)
+        event_system.raise_event("player_set_in_dialog", False)
 
     def enter(self):
         node = self.dialog[self.current_node]
@@ -98,11 +106,16 @@ class DialogDisplay(pygame.sprite.Sprite):
 
         if "action" in node:
             if node["action"] == "start_battle":
-                bs = battle_state.BattleState(self.npc)
-                self.event_system.raise_event("change_state", bs)
+                if event_system.raise_event("get_control_state")[0] != "dialog":
+                    return
+
                 event_system.raise_event("set_control_state", "battle")
-                self.back()
-                return
+                bs = battle_state.BattleState(self.npc)
+                event_system.raise_event("change_state", bs)
+                # self.is_visible = False
+                self.pending_back = True  # <- delay cleanup one frame
+
+
             if node["action"] == "end_dialogue":
                 self.end_dialogue()
 
@@ -124,6 +137,7 @@ class DialogDisplay(pygame.sprite.Sprite):
 
 
     def chat(self, npc):
+        print("chat")
         self.npc = npc
         self.dialog = self.npc.dialog
         self.current_node = "start"
@@ -178,3 +192,4 @@ class DialogDisplay(pygame.sprite.Sprite):
                         self.image,
                         (255, 255, 0),
                         (15, y_offset + idx * self.font.get_linesize() - 2, self.width - 30, self.font.get_linesize() + 4), 2)
+dialog_display = DialogDisplay()

@@ -24,7 +24,6 @@ class NPC(MainEntity):
 
 
     def update(self, cam_offset=None, map_group=None):
-        print(self.rect)
         self.frame_count += 1
 
         if self.frame_count > self.trigger_frame:
