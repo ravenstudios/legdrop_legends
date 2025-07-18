@@ -11,6 +11,7 @@ from wrestlers.crawdaddy import Crawdaddy
 from event_system import event_system
 from player.item_manager import item_manager
 
+
 class Player(MainEntity):
     def __init__(self):
         event_system.on("player_set_in_menu", self.set_in_menu)

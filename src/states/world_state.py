@@ -61,6 +61,23 @@ class WorldState(State):
             self.dialog_display_group.draw(surface)
         if self.menu.is_visible:
             self.menu.draw(surface)
+        cen = main_player.rect.center
+        print(cen)
+        # up = 1
+        # down = 0
+        # right = 2
+        # left = 3
+        l = 64
+        dir_map = {
+            0:(0, 1),
+            1:(0, -1),
+            2:(1, 0),
+            3:(-1, 0)
+        }
+        dx, dy = dir_map.get(main_player.dir, (0, 0))
+        start = (cen)
+        end = (cen[0] + dx * l, cen[1] + dy * l)
+        pygame.draw.line(surface, (255, 0, 0), start, end, 3)
 
 
     def load_map(self, map_file):
