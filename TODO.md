@@ -18,8 +18,8 @@
 - [ ] Fix multiple run away calls
 - [ ] Fix camera move when stuck on npc
 - [ ] Fix collisions
-- [ ]
-- [ ]
+- [ ] Fix camera inside clinic
+- [ ] Fix collisions in clinic
 - [ ]
 - [ ]
 - [ ]

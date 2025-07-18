@@ -6,6 +6,8 @@ from objects.door import Door
 from constants import *
 import constants
 from tile_sprites import TileSprite
+from npc_manager import npc_manager
+
 
 class Map:
     def __init__(self):
@@ -23,6 +25,7 @@ class Map:
         self.tile_group = pygame.sprite.Group()
         self.obj_group = pygame.sprite.Group()
         self.door_group = pygame.sprite.Group()
+        self.npc_group = pygame.sprite.Group()
         self.visible_layers = list(self.tmx_data.visible_layers)
         self.spawn_point = (0, 0)
 
@@ -47,6 +50,11 @@ class Map:
             if "spawn_point" in obj.properties:
                 self.spawn_point = (x, y)
 
+            if "npc_type" in obj.properties:
+                print("nurse")
+                npc = npc_manager.load(obj.properties["npc_type"], x, y)
+                self.npc_group.add(npc)
+
             if "block" in obj.properties:
                 self.obj_group.add(Block(x, y, w, h))
 
@@ -61,4 +69,4 @@ class Map:
                     self.door_group.add(
                         Door(x, y, w, h, map_file, False, True)
                     )
-        return [self.tile_group, self.obj_group, self.door_group, self.spawn_point]
+        return [self.tile_group, self.obj_group, self.door_group, self.spawn_point, self.npc_group]

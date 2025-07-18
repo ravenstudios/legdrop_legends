@@ -42,6 +42,8 @@ class CollisionHandler:
                         self.player.rect.copy().move(0, BLOCK_SIZE // 8),
                         (self.player.x, self.player.y)
                     )
+
+                event_system.raise_event("change_inside_state", None)
                 event_system.raise_event("load_map", door.map_file)
 
         # Object collisions (walls, obstacles)

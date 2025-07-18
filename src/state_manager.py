@@ -3,6 +3,7 @@ from constants import *
 import battle
 from event_system import event_system
 from states.world_state import WorldState
+from states.inside_state import InsideState
 from timer_manager import timer_manager
 from transition_state import TransitionState
 import input_handler
@@ -12,10 +13,14 @@ class StateManager():
     def __init__(self, joystick):
         self.joystick = joystick
         self.transition_state = TransitionState(self)
+
+        self.inside_state = InsideState(event_system, self.joystick)
         self.world_state = WorldState(event_system, self.joystick)
         self.current_state = self.world_state
         event_system.on("change_state", self.change_state)
         event_system.on("change_to_parent_state", self.change_to_parent_state)
+        event_system.on("change_inside_state", self.change_inside_state)
+
         self.parrent_state = None
         self.input_handler = input_handler.InputHandler()
         self.music_manager = music_manager.MusicManager()
@@ -49,3 +54,8 @@ class StateManager():
         self.transition_state.start(lambda:setattr(self, "current_state", self.parrent_state))
         event_system.raise_event("set_control_state", self.parrent_state.state_name)
         self.music_manager.play(self.parrent_state.song)
+
+    def change_inside_state(self):
+        self.parrent_state = self.current_state
+        self.transition_state.start(lambda:setattr(self, "current_state", self.inside_state))
+        # self.current_state = self.inside_state
