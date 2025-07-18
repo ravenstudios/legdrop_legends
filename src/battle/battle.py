@@ -6,11 +6,10 @@ from player.player import main_player
 from battle.player_actions import PlayerActions
 from  battle import message_display
 from event_system import event_system
-
+import copy
 
 class Battle():
     def __init__(self, enemy):
-        print("battle")
         event_system.raise_event("player_set_in_dialog", False)
         event_system.raise_event("set_control_state", "battle")
         self.message_display = message_display.MessageDisplay()
@@ -23,7 +22,10 @@ class Battle():
         self.player_group = pygame.sprite.Group()
         self.player_group.add(self.m_player)
         self.index = 0
-        self.battle_options = self.m_player.options
+
+        self.battle_options = copy.deepcopy(self.m_player.options)
+
+
         self.extra_options = {
             "Items": [
                 {"name": "Bandaid", "hp": 5, "type": "restore_hp", "message": f" used Bandaid"},
@@ -62,6 +64,26 @@ class Battle():
         event_system.on("battle_action_button", self.action_button)
         event_system.on("battle_back", self.back)
 
+
+        self.current_menu = list(self.battle_options.keys())
+        self.index = 0
+        self.in_submenu = False
+        self.parent_menu = None
+
+
+    def reset(self):
+        self.enemy.reset()
+        self.m_player.reset()
+
+        # 🚨 RESET ALL MENU NAVIGATION STATE
+        self.current_menu = list(self.battle_options.keys())
+        self.index = 0
+        self.in_submenu = False
+        self.parent_menu = None
+
+    # ✅ Leave battle state and return to world
+        event_system.raise_event("change_to_parent_state")
+        event_system.raise_event("set_control_state", "world")
     def update(self):
         self.player_group.update()
         self.enemy_group.update()
@@ -81,7 +103,7 @@ class Battle():
             self.player_actions.enemy_died()
             self.has_controls = False
 
-        self.index = max(0, min(self.index, len(self.current_menu) - 1))
+        # self.index = max(0, min(self.index, len(self.current_menu) - 1))
         if self.turn == "enemy" and not self.has_enemy_died:
             self.enemy_ai.enemy_turn()
 
@@ -116,6 +138,8 @@ class Battle():
         self.in_submenu = False
 
     def action_button(self):
+        self.index = max(0, min(self.index, len(self.current_menu) - 1))
+
         if self.has_controls:
             key = self.current_menu[self.index]
             if not self.in_submenu:
@@ -125,6 +149,7 @@ class Battle():
                     self.current_menu = submenu_data
 
                     self.in_submenu = True
+                    self.index = 0
             # if isinstance(key, dict):
             #     if key["name"] == "Back":
             #         self.current_menu = self.parent_menu

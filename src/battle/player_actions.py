@@ -153,9 +153,10 @@ class PlayerActions():
         if dice == 1:
             event_system.raise_event("set_control_state", "world")
             self.battle.message_display.set_message("Player ran away")
+
             event_system.raise_event("add_timer", [
-                self.attack_message_delay,
-                lambda:event_system.raise_event("change_to_parent_state"),
+                1001,
+                self.battle.reset,
                 True
             ])
         else:
