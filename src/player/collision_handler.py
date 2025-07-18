@@ -69,13 +69,12 @@ class CollisionHandler:
         # NPC dialog interaction — separate from collision
         if npc_group:
             for npc in npc_group:
-                interaction_zone = npc.rect.inflate(5, 5)  # 20 px bigger for easier interaction
+                interaction_zone = npc.rect.inflate(20, 20)  # 20 px bigger for easier interaction
                 if interaction_zone.colliderect(self.player.rect):
 
                     if self.player.action_button_pressed and not getattr(self.player, "in_dialog", False):
                         self.player.in_dialog = True
                         event_system.raise_event("dialog_set_visible", True)
                         event_system.raise_event("dialog_start_chat", npc)
-                        # event_system.raise_event("dialog_set_has_controles", True)
                         self.push_player_away_from_npc(npc)
                         break  # Only trigger for one NPC at a time

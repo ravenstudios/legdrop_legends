@@ -73,7 +73,12 @@ class Player(MainEntity):
 
     def update(self, cam_offset, groups):
         obj_group, door_group, npc_group, map_group = groups
-        self.movement_handler.update(obj_group)
+        merged_group = pygame.sprite.Group()
+        merged_group.add(obj_group.sprites())
+        merged_group.add(npc_group.sprites())
+
+        self.movement_handler.update(merged_group)
+
 
 
         if self.just_loaded_map:
