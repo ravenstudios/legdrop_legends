@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="44" height="14" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="23">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="44" height="14" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="26">
  <editorsettings>
   <export format="tmx"/>
  </editorsettings>
@@ -168,6 +168,23 @@
   <object id="20" x="112" y="80" width="16" height="16">
    <properties>
     <property name="spawn_point" type="object" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="7" name="npcs">
+  <object id="23" x="39.3971" y="71.3326">
+   <properties>
+    <property name="npc_type" value="crawdaddy"/>
+   </properties>
+  </object>
+  <object id="24" x="198.776" y="72.5265">
+   <properties>
+    <property name="npc_type" value="clown"/>
+   </properties>
+  </object>
+  <object id="25" x="179.078" y="24.1755">
+   <properties>
+    <property name="npc_type" value="brother"/>
    </properties>
   </object>
  </objectgroup>

@@ -14,7 +14,7 @@ from menu import menu
 from npcs.nurse import Nurse
 
 
-class WorldState(State):
+class InsideState(State):
     def __init__(self, event_system, joystick=None):
         self.joystick = joystick
         self.event_system = event_system
@@ -31,7 +31,7 @@ class WorldState(State):
         # self.npc_group.add(Crawdaddy(), Clown(), Brother(), Nurse())
         self.camera = Camera(self.event_system)
         self.map = map.Map()
-        self.load_map("town1.tmx")
+        # self.load_map("clinic.tmx")
         self.groups = [self.obj_group, self.door_group, self.npc_group, self.map_group]
         self.state_name = "world"
         self.menu = menu.Menu()

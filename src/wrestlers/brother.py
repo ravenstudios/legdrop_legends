@@ -5,13 +5,11 @@ from event_system import event_system
 import objects.npc
 class Brother(objects.npc.NPC):
     def __init__(self, x=500, y=50):
-        super().__init__(300, 350, "Brother16x16-Sheet.png")
+        super().__init__(x, y, "Brother16x16-Sheet.png")
 
         self.battle_object = objects.battle_object.BattleObject(x, y, "brother_32x32-Sheet.png", 20)
-
         self.battle_object.max_hp = 50
         self.battle_object.max_mp = 50
-
         self.battle_object.hp = self.battle_object.max_hp
         self.battle_object.mp = self.battle_object.max_mp
         self.battle_object.level = 5
@@ -58,7 +56,7 @@ class Brother(objects.npc.NPC):
 
             "Run": [
                 {"name": "Run", "type":"run", "message":"Player tried running"},
-                
+
             ]
         }
 
