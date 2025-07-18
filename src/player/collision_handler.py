@@ -13,6 +13,9 @@ class CollisionHandler:
             2: lambda player, obj: setattr(player.rect, 'right', obj.rect.left),    # moving right
             3: lambda player, obj: setattr(player.rect, 'left', obj.rect.right),    # moving left
         }
+        self.player.interaction_zone = pygame.Rect(0, 0, 0, 0)
+        self.player.dialog_cooldown = 0
+
 
     def push_player_away_from_npc(self, npc, distance=12):
         # Vector from npc center to player center
@@ -29,6 +32,9 @@ class CollisionHandler:
         old_x = self.player.x
         old_y = self.player.y
 
+        if self.player.dialog_cooldown > 0:
+            self.player.dialog_cooldown -= 1
+
         # Door collisions
         if door_group:
             door_collisions = pygame.sprite.spritecollide(self.player, door_group, False)
@@ -36,15 +42,17 @@ class CollisionHandler:
                 door = door_collisions[0]
                 if door.is_exit:
                     self.player.leaving_submap = True
+                    event_system.raise_event("change_to_parent_state", None)
+                    event_system.raise_event("load_map", door.map_file)
                 elif door.is_entrance:
                     self.player.in_submap = True
                     self.player.prev_cords = (
                         self.player.rect.copy().move(0, BLOCK_SIZE // 8),
                         (self.player.x, self.player.y)
                     )
+                    event_system.raise_event("change_inside_state", None)
+                    event_system.raise_event("load_map", door.map_file)
 
-                event_system.raise_event("change_inside_state", None)
-                event_system.raise_event("load_map", door.map_file)
 
         # Object collisions (walls, obstacles)
         if obj_group:
@@ -68,21 +76,40 @@ class CollisionHandler:
                 self.player.x = old_x
                 self.player.y = old_y
 
-        # NPC dialog interaction — separate from collision
-        if npc_group:
+        if npc_group and self.player.dialog_cooldown == 0:
             for npc in npc_group:
-                interaction_zone = npc.rect.inflate(10, 10)  # 20 px bigger for easier interaction
-                if interaction_zone.colliderect(self.player.rect):
-                    if (
-                        self.player.action_button_pressed and
-                        not getattr(self.player, "in_dialog", False) and
-                        event_system.raise_event("get_control_state")[0] == "world"
-                    ):
-                        self.player.in_dialog = True
-                        self.player.action_button_pressed = False  # <- directly stop input retrigger
-                        event_system.raise_event("action_button_released")
-                        event_system.raise_event("dialog_set_visible", True)
-                        event_system.raise_event("dialog_start_chat", npc)
-                        self.push_player_away_from_npc(npc)
-                        break
- # Only trigger for one NPC at a time
+                if self.player.action_button_pressed:
+                    self.player.interaction_zone = self.create_facing_rect(self.player)
+                    if self.player.interaction_zone.colliderect(npc.rect):
+                        if (
+                            not getattr(self.player, "in_dialog", False) and
+                            event_system.raise_event("get_control_state")[0] == "world"
+                        ):
+                            self.player.in_dialog = True
+                            self.player.action_button_pressed = False  # <- directly stop input retrigger
+                            event_system.raise_event("action_button_released")
+                            event_system.raise_event("dialog_set_visible", True)
+                            event_system.raise_event("dialog_start_chat", npc)
+                            # self.push_player_away_from_npc(npc)
+                            break
+                else:
+                    self.player.interaction_zone = pygame.Rect(0, 0, 0, 0)
+
+
+    def create_facing_rect(self, player, distance=64, size=16):
+        if player.dir == 0:  # down
+            return pygame.Rect(player.rect.centerx - size // 2,
+                               player.rect.bottom,
+                               size, distance)
+        elif player.dir == 1:  # up
+            return pygame.Rect(player.rect.centerx - size // 2,
+                               player.rect.top - distance,
+                               size, distance)
+        elif player.dir == 2:  # right
+            return pygame.Rect(player.rect.right,
+                               player.rect.centery - size // 2,
+                               distance, size)
+        elif player.dir == 3:  # left
+            return pygame.Rect(player.rect.left - distance,
+                               player.rect.centery - size // 2,
+                               distance, size)

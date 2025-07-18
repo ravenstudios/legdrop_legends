@@ -2,6 +2,7 @@ import pygame
 from constants import *
 import os
 
+
 class MainEntity(pygame.sprite.Sprite):
     def __init__(self, x, y, w, h, spritesheet="Brother64x64-Sheet.png"):
         super().__init__()

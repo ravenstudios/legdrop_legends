@@ -5,7 +5,6 @@ import objects.battle_object
 import objects.npc
 class Clown(objects.npc.NPC):
     def __init__(self, x=700, y=50):
-        print(x)
         super().__init__(x, y, "clown_16x16-Sheet.png")
         self.battle_object = objects.battle_object.BattleObject(x, y, "clown_32x32.png", 1)
         self.battle_object.max_hp = 50
@@ -39,25 +38,7 @@ class Clown(objects.npc.NPC):
                 {"name": "Silly Slap", "power": 5, "cost": 2, "type":"attack", "message":f"{self.battle_object.name} used Silly Slap, it dealt 3 damage"},
                 {"name": "Head Juggle", "power": 10, "cost": 2, "type":"attack", "message":f"{self.battle_object.name} used Head Juggle, it dealt 2 damage"},
                             ],
-            # "Items": [
-            #     {"name": "Bandaid", "hp": 5, "type":"restore_hp", "message":f"{self.battle_object.name} used Bandaid"},
-            #     {"name": "Beer", "mp": 10, "type":"restore_mp", "message":f"{self.battle_object.name} used Beer"},
-            #     {"name": "Powder", "mp": 5, "type":"restore_mp", "message":f"{self.battle_object.name} powered"},
-            #                 ],
-            # "Tag Partner": [
-            #     {"name": "Tag Partner", "type":"tag", "message":"Player tagged"},
-            #
-            #
-            # ],
-            # "Powder": [
-            #     {"name": "Powder", "mp": 0, "type":"restore_mp", "message":""},
-            #
-            # ],
-            #
-            # "Run": [
-            #     {"name": "Run", "type":"run", "message":"Player tried running"},
-            #
-            # ]
+            
         }
         self.dialog = {
             "start": {

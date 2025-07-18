@@ -51,7 +51,6 @@ class Map:
                 self.spawn_point = (x, y)
 
             if "npc_type" in obj.properties:
-                print("nurse")
                 npc = npc_manager.load(obj.properties["npc_type"], x, y)
                 self.npc_group.add(npc)
 

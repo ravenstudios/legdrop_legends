@@ -2,7 +2,7 @@ import pygame
 from constants import *
 from battle import battle
 from states import state, battle_state
-from player import player
+from player.player import main_player
 from event_system import event_system
 
 
@@ -10,9 +10,6 @@ from event_system import event_system
 class DialogDisplay(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        print("DialogDisplay initialized and event listeners registered")
-
-        
         event_system.on("dialog_start_chat", self.chat)
         event_system.on("dialog_set_visible", self.set_visible)
         event_system.on("dialog_action_end_dialogue", self.end_dialogue)
@@ -112,7 +109,6 @@ class DialogDisplay(pygame.sprite.Sprite):
                 event_system.raise_event("set_control_state", "battle")
                 bs = battle_state.BattleState(self.npc)
                 event_system.raise_event("change_state", bs)
-                # self.is_visible = False
                 self.pending_back = True  # <- delay cleanup one frame
 
 
@@ -133,11 +129,11 @@ class DialogDisplay(pygame.sprite.Sprite):
 
     def end_dialogue(self):
         event_system.raise_event("set_control_state", "world")
+        main_player.dialog_cooldown = 50
         self.back()
 
 
     def chat(self, npc):
-        print("chat")
         self.npc = npc
         self.dialog = self.npc.dialog
         self.current_node = "start"
