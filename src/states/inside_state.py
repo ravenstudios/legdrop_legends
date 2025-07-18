@@ -19,7 +19,7 @@ class InsideState(State):
         self.joystick = joystick
         self.event_system = event_system
         self.event_system.on("load_map", self.load_map)
-        
+
         self.dialog_display_group = pygame.sprite.Group()
         self.dialog_display_group.add(dialog_display)
         self.player_group = pygame.sprite.Group()
@@ -50,7 +50,7 @@ class InsideState(State):
         self.player_group.update(cam_offset, self.groups)
         self.npc_group.update(cam_offset, self.map_group)
         self.door_group.update(cam_offset)
-        self.dialog_display.update()
+        self.dialog_display_group.update()
         self.menu.update()
 
 
@@ -58,7 +58,7 @@ class InsideState(State):
         self.map_group.draw(surface)
         self.npc_group.draw(surface)
         self.player_group.draw(surface)
-        if self.dialog_display.is_visible:
+        if dialog_display.is_visible:
             self.dialog_display_group.draw(surface)
         if self.menu.is_visible:
             self.menu.draw(surface)

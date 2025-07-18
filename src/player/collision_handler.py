@@ -71,7 +71,7 @@ class CollisionHandler:
         # NPC dialog interaction — separate from collision
         if npc_group:
             for npc in npc_group:
-                interaction_zone = npc.rect.inflate(10, 10)  # 20 px bigger for easier interaction
+                interaction_zone = npc.rect.inflate(10, 200)  # 20 px bigger for easier interaction
                 if interaction_zone.colliderect(self.player.rect):
                     if (
                         self.player.action_button_pressed and
