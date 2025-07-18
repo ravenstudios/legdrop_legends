@@ -35,7 +35,7 @@ class InputHandler:
             # elif action == "escape":
             #     event_system.raise_event("open_menu")
             elif action == "action_button":
-                event_system.raise_event("action_button")
+                event_system.raise_event("action_button_pressed")
 
 
     def events(self, events):
@@ -70,9 +70,21 @@ class InputHandler:
             elif key == pygame.K_ESCAPE:
                 event_system.raise_event("battle_back")
 
+        if self.control_state == "dialog":
+            if key == pygame.K_UP:
+                event_system.raise_event("dialog_index_up")
+            elif key == pygame.K_DOWN:
+                event_system.raise_event("dialog_index_down")
+            elif key == pygame.K_RETURN:
+                event_system.raise_event("dialog_enter")
+            elif key == pygame.K_ESCAPE:
+                event_system.raise_event("dialog_back")
+
 
 
 
 
     def handle_keyup(self, key):
-        pass
+        if self.control_state == "world":
+            if key == pygame.K_RETURN:
+                event_system.raise_event("action_button_released")

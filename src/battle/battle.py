@@ -10,6 +10,7 @@ from event_system import event_system
 
 class Battle():
     def __init__(self, enemy):
+        event_system.raise_event("set_control_state", "battle")
         self.message_display = message_display.MessageDisplay()
         self.player_actions = PlayerActions(self)
         self.m_player = main_player.current_wrestler.battle_object

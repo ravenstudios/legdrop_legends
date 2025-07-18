@@ -5,7 +5,7 @@ from event_system import event_system
 import objects.npc
 class Nurse(objects.npc.NPC):
     def __init__(self, x=800, y=50):
-        super().__init__(600, 350, "Nurse-Sheet.png")
+        super().__init__(1000, 300, "Nurse-Sheet.png")
 
 
         self.dialog = {
@@ -32,7 +32,7 @@ class Nurse(objects.npc.NPC):
             },
             "cost": {
                 "text": "Nurse: No, we hope to be able to claim that we healed the next super star.",
-                "action": "options"
+                "next": "options"
             },
             "leave": {
                 "text": "Nurse: Be careful, doing high spots on trampolines cause injurys. ",

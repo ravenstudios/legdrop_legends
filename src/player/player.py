@@ -74,6 +74,8 @@ class Player(MainEntity):
     def update(self, cam_offset, groups):
         obj_group, door_group, npc_group, map_group = groups
         self.movement_handler.update(obj_group)
+
+
         if self.just_loaded_map:
             if self.leaving_submap:
                 self.x, self.y = self.prev_cords[1]

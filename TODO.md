@@ -10,14 +10,14 @@
 - [ ] Need company name
 - [ ] Training
 - [ ] Ref
-- [ ] Battle message for poison delay
-- [ ] Battle end screen
+- [X] Battle message for poison delay
+- [X] Battle end screen
 - [ ] Store
 - [ ] Inventory
-- [ ] Hospital
-- [ ] 
-- [ ]
-- [ ]
+- [X] Hospital
+- [ ] Fix multiple run away calls
+- [ ] Fix camera move when stuck on npc
+- [ ] Fix collisions
 - [ ]
 - [ ]
 - [ ]
@@ -33,8 +33,9 @@
 - Car ride cut scenes
 - You play as the manager and collect wrestlers
 - Submissions are how you capture
-- Start training then indys then big show then world
-- Major and min injurys, minor loose turn, major lose match
-- Manager specials like brass nucks and distract ref
+- Start training then indies then big show then world
+- Major and min injuries, minor loose turn, major lose match
+- Manager specials like brassnucks and distract ref
 - Low blows
-- Heel and face class that your decisons dictate and will have de-buffs and buffs
+- Heel and face class that your decisions dictate and will have de-buffs and buffs
+- Player isn't a manger he is trying to own a territory

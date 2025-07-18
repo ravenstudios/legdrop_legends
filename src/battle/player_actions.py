@@ -17,7 +17,7 @@ class PlayerActions():
         self.battle.enemy.reset()
         self.battle.m_player.reset()
         event_system.raise_event("change_to_parent_state")
-
+        event_system.raise_event("set_control_state", "world")
 
 
     def player_died(self):

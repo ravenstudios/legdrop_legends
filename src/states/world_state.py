@@ -40,7 +40,8 @@ class WorldState(State):
 
 
     def events(self, events):
-        self.dialog_display.events(events)
+        pass
+        # self.dialog_display.events(events)
 
     def update(self):
         cam_offset = self.camera.update_offset(main_player)
