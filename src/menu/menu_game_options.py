@@ -1,5 +1,8 @@
 import pygame
 from constants import *
+from menu.sound_settings_menu import Slider
+from menu.sound_settings_menu import Checkbox
+
 
 class MenuGameOptions():
     def __init__(self, menu):
@@ -7,6 +10,8 @@ class MenuGameOptions():
         self.index = 0
         self.game_options = ["music_level", "sound_level", "battle_speed", "text_speed"]
         self.game_options_names = ["Music Level", "Sound Level", "Battle Speed", "Text Speed"]
+        self.slider = Slider(400, 200, 200, min_val=0, max_val=100, value=50)
+        self.checkbox = Checkbox(650, 195, 20, text="Mute")
 
     def draw(self, surface):
         self.index = self.index % len(self.game_options)
@@ -32,7 +37,12 @@ class MenuGameOptions():
             surface.blit(text, (menu_options_box.x + text_padding * 2 + tri_pad, y))
         y = menu_options_box.top + font_size * self.index + text_padding * self.index
         self.draw_triangle(surface, menu_options_box.left + tri_pad + text_padding, y + tri_pad + text_padding)
+        self.slider.draw(surface)
+        self.checkbox.draw(surface)
 
+    def events(self, events):
+        self.slider.handle_event(events)
+        self.checkbox.handle_event(events)
 
 
     def draw_triangle(self, surface, x, y):

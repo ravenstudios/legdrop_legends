@@ -22,7 +22,7 @@ class InputHandler:
             pygame.K_LEFT: "move_left",
             pygame.K_RIGHT: "move_right",
             # pygame.K_ESCAPE: "escape",
-            # pygame.K_RETURN: "action_button",
+            pygame.K_RETURN: "action_button",
             pygame.K_p: "set_menu_visible",
         }
 
@@ -56,10 +56,9 @@ class InputHandler:
                 elif key == pygame.K_DOWN:
                     event_system.raise_event("menu_index_down")
                 elif key == pygame.K_RETURN:
-                    print("enter")
-                    event_system.raise_event("action_button_pressed")
-                # elif key == pygame.K_ESCAPE:
-                #     event_system.raise_event("menu_back")
+                    event_system.raise_event("menu_action_button")
+                elif key == pygame.K_ESCAPE:
+                    event_system.raise_event("menu_back")
 
         if self.control_state == "battle":
             if key == pygame.K_UP:

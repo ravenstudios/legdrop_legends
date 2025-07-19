@@ -39,7 +39,7 @@ class BaseMapState(State):
 
 
     def events(self, events):
-        pass
+        self.menu.events(events)
 
     def update(self):
         cam_offset = self.camera.update_offset(main_player)

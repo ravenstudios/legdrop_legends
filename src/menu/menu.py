@@ -50,6 +50,7 @@ class Menu():
 
 
     def set_visible(self, bool=None):
+        print("set vis")
         if bool:
             self.is_visible = bool
         else:
@@ -66,7 +67,7 @@ class Menu():
 
 
     def events(self, events):
-        pass
+        self.menu_game_options.events(events)
 
 
     def draw(self, surface):
