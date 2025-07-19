@@ -36,6 +36,20 @@ class EnemyAI():
             atk_dmg = battle_calc.damage(dmg, self.enemy, self.player_bo)
             str = f"{self.enemy.name} used {attack['name']}"
             # def msg():
+
+            txt = ""
+            if atk_dmg[1] == "crit":
+                self.message_display.set_message(f"{str} Critical Hit!! It dealt {atk_dmg[0]} damage")
+
+            elif atk_dmg[1] == "miss":
+                txt = f"Attacked missed"
+                self.message_display.set_message(txt)
+            elif atk_dmg[1] == "dodge":
+                self.message_display.set_message(txt)
+            else:
+                txt = f"{str} it dealt {atk_dmg[0]} damage"
+
+
             if atk_dmg[1]:
                 self.message_display.set_message(f"{str} Critical Hit!! it deal {atk_dmg[0]} damage")
             else:
@@ -73,7 +87,7 @@ class EnemyAI():
         self.is_start_of_turn = True
 
         if self.enemy.is_poisoned and self.is_start_of_turn:
-            self.battle.enemy.hp -= 5
+            self.battle.enemy.hp -= int(self.enemy.max_hp * 0.15)
             self.is_start_of_turn = False
             self.message_display.set_message(f"{self.enemy.name} is damaged by poison.")
             self.battle.player_actions.set_enemy_shake()

@@ -7,16 +7,19 @@ class Clown(objects.npc.NPC):
     def __init__(self, x=700, y=50):
         super().__init__(x, y, "clown_16x16-Sheet.png")
         self.battle_object = objects.battle_object.BattleObject(x, y, "clown_32x32.png", 1)
-        self.battle_object.max_hp = 50
-        self.battle_object.max_mp = 50
+        self.battle_object.max_hp = 20
+        self.battle_object.max_mp = 100
         self.battle_object.hp = self.battle_object.max_hp
         self.battle_object.mp = self.battle_object.max_mp
-        self.battle_object.level = 5
+        self.battle_object.level = 1
         self.battle_object.exp = 0
-        self.battle_object.speed = 50
+        self.battle_object.powder_rate = 30
+
+        self.battle_object.speed = 60
         self.battle_object.power = 50
-        self.battle_object.defense = 50
-        self.battle_object.technique = 50
+        self.battle_object.defense = 40
+
+        self.battle_object.technique = 60
         self.battle_object.charisma = 50
         self.battle_object.luck = 10
         self.battle_object.type_class = "High Flyer"
@@ -35,10 +38,10 @@ class Clown(objects.npc.NPC):
 
         self.battle_object.options = {
             "Attacks": [
-                {"name": "Silly Slap", "power": 5, "cost": 2, "type":"attack", "message":f"{self.battle_object.name} used Silly Slap, it dealt 3 damage"},
-                {"name": "Head Juggle", "power": 10, "cost": 2, "type":"attack", "message":f"{self.battle_object.name} used Head Juggle, it dealt 2 damage"},
+                {"name": "Silly Slap", "power": 10, "cost": 2, "type":"attack", "message":f"{self.battle_object.name} used Silly Slap, it dealt 3 damage"},
+                {"name": "Head Juggle", "power": 15, "cost": 6, "type":"attack", "message":f"{self.battle_object.name} used Head Juggle, it dealt 2 damage"},
                             ],
-            
+
         }
         self.dialog = {
             "start": {

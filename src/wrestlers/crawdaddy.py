@@ -7,20 +7,26 @@ class Crawdaddy(objects.npc.NPC):
     def __init__(self, x=700, y=50):
         super().__init__(x, y, "craw daddy-Sheet.png")
         self.battle_object = objects.battle_object.BattleObject(x, y, "crawdaddy_32x32-Sheet.png", 20)
-        self.battle_object.max_hp = 50
-        self.battle_object.max_mp = 50
+        self.battle_object.max_hp = 20
+        self.battle_object.max_mp = 40
         self.battle_object.hp = self.battle_object.max_hp
         self.battle_object.mp = self.battle_object.max_mp
-        self.battle_object.level = 5
+        self.battle_object.level = 1
         self.battle_object.exp = 0
+        self.battle_object.powder_rate = 30
+
         self.battle_object.speed = 50
-        self.battle_object.power = 50
-        self.battle_object.defense = 50
+        self.battle_object.power = 60
+        self.battle_object.defense = 40
+
+
         self.battle_object.technique = 50
         self.battle_object.charisma = 50
         self.battle_object.luck = 10
         self.battle_object.type_class = "Brawler"
         self.battle_object.is_poisoned = False
+        self.battle_object.miss_turn = False
+        self.battle_object.is_sleeping = False
         self.battle_object.name = "Crawdaddy"
         self.battle_object.stats = [
             self.battle_object.level,
@@ -34,14 +40,15 @@ class Crawdaddy(objects.npc.NPC):
         ]
         self.battle_object.options = {
             "Attacks": [
-                {"name": "Nipple Chop", "power": 5, "cost": 2, "type":"attack", "message":"Craw Daddy used Chop, it dealt 3 damage"},
-                {"name": "Elbow", "power": 10, "cost": 2, "type":"attack", "message":"Craw Daddy used Kick, it dealt 5 damage"},
+                {"name": "Nipple Chop", "power": 10, "cost": 2, "type":"attack", "message":"Craw Daddy used Chop, it dealt 3 damage"},
+                {"name": "Elbow", "power": 15, "cost": 6, "type":"attack", "message":"Craw Daddy used Kick, it dealt 5 damage"},
+                {"name": "Rope Shake", "power": 0, "cost": 10, "type":"hulk_up", "message":"Craw Daddy used Kick, it dealt 5 damage"},
                             ],
-            # "Items": [
-            #     {"name": "Bandaid", "hp": 5, "type":"restore_hp", "message":"Craw Daddy used Bandaid"},
-            #     {"name": "Beer", "mp": 10, "type":"restore_mp", "message":"Craw Daddy used Beer"},
-            #     {"name": "Powder", "mp": 5, "type":"restore_mp", "message":"Craw Daddy powered"},
-            #                 ],
+            "Items": [
+                {"name": "Bandaid", "hp": 5, "type":"restore_hp", "message":"Craw Daddy used Bandaid", "qty":5},
+                {"name": "Beer", "mp": 30, "type":"restore_mp", "message":"Craw Daddy used Beer"},
+                {"name": "Powder", "mp": 30, "type":"restore_mp", "message":"Craw Daddy powered"},
+                            ],
             # "Tag Partner": [
             #     {"name": "Tag Partner", "type":"tag", "message":"Player tagged"},
             #

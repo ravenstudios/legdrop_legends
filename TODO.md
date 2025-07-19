@@ -20,9 +20,9 @@
 - [ ] Fix collisions
 - [ ] Fix camera inside clinic
 - [ ] Fix collisions in clinic
-- [ ]
-- [ ]
-- [ ]
+- [ ] Fix index in battle going to far
+- [ ] Throw out of ring is sleep
+- [ ] Buffs and debuffs
 - [ ]
 - [ ]
 

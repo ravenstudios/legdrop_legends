@@ -34,7 +34,8 @@ class Player(MainEntity):
             Clown(),
             Brother()
         ]
-        self.current_wrestler = self.stable[2]
+        self.current_wrestler = self.stable[1]
+        self.current_wrestler.battle_object.level = 1
         self.current_wrestler.battle_object.lunge_dir = (1, -1)
         self.dir = 0
         self.collisions = False

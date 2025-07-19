@@ -39,7 +39,7 @@ class PlayerActions():
         self.battle.enemy.is_dead = True
         event_system.raise_event("add_timer", [
             self.attack_message_delay * 2,
-            lambda:self.battle.message_display.set_message(f"You knocked {self.battle.enemy.name} fuck on out!!"),
+            lambda:self.battle.message_display.set_message(f"You knocked {self.battle.enemy.name} the fuck on out!!"),
             True
         ])
 
@@ -55,6 +55,12 @@ class PlayerActions():
         self.battle.is_start_of_turn = False
         if self.battle.m_player.mp >= key["cost"]:
             atk_dmg = battle_calc.damage(key["power"], self.battle.m_player, self.battle.enemy)
+            print(atk_dmg)
+            if self.battle.m_player.miss_turn:
+                print("sahsjsdfj")
+                self.battle.m_player.miss_turn = False
+                atk_dmg[0] = atk_dmg[0] * 2.5
+                print(atk_dmg)
             self.battle.enemy.hp -= atk_dmg[0]
             self.battle.m_player.mp -= key["cost"]
 
@@ -62,8 +68,13 @@ class PlayerActions():
             # self.battle.message_display.set_message(str)
 
             txt = ""
-            if atk_dmg[1]:
+            if atk_dmg[1] == "crit":
                 txt = f"{str} Critical Hit!! It dealt {atk_dmg[0]} damage"
+            elif atk_dmg[1] == "miss":
+                txt = f"Attacked missed"
+
+            elif atk_dmg[1] == "dodge":
+                txt = f"{self.battle.enemy} Dodged"
             else:
                 txt = f"{str} it dealt {atk_dmg[0]} damage"
             self.battle.message_display.set_message(txt)
@@ -107,6 +118,7 @@ class PlayerActions():
         self.battle.in_submenu = False
 
     def restore_mp(self, key):
+        print(key)
         self.battle.is_start_of_turn = False
         self.battle.message = key["message"]
         bo = self.battle.m_player
@@ -126,6 +138,16 @@ class PlayerActions():
         self.battle.message_display.set_message("Player poisoned enemy")
         self.battle.m_player.start_lunge(self.battle.enemy)
 
+
+    def hulk_up(self, key):
+        self.battle.message_display.set_message("Player is hulking up!!!")
+        self.battle.m_player.miss_turn = True
+        self.set_enemy_turn()
+        self.battle.m_player.start_lunge(self.battle.enemy)
+        # self.battle.index = 0
+        # self.battle.in_submenu = False
+
+
     def action(self, key):
         if self.battle.turn == "player":
             if "type" in key:
@@ -139,6 +161,12 @@ class PlayerActions():
                         self.restore_health(key)
 
                 if key["type"] == "poison":
+                    self.poison_attack(key)
+
+                if key["type"] == "hulk_up":
+                    self.hulk_up(key)
+
+                if key["type"] == "sleep":
                     self.poison_attack(key)
 
                 if key["type"] == "restore_mp":

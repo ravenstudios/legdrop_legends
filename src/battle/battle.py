@@ -28,9 +28,9 @@ class Battle():
 
         self.extra_options = {
             "Items": [
-                {"name": "Bandaid", "hp": 5, "type": "restore_hp", "message": f" used Bandaid"},
-                {"name": "Beer", "mp": 10, "type": "restore_mp", "message": f" used Beer"},
-                {"name": "Powder", "mp": 5, "type": "restore_mp", "message": f" powered"},
+                {"name": "Bandaid", "hp": 5, "type": "restore_hp", "qty":5, "message": f" used Bandaid"},
+                {"name": "Beer", "mp": 30, "type": "restore_mp", "qty":5, "message": f" used Beer"},
+                {"name": "Powder", "mp": 5, "type": "restore_mp", "qty":5, "message": f" powered"},
             ],
             "Tag Partner": [
                 {"name": "Tag Partner", "type": "tag", "message": "Player tagged"},
@@ -91,6 +91,7 @@ class Battle():
         self.enemy.update()
         self.m_player.update()
 
+            
 
 
         if self.m_player.hp <= 0 and not self.has_player_died:

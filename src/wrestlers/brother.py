@@ -8,15 +8,18 @@ class Brother(objects.npc.NPC):
         super().__init__(x, y, "Brother16x16-Sheet.png")
 
         self.battle_object = objects.battle_object.BattleObject(x, y, "brother_32x32-Sheet.png", 20)
-        self.battle_object.max_hp = 50
+        self.battle_object.max_hp = 20
         self.battle_object.max_mp = 50
         self.battle_object.hp = self.battle_object.max_hp
         self.battle_object.mp = self.battle_object.max_mp
-        self.battle_object.level = 5
+        self.battle_object.level = 1
         self.battle_object.exp = 0
+        self.battle_object.powder_rate = 30
+
         self.battle_object.speed = 50
         self.battle_object.power = 50
         self.battle_object.defense = 50
+
         self.battle_object.technique = 50
         self.battle_object.charisma = 50
         self.battle_object.luck = 10
@@ -36,10 +39,10 @@ class Brother(objects.npc.NPC):
 
         self.battle_object.options = {
             "Attacks": [
-                {"name": "Leg Drop", "power": 15, "cost": 5, "type":"attack"},
-                {"name": "Clothesline", "power": 20, "cost": 7, "type":"attack"},
-                {"name": "Choke Hold", "power": 10, "cost": 7, "type":"poison"},
-                {"name": "Powder", "mp": 20, "type":"restore_mp", "message":"Player powered"},
+                {"name": "Leg Drop", "power": 10, "cost": 2, "type":"attack"},
+                {"name": "Clothesline", "power": 15, "cost": 16, "type":"attack"},
+                # {"name": "Choke Hold", "power": 0, "cost": 15, "type":"poison"},
+                # {"name": "Powder", "mp": 20, "type":"restore_mp", "message":"Player powered"},
 
             ],
             "Items": [
