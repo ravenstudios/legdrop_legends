@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="8" height="8" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="14">
+ <tileset firstgid="1" source="store.tsx"/>
+ <tileset firstgid="65" source="clinic.tsx"/>
+ <layer id="1" name="floor" width="8" height="8">
+  <data encoding="csv">
+5,6,6,6,6,6,6,7,
+1,1,1,46,47,48,1,1,
+1,1,1,54,55,56,1,1,
+1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,
+1,1,1,1,81,83,1,1,
+1,1,1,1,97,99,1,1
+</data>
+ </layer>
+ <layer id="4" name="objects" width="8" height="8">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,
+3,3,3,0,0,0,3,3,
+11,11,11,0,0,0,11,11,
+0,0,0,0,0,0,0,0,
+0,0,0,29,0,0,0,0,
+33,34,34,35,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="5" name="door">
+  <object id="1" x="65.245" y="120.421" width="29.8033" height="6.0412">
+   <properties>
+    <property name="door" type="bool" value="true"/>
+    <property name="exit" type="bool" value="true"/>
+    <property name="map_file" value="town1.tmx"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="6" name="spawn">
+  <object id="2" x="79.7439" y="100.888">
+   <properties>
+    <property name="spawn_point" value=""/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="7" name="blocking">
+  <object id="3" x="2.61785" y="81.1535" width="60.0093" height="9.86729">
+   <properties>
+    <property name="block" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="4" x="48.9337" y="65.0436" width="12.8879" height="14.7003">
+   <properties>
+    <property name="block" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="6" x="4.22884" y="19.936" width="135.122" height="21.547">
+   <properties>
+    <property name="block" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="7" x="123.442" y="42.2884" width="12.0824" height="91.2221">
+   <properties>
+    <property name="block" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="8" x="96.8606" y="96.6592" width="2.61785" height="35.4417">
+   <properties>
+    <property name="block" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="9" x="95.8537" y="124.65" width="35.4417" height="3.0206">
+   <properties>
+    <property name="block" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="10" x="-9.26317" y="124.046" width="72.4944" height="4.02747">
+   <properties>
+    <property name="block" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="11" x="-1.20824" y="38.2609" width="4.02747" height="89.4098">
+   <properties>
+    <property name="block" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="8" name="npc">
+  <object id="12" x="24.1648" y="64">
+   <properties>
+    <property name="npc_type" value="clerk"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="2" name="computer" width="8" height="8">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+28,0,0,0,0,0,0,0,
+36,0,0,0,0,0,0,0,
+113,0,0,0,0,0,0,113,
+121,0,0,0,0,0,0,121
+</data>
+ </layer>
+ <layer id="3" name="walls" width="8" height="8">
+  <data encoding="csv">
+116,119,119,119,119,119,119,117,
+93,0,0,0,0,0,0,92,
+93,0,0,0,0,0,0,100,
+93,0,0,0,0,0,0,100,
+93,0,0,0,0,0,0,100,
+93,0,0,0,0,0,0,100,
+93,0,0,108,0,0,109,100,
+124,103,103,125,0,0,124,125
+</data>
+ </layer>
+</map>

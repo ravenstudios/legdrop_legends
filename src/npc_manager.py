@@ -2,7 +2,7 @@ from wrestlers.crawdaddy import Crawdaddy
 from wrestlers.clown import Clown
 from wrestlers.brother import Brother
 from npcs.nurse import Nurse
-
+from npcs.clerk import Clerk
 
 
 class NPCManager(object):
@@ -12,6 +12,7 @@ class NPCManager(object):
             "clown":Clown,
             "brother":Brother,
             "nurse":Nurse,
+            "clerk":Clerk,
         }
 
 
@@ -19,6 +20,7 @@ class NPCManager(object):
         pass
 
     def load(self, npc_type, x, y):
+        print(npc_type)
         npc_class = self.npcs.get(npc_type)
         if npc_class:
             return npc_class(x, y)  # instantiate the class

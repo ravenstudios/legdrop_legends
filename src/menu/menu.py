@@ -50,7 +50,6 @@ class Menu():
 
 
     def set_visible(self, bool=None):
-        print("set vis")
         if bool:
             self.is_visible = bool
         else:
